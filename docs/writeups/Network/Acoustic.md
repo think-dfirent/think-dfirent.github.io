@@ -192,7 +192,7 @@ PT=ITU-T G.711 PCMU
 Q11 How long is the sampling time (in milliseconds)?
 
 
-**Tần số lấy mẫu (Frequency / Sample Rate):** G.711 PCMU sử dụng tần số là $8,000$ Hz (tức là $8,000$ mẫu được lấy trong 1 giây).**Thời gian lấy mẫu (Sampling Time / Period):** Là khoảng thời gian để lấy 1 mẫu. Công thức vật lý cơ bản là $T = \frac{1}{f}.$
+**Tần số lấy mẫu (Frequency / Sample Rate):** G.711 PCMU sử dụng tần số là 8,000 Hz (tức là 8,000 mẫu được lấy trong 1 giây).**Thời gian lấy mẫu (Sampling Time / Period):** Là khoảng thời gian để lấy 1 mẫu. Công thức vật lý cơ bản là T = 1/f.
 
 
 Q12 What was the password for the account with username 555?
