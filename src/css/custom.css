@@ -77,9 +77,10 @@
   }
 }
 
-/* Ensure navbar is blurred */
+/* Ensure navbar is blurred and stays on top */
 .navbar {
   backdrop-filter: blur(10px);
+  z-index: 100 !important;
 }
 
 .navbar__title {
@@ -91,9 +92,12 @@
   height: 100svh !important; /* Fix for iOS Safari */
   min-height: -webkit-fill-available;
   z-index: 10000 !important; /* Ensure it stays on top */
-  overflow-y: auto !important; /* Ensure the menu itself can scroll */
 }
 
-.navbar-sidebar__items {
-  overflow-y: auto !important; /* Ensure menu items can scroll */
+.navbar-sidebar__backdrop {
+  z-index: 9999 !important; /* Ensure backdrop stays below sidebar but above content */
+}
+
+.main-wrapper {
+  z-index: 1; /* Prevent docs content from overlapping the navbar */
 }

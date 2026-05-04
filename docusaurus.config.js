@@ -10,7 +10,7 @@ const config = {
   baseUrl: '/',
   organizationName: 'think-dfirent',
   projectName: 'think-dfirent.github.io',
-  
+
   plugins: [
     './src/plugins/tailwind-plugin',
     'docusaurus-plugin-image-zoom'
@@ -28,7 +28,7 @@ const config = {
           showReadingTime: true,
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: ['./src/css/custom.css', './css/docu-notion-styles.css'],
         },
       }),
     ],
