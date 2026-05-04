@@ -1,90 +1,55 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import { Terminal, Shield, Server, FileTerminal, ArrowRight, Activity } from 'lucide-react';
 
-function TerminalHero() {
-  return (
-    <div className="flex justify-center items-center py-20 px-4">
-      <div className="glass-panel w-full max-w-4xl rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
-        <div className="bg-slate-100 dark:bg-slate-900/80 px-4 py-3 flex items-center border-b border-slate-200 dark:border-slate-800">
-          <div className="flex space-x-2">
-            <div className="w-3 h-3 rounded-full bg-slate-300 dark:bg-red-500/80"></div>
-            <div className="w-3 h-3 rounded-full bg-slate-300 dark:bg-yellow-500/80"></div>
-            <div className="w-3 h-3 rounded-full bg-slate-300 dark:bg-green-500/80"></div>
-          </div>
-          <div className="mx-auto terminal-text text-sm opacity-80 flex items-center text-slate-500 dark:text-blue-400">
-            <Terminal className="w-4 h-4 mr-2" /> identity@ai.core:~
-          </div>
-        </div>
-        <div className="p-6 md:p-8 bg-white dark:bg-[#050505]/95 font-mono text-sm md:text-base h-72 flex flex-col justify-end">
-          <div className="text-slate-400 mb-2">$ ./init_analytics_engine.sh</div>
-          <div className="text-blue-600 dark:text-blue-400 mb-1 leading-relaxed">[+] Initializing AI Threat Analytics...</div>
-          <div className="text-blue-600 dark:text-blue-400 mb-1 leading-relaxed">[+] Processing structural telemetry...</div>
-          <div className="text-blue-600 dark:text-blue-400 mb-6 leading-relaxed">[+] Synthesizing SOC architecture models...</div>
-          <div className="flex items-center text-slate-700 dark:text-slate-300">
-            <span className="text-indigo-500 dark:text-indigo-400 mr-3">voodoo@think-dfirent:~$</span>
-            <span className="blinking-cursor"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+// Đã cập nhật lại nội dung và tags cho sát với lộ trình SOC/DFIR của bạn
 const recentWriteups = [
   {
     title: "LockBit Ransomware Investigation",
     excerpt: "Analyzing disk artifacts and execution flows of the LockBit ransomware.",
-    date: "2024-05-01 10:00:00 UTC",
-    tags: ["Disk Forensics", "Ransomware", "LockBit"],
+    tags: ["Disk Forensics", "Ransomware", "Malware Analysis"],
     link: "/docs/writeups/Disk-forensics/LockBit",
-    icon: <Activity className="w-5 h-5 text-indigo-500" />
   },
   {
     title: "Boss of the SOC v1",
     excerpt: "Threat hunting using Splunk to uncover APT activity and lateral movement.",
-    date: "2024-04-15 14:22:05 UTC",
     tags: ["Threat Hunting", "Splunk", "APT"],
     link: "/docs/writeups/Threat-hunting/Boss-Of-The-SOC-v1",
-    icon: <Shield className="w-5 h-5 text-blue-500" />
+  },
+  {
+    title: "Hafnium APT Lab",
+    excerpt: "Investigating Microsoft Exchange Server vulnerabilities and web shell deployments.",
+    tags: ["Incident Response", "Web Shell", "Windows Event Logs"],
+    link: "/docs/writeups/Threat-hunting/Hafnium-APT-lab",
   }
 ];
 
 const homelabPosts = [
   {
     title: "Homelab Architecture Design",
-    excerpt: "Detailed architectural overview of the proxmox-based cybersecurity homelab.",
-    date: "2024-03-10 08:30:00 UTC",
-    tags: ["Homelab", "Architecture", "Design"],
+    excerpt: "Detailed architectural overview of the Proxmox-based cybersecurity homelab.",
+    tags: ["Splunk", "pfSense", "OpenVPN"],
     link: "/docs/homelab/architecture-design",
-    icon: <Server className="w-5 h-5 text-indigo-400" />
   },
   {
-    title: "Homelab Setup Process",
-    excerpt: "Step-by-step guide on provisioning and configuring the lab environment.",
-    date: "2024-02-22 18:15:45 UTC",
-    tags: ["Proxmox", "Configuration", "Deployment"],
+    title: "SOC Environment Setup",
+    excerpt: "Step-by-step guide on provisioning Elastic Stack and Wazuh for enterprise log analysis.",
+    tags: ["Elastic Stack", "Wazuh", "SIEM"],
     link: "/docs/homelab/setup-process",
-    icon: <FileTerminal className="w-5 h-5 text-blue-400" />
   }
 ];
 
 function LogCard({ item }) {
   return (
-    <Link to={item.link} className="block group transition-all duration-300">
+    <Link 
+      to={item.link} 
+      /* Thêm hover:no-underline để chặn gạch chân toàn khối của Docusaurus */
+      className="block group transition-all duration-300 hover:no-underline cursor-pointer"
+    >
       <div className="glass-panel p-6 h-full flex flex-col justify-between hover:-translate-y-1 bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 rounded-xl">
         <div>
-          <div className="flex justify-between items-start mb-4">
-            <div className="flex items-center space-x-2">
-              <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                {item.icon}
-              </div>
-              <span className="font-mono text-xs text-slate-500 dark:text-slate-400">{item.date}</span>
-            </div>
-            <ArrowRight className="w-4 h-4 text-blue-500 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <h3 className="font-sans text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          {/* Thêm group-hover:underline để chỉ gạch chân tiêu đề khi di chuột vào thẻ */}
+          <h3 className="font-sans text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:underline transition-colors">
             {item.title}
           </h3>
           <p className="text-slate-600 dark:text-slate-400 text-sm mb-5 leading-relaxed">
@@ -115,10 +80,8 @@ export default function Home() {
         {/* Top glow effect */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-32 bg-blue-500/10 dark:bg-blue-900/20 blur-[100px] pointer-events-none"></div>
 
-        <div className="relative z-10 pt-4 pb-24">
-          <TerminalHero />
-
-          <div className="container mx-auto px-4 lg:px-8 mt-4">
+        <div className="relative z-10 pt-16 pb-24">
+          <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-14 relative">
               {/* Vertical Divider for Desktop */}
               <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 -translate-x-1/2">
@@ -127,8 +90,7 @@ export default function Home() {
 
               {/* Investigation Logs Section */}
               <section className="lg:pr-4">
-                <div className="flex items-center space-x-3 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
-                  <Shield className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />
+                <div className="mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                   <h2 className="text-xl font-mono text-slate-800 dark:text-slate-100 m-0 tracking-wide uppercase">Investigation Logs</h2>
                 </div>
                 <div className="space-y-6">
@@ -145,8 +107,7 @@ export default function Home() {
 
               {/* Homelab Architecture Section */}
               <section className="lg:pl-4">
-                <div className="flex items-center space-x-3 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
-                  <Server className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+                <div className="mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
                   <h2 className="text-xl font-mono text-slate-800 dark:text-slate-100 m-0 tracking-wide uppercase">Architecture Deployments</h2>
                 </div>
                 <div className="space-y-6">
