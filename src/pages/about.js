@@ -14,7 +14,7 @@ export default function About() {
               <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">Nguyen Sy Cuong</h1>
               <h2 className="text-base font-mono text-slate-500 dark:text-slate-400 mb-4">~/roles/soc-dfir-enthusiast</h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic border-l-4 border-slate-300 dark:border-slate-700 pl-4 py-1">
-                "Those who actually understands how things work remains DFIRent, even in the days of AI."
+                "Those who actually understand how things work remain DFIRent, even in the age of AI."
               </p>
             </div>
 

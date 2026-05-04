@@ -1,0 +1,434 @@
+
+> temp-site@0.0.0 build
+> docusaurus build
+
+[INFO] [en] Creating an optimized production build...
+
+[ERROR] Error: Unable to build website for locale en.
+    at tryToBuildLocale (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\@docusaurus\core\lib\commands\build\build.js:76:15)
+    at async E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\@docusaurus\core\lib\commands\build\build.js:34:9
+    at async mapAsyncSequential (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\@docusaurus\utils\lib\jsUtils.js:21:24)
+    at async Command.build (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\@docusaurus\core\lib\commands\build\build.js:33:5)
+    at async Promise.all (index 0)
+    at async runCLI (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\@docusaurus\core\lib\commands\cli.js:56:5)
+    at async file:///E:/Hoc/CyberSec/think-dfirent.github.io/node_modules/@docusaurus/core/bin/docusaurus.mjs:44:3 {
+  [cause]: ValidationError: Invalid options object. Progress Plugin has been initialized using an options object that does not match the API schema.
+   - options should be one of these:
+     object { activeModules?, dependencies?, dependenciesCount?, entries?, handler?, modules?, modulesCount?, percentBy?, profile? } | function
+     Details:
+      * options has an unknown property 'name'. These properties are valid:
+        object { activeModules?, dependencies?, dependenciesCount?, entries?, handler?, modules?, modulesCount?, percentBy?, profile? }
+        -> Options object for the ProgressPlugin.
+      * options has an unknown property 'color'. These properties are valid:
+        object { activeModules?, dependencies?, dependenciesCount?, entries?, handler?, modules?, modulesCount?, percentBy?, profile? }
+        -> Options object for the ProgressPlugin.
+      * options has an unknown property 'reporters'. These properties are valid:
+        object { activeModules?, dependencies?, dependenciesCount?, entries?, handler?, modules?, modulesCount?, percentBy?, profile? }
+        -> Options object for the ProgressPlugin.
+      * options has an unknown property 'reporter'. These properties are valid:
+        object { activeModules?, dependencies?, dependenciesCount?, entries?, handler?, modules?, modulesCount?, percentBy?, profile? }
+        -> Options object for the ProgressPlugin.
+      at validate (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\schema-utils\dist\validate.js:213:11)
+      at Compiler.validate (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\Compiler.js:1480:18)
+      at E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\ProgressPlugin.js:237:13
+      at Hook.eval [as call] (eval at create (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\tapable\lib\HookCodeFactory.js:19:10), <anonymous>:7:1)
+      at Hook.CALL_DELEGATE [as _call] (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\tapable\lib\Hook.js:16:14)
+      at createCompiler (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\webpack.js:112:27)
+      at E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\webpack.js:59:3
+      at Array.map (<anonymous>)
+      at createMultiCompiler (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\webpack.js:58:33)
+      at create (E:\Hoc\CyberSec\think-dfirent.github.io\node_modules\webpack\lib\webpack.js:217:15) {
+    errors: [
+      {
+        instancePath: '',
+        schemaPath: '#/anyOf',
+        keyword: 'anyOf',
+        params: {},
+        message: 'must match a schema in anyOf',
+        schema: [
+          { '$ref': '#/definitions/ProgressPluginOptions' },
+          { '$ref': '#/definitions/HandlerFunction' }
+        ],
+        parentSchema: {
+          definitions: {
+            HandlerFunction: {
+              description: 'Function that executes for every progress step.',
+              instanceof: 'Function',
+              tsType: "import('../../lib/ProgressPlugin').HandlerFn"
+            },
+            ProgressPluginOptions: {
+              description: 'Options object for the ProgressPlugin.',
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                activeModules: {
+                  description: 'Show active modules count and one active module in progress message.',
+                  type: 'boolean'
+                },
+                dependencies: {
+                  description: 'Show dependencies count in progress message.',
+                  type: 'boolean'
+                },
+                dependenciesCount: {
+                  description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+                  type: 'number'
+                },
+                entries: {
+                  description: 'Show entries count in progress message.',
+                  type: 'boolean'
+                },
+                handler: {
+                  description: 'Function that executes for every progress step.',
+                  oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+                },
+                modules: {
+                  description: 'Show modules count in progress message.',
+                  type: 'boolean'
+                },
+                modulesCount: {
+                  description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+                  type: 'number'
+                },
+                percentBy: {
+                  description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+                  enum: [ 'entries', 'modules', 'dependencies', null ]
+                },
+                profile: {
+                  description: 'Collect profile data for progress steps. Default: false.',
+                  enum: [ true, false, null ]
+                }
+              }
+            }
+          },
+          title: 'ProgressPluginArgument',
+          anyOf: [
+            { '$ref': '#/definitions/ProgressPluginOptions' },
+            { '$ref': '#/definitions/HandlerFunction' }
+          ]
+        },
+        data: {
+          name: 'Client',
+          color: 'green',
+          reporters: [ 'basic' ],
+          reporter: null
+        },
+        children: [
+          {
+            instancePath: '',
+            schemaPath: '#/additionalProperties',
+            keyword: 'additionalProperties',
+            params: { additionalProperty: 'name' },
+            message: 'must NOT have additional properties',
+            schema: false,
+            parentSchema: {
+              description: 'Options object for the ProgressPlugin.',
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                activeModules: {
+                  description: 'Show active modules count and one active module in progress message.',
+                  type: 'boolean'
+                },
+                dependencies: {
+                  description: 'Show dependencies count in progress message.',
+                  type: 'boolean'
+                },
+                dependenciesCount: {
+                  description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+                  type: 'number'
+                },
+                entries: {
+                  description: 'Show entries count in progress message.',
+                  type: 'boolean'
+                },
+                handler: {
+                  description: 'Function that executes for every progress step.',
+                  oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+                },
+                modules: {
+                  description: 'Show modules count in progress message.',
+                  type: 'boolean'
+                },
+                modulesCount: {
+                  description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+                  type: 'number'
+                },
+                percentBy: {
+                  description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+                  enum: [ 'entries', 'modules', 'dependencies', null ]
+                },
+                profile: {
+                  description: 'Collect profile data for progress steps. Default: false.',
+                  enum: [ true, false, null ]
+                }
+              }
+            },
+            data: {
+              name: 'Client',
+              color: 'green',
+              reporters: [ 'basic' ],
+              reporter: null
+            },
+            children: undefined
+          },
+          {
+            instancePath: '',
+            schemaPath: '#/additionalProperties',
+            keyword: 'additionalProperties',
+            params: { additionalProperty: 'color' },
+            message: 'must NOT have additional properties',
+            schema: false,
+            parentSchema: {
+              description: 'Options object for the ProgressPlugin.',
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                activeModules: {
+                  description: 'Show active modules count and one active module in progress message.',
+                  type: 'boolean'
+                },
+                dependencies: {
+                  description: 'Show dependencies count in progress message.',
+                  type: 'boolean'
+                },
+                dependenciesCount: {
+                  description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+                  type: 'number'
+                },
+                entries: {
+                  description: 'Show entries count in progress message.',
+                  type: 'boolean'
+                },
+                handler: {
+                  description: 'Function that executes for every progress step.',
+                  oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+                },
+                modules: {
+                  description: 'Show modules count in progress message.',
+                  type: 'boolean'
+                },
+                modulesCount: {
+                  description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+                  type: 'number'
+                },
+                percentBy: {
+                  description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+                  enum: [ 'entries', 'modules', 'dependencies', null ]
+                },
+                profile: {
+                  description: 'Collect profile data for progress steps. Default: false.',
+                  enum: [ true, false, null ]
+                }
+              }
+            },
+            data: {
+              name: 'Client',
+              color: 'green',
+              reporters: [ 'basic' ],
+              reporter: null
+            },
+            children: undefined
+          },
+          {
+            instancePath: '',
+            schemaPath: '#/additionalProperties',
+            keyword: 'additionalProperties',
+            params: { additionalProperty: 'reporters' },
+            message: 'must NOT have additional properties',
+            schema: false,
+            parentSchema: {
+              description: 'Options object for the ProgressPlugin.',
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                activeModules: {
+                  description: 'Show active modules count and one active module in progress message.',
+                  type: 'boolean'
+                },
+                dependencies: {
+                  description: 'Show dependencies count in progress message.',
+                  type: 'boolean'
+                },
+                dependenciesCount: {
+                  description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+                  type: 'number'
+                },
+                entries: {
+                  description: 'Show entries count in progress message.',
+                  type: 'boolean'
+                },
+                handler: {
+                  description: 'Function that executes for every progress step.',
+                  oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+                },
+                modules: {
+                  description: 'Show modules count in progress message.',
+                  type: 'boolean'
+                },
+                modulesCount: {
+                  description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+                  type: 'number'
+                },
+                percentBy: {
+                  description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+                  enum: [ 'entries', 'modules', 'dependencies', null ]
+                },
+                profile: {
+                  description: 'Collect profile data for progress steps. Default: false.',
+                  enum: [ true, false, null ]
+                }
+              }
+            },
+            data: {
+              name: 'Client',
+              color: 'green',
+              reporters: [ 'basic' ],
+              reporter: null
+            },
+            children: undefined
+          },
+          {
+            instancePath: '',
+            schemaPath: '#/additionalProperties',
+            keyword: 'additionalProperties',
+            params: { additionalProperty: 'reporter' },
+            message: 'must NOT have additional properties',
+            schema: false,
+            parentSchema: {
+              description: 'Options object for the ProgressPlugin.',
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                activeModules: {
+                  description: 'Show active modules count and one active module in progress message.',
+                  type: 'boolean'
+                },
+                dependencies: {
+                  description: 'Show dependencies count in progress message.',
+                  type: 'boolean'
+                },
+                dependenciesCount: {
+                  description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+                  type: 'number'
+                },
+                entries: {
+                  description: 'Show entries count in progress message.',
+                  type: 'boolean'
+                },
+                handler: {
+                  description: 'Function that executes for every progress step.',
+                  oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+                },
+                modules: {
+                  description: 'Show modules count in progress message.',
+                  type: 'boolean'
+                },
+                modulesCount: {
+                  description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+                  type: 'number'
+                },
+                percentBy: {
+                  description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+                  enum: [ 'entries', 'modules', 'dependencies', null ]
+                },
+                profile: {
+                  description: 'Collect profile data for progress steps. Default: false.',
+                  enum: [ true, false, null ]
+                }
+              }
+            },
+            data: {
+              name: 'Client',
+              color: 'green',
+              reporters: [ 'basic' ],
+              reporter: null
+            },
+            children: undefined
+          },
+          {
+            instancePath: '',
+            schemaPath: '#/definitions/HandlerFunction/instanceof',
+            keyword: 'instanceof',
+            params: {},
+            message: 'must pass "instanceof" keyword validation',
+            schema: 'Function',
+            parentSchema: {
+              description: 'Function that executes for every progress step.',
+              instanceof: 'Function',
+              tsType: "import('../../lib/ProgressPlugin').HandlerFn"
+            },
+            data: {
+              name: 'Client',
+              color: 'green',
+              reporters: [ 'basic' ],
+              reporter: null
+            },
+            children: undefined
+          }
+        ]
+      }
+    ],
+    schema: {
+      definitions: {
+        HandlerFunction: {
+          description: 'Function that executes for every progress step.',
+          instanceof: 'Function',
+          tsType: "import('../../lib/ProgressPlugin').HandlerFn"
+        },
+        ProgressPluginOptions: {
+          description: 'Options object for the ProgressPlugin.',
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            activeModules: {
+              description: 'Show active modules count and one active module in progress message.',
+              type: 'boolean'
+            },
+            dependencies: {
+              description: 'Show dependencies count in progress message.',
+              type: 'boolean'
+            },
+            dependenciesCount: {
+              description: 'Minimum dependencies count to start with. For better progress calculation. Default: 10000.',
+              type: 'number'
+            },
+            entries: {
+              description: 'Show entries count in progress message.',
+              type: 'boolean'
+            },
+            handler: {
+              description: 'Function that executes for every progress step.',
+              oneOf: [ { '$ref': '#/definitions/HandlerFunction' } ]
+            },
+            modules: {
+              description: 'Show modules count in progress message.',
+              type: 'boolean'
+            },
+            modulesCount: {
+              description: 'Minimum modules count to start with. For better progress calculation. Default: 5000.',
+              type: 'number'
+            },
+            percentBy: {
+              description: 'Collect percent algorithm. By default it calculates by a median from modules, entries and dependencies percent.',
+              enum: [ 'entries', 'modules', 'dependencies', null ]
+            },
+            profile: {
+              description: 'Collect profile data for progress steps. Default: false.',
+              enum: [ true, false, null ]
+            }
+          }
+        }
+      },
+      title: 'ProgressPluginArgument',
+      anyOf: [
+        { '$ref': '#/definitions/ProgressPluginOptions' },
+        { '$ref': '#/definitions/HandlerFunction' }
+      ]
+    },
+    headerName: 'Progress Plugin',
+    baseDataPath: 'options',
+    postFormatter: null
+  }
+}
+[INFO] Docusaurus version: 3.10.0
+Node version: v24.10.0
