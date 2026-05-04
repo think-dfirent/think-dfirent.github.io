@@ -2,7 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 
-const targetDir = path.join(__dirname, 'static');
+const targetDirs = [
+  path.join(__dirname, 'static'),
+  path.join(__dirname, 'docs')
+];
 
 async function processDirectory(directory) {
   if (!fs.existsSync(directory)) {
@@ -57,6 +60,6 @@ async function optimizeImage(filePath) {
 }
 
 console.log('Starting image optimization...');
-processDirectory(targetDir).then(() => {
+Promise.all(targetDirs.map(dir => processDirectory(dir))).then(() => {
   console.log('Image optimization complete.');
 });
