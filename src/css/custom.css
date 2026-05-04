@@ -98,6 +98,10 @@
   z-index: 9999 !important; /* Ensure backdrop stays below sidebar but above content */
 }
 
-.main-wrapper {
-  z-index: 1; /* Prevent docs content from overlapping the navbar */
+/* Fix Medium Zoom overlapping issues caused by stacking contexts */
+.medium-zoom-overlay {
+  z-index: 100000 !important;
+}
+.medium-zoom-image--opened {
+  z-index: 100001 !important;
 }
