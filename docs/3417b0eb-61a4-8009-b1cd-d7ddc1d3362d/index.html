@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-homelab/Quy-trình-thiết-lập-cơ-sở-hạ-tầng-homelab/Network-Security-&IDS" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.0">
+<title data-rh="true">3. Network Security &amp;IDS | Think DFIRent</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://think-dfirent.github.io/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="3. Network Security &amp;IDS | Think DFIRent"><meta data-rh="true" name="description" content="3417b0eb61a480d2b5d6fcfaa00d0286}"><meta data-rh="true" property="og:description" content="3417b0eb61a480d2b5d6fcfaa00d0286}"><link data-rh="true" rel="icon" href="/img/myfavicon.png"><link data-rh="true" rel="canonical" href="https://think-dfirent.github.io/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d"><link data-rh="true" rel="alternate" href="https://think-dfirent.github.io/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d" hreflang="en"><link data-rh="true" rel="alternate" href="https://think-dfirent.github.io/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Homelab","item":"https://think-dfirent.github.io/docs/category/homelab"},{"@type":"ListItem","position":2,"name":"3. Network Security &IDS","item":"https://think-dfirent.github.io/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Think DFIRent RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Think DFIRent Atom Feed"><link rel="stylesheet" href="/assets/css/styles.b3a1fe6d.css">
+<script src="/assets/js/runtime~main.f6f98cd9.js" defer="defer"></script>
+<script src="/assets/js/main.1b7f81c6.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/img/myfavicon.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/myfavicon.png" alt="" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/myfavicon.png" alt="" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Think DFIRent</b></a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a class="navbar__item navbar__link" href="/docs/writeups/Disk-forensics/LockBit">Investigation Write-ups</a><a class="navbar__item navbar__link" href="/docs/homelab/architecture-design">Homelab</a><a class="navbar__item navbar__link" href="/about">About</a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href="/docs/category/homelab"><span title="Homelab" class="categoryLinkLabel_W154">Homelab</span></a><button aria-label="Collapse sidebar category &#x27;Homelab&#x27;" aria-expanded="true" type="button" class="clean-btn menu__caret"></button></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/homelab/resources"><span title="Tài nguyên" class="linkLabel_WmDU">Tài nguyên</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/homelab/architecture-design"><span title="Thiết kế" class="linkLabel_WmDU">Thiết kế</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/homelab/setup-process"><span title="Quy trình" class="linkLabel_WmDU">Quy trình</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" tabindex="0" href="/docs/3567b0eb-61a4-8024-9121-fcefd793cbdf"><span title="Quy trình thiết lập cơ sở hạ tầng homelab" class="categoryLinkLabel_W154">Quy trình thiết lập cơ sở hạ tầng homelab</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/3567b0eb-61a4-8024-9121-fcefd793cbdf"><span title="1. Thiết lập cơ bản (LAN, VMs)" class="linkLabel_WmDU">1. Thiết lập cơ bản (LAN, VMs)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/3407b0eb-61a4-8000-89fc-d190451d62d4"><span title="2. Thiết lập hệ thống SOC" class="linkLabel_WmDU">2. Thiết lập hệ thống SOC</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d"><span title="3. Network Security &amp;IDS" class="linkLabel_WmDU">3. Network Security &amp;IDS</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/3437b0eb-61a4-8099-aa8f-eeced6389a7e"><span title="4. OpenVPN" class="linkLabel_WmDU">4. OpenVPN</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/3457b0eb-61a4-80ca-8f51-ff8cc12082d7"><span title="5. Thiết lập rule trên firewall" class="linkLabel_WmDU">5. Thiết lập rule trên firewall</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/docs/3487b0eb-61a4-8006-9166-ee7b4adac717"><span title="Tấn công" class="categoryLinkLabel_W154">Tấn công</span></a></div></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/3447b0eb-61a4-80e6-b38e-c4f9c5dffd66"><span title="writeups" class="categoryLinkLabel_W154">writeups</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/docs/category/homelab"><span>Homelab</span></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Quy trình thiết lập cơ sở hạ tầng homelab</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">3. Network Security &amp;IDS</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>1. Cài đặt suricata trên pfSense</h1></header>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a480b181b3f931664f6fd5">1.1. Cài đặt Package:<a href="#3417b0eb61a480b181b3f931664f6fd5" class="hash-link" aria-label="Direct link to 1.1. Cài đặt Package:" title="Direct link to 1.1. Cài đặt Package:" translate="no">​</a></h3>
+<ul>
+<li class="">Đăng nhập vào pfSense.</li>
+<li class="">Truy cập <code>System</code> &gt; <code>Package Manager</code> &gt; <code>Available Packages</code>.</li>
+<li class="">Tìm <code>Suricata</code> và nhấn Install.</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8022-8137-d1dce953af0b-b66e35124eb118f00e5cbde3dedef1fd.png" width="967" height="594" class="img_ev3q"></p>
+<p>Cấu hình Global Settings (Tải Ruleset):</p>
+<ul>
+<li class="">Truy cập <code>Services</code> &gt; <code>Suricata</code> &gt; <code>Global Settings</code>.</li>
+<li class="">Trong phần Rules Update Settings, tích chọn:<!-- -->
+<ul>
+<li class="">Install Emerging Threats rules (ET Open)</li>
+</ul>
+</li>
+<li class="">Đặt Update Interval là <code>12-Hours</code>.</li>
+<li class="">Lưu lại, sau đó chuyển sang tab Updates và nhấn Update để tải rules về ngay lập tức</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8063-a3de-cde91a44ee15-e975e264f0d746aabbe3982b0cee7b6a.png" width="1080" height="1785" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a48000917ec3b9e188e5a3">1.2. Gắn Suricata vào cổng LAN:<a href="#3417b0eb61a48000917ec3b9e188e5a3" class="hash-link" aria-label="Direct link to 1.2. Gắn Suricata vào cổng LAN:" title="Direct link to 1.2. Gắn Suricata vào cổng LAN:" translate="no">​</a></h3>
+<ul>
+<li class="">Chuyển sang tab Interfaces &gt; Nhấn Add.</li>
+<li class="">Interface: Chọn <code>LAN</code> (Mạng chứa DC01 và WS1 của bạn).</li>
+<li class="">Trong phần Alert Settings: Tích chọn Send Alerts to System Log.</li>
+<li class="">Chọn thêm EVE JSON log: là chuẩn để ingest vào SPLUNK</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-80ef-ab44-c4e6eb8d56e6-fd25eb4c603add4ade45baf7fc00e38b.png" width="1063" height="1120" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8051-b70c-d035c3feb521-d0a1a17f901b2b17b23a24026893fee8.png" width="1054" height="888" class="img_ev3q"></p>
+<ul>
+<li class="">Lưu lại. Chuyển sang tab LAN Categories, nhấn Select All để bật tất cả các rule vừa tải về (sau này có thể tinh chỉnh sau để giảm nhiễu).</li>
+<li class="">Quay lại tab Interfaces và nhấn icon Play để khởi động Suricata trên cổng LAN.</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8063-9dda-d9cb3239ab54-40d9a753925e29c478beb00db9fdecff.png" width="1052" height="839" class="img_ev3q"></p>
+<h1>2. Cấu hình Log Forwarding từ pfSense về Splunk</h1>
+<p>Thay vì cài Universal Forwarder lên pfSense (rất phức tạp và dễ lỗi), chúng ta sẽ dùng giao thức Syslog truyền thống.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a480e39277ff056fdd324c">2.1. Trên pfSense (Cấu hình syslog-ng)<a href="#3417b0eb61a480e39277ff056fdd324c" class="hash-link" aria-label="Direct link to 2.1. Trên pfSense (Cấu hình syslog-ng)" title="Direct link to 2.1. Trên pfSense (Cấu hình syslog-ng)" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-80e8-84c9-cfef2db41330-90b3295849cfa0c7c76738ea7f11208b.png" width="1060" height="1006" class="img_ev3q"></p>
+<p>Giữ nguyên vì không dùng phần general. Loopback là để nghe trên chính nó</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a48060875fdf35a87e4492"><del>Cách 1: dùng port 515 TCP (deprecated)</del><a href="#3417b0eb61a48060875fdf35a87e4492" class="hash-link" aria-label="Direct link to 3417b0eb61a48060875fdf35a87e4492" title="Direct link to 3417b0eb61a48060875fdf35a87e4492" translate="no">​</a></h3>
+<ul>
+<li class=""><code>Settings</code> &gt; <code>Data Inputs</code>.</li>
+<li class="">Ở bước cấu hình (Set Sourcetype), bắt buộc chọn <code>_json</code> (nằm trong nhóm Structured). Cấu hình này giúp Splunk hiểu và bóc tách dữ liệu ngay lập tức.</li>
+<li class="">Khi tạo splunk phải có port 515 này</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8010-8638-d22b9aa6eb8b-6a380f81bdf51cada45e0b5504766b92.png" width="1188" height="705" class="img_ev3q"></p>
+<p>Tạo một index mới là suricata_ids, host=”pfsense_suricata”</p>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-80ca-ae4a-dc600cf70cb4-45d79567efca77d22e71bb7ad6ed2974.png" width="1013" height="765" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-80f8-93d5-d9ffbda21426-24ac03ce867013f61623270a271fc183.png" width="804" height="1038" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3427b0eb61a48047b666e87b85e096c5">Cách 2: sử dụng HEC (HTTP event collector) để parse log hiệu quả hơn<a href="#3427b0eb61a48047b666e87b85e096c5" class="hash-link" aria-label="Direct link to Cách 2: sử dụng HEC (HTTP event collector) để parse log hiệu quả hơn" title="Direct link to Cách 2: sử dụng HEC (HTTP event collector) để parse log hiệu quả hơn" translate="no">​</a></h3>
+<p><a href="https://www.unsafehex.com/index.php/2023/10/11/forward-pfsense-suricata-splunk/" target="_blank" rel="noopener noreferrer" class="">https://www.unsafehex.com/index.php/2023/10/11/forward-pfsense-suricata-splunk/</a></p>
+<p>Bước 1: Mở port HEC trên Splunk</p>
+<p>Đầu tiên, mở cửa cổng 8088 và lấy mã vé (Token) để pfSense có quyền gửi dữ liệu vào.</p>
+<ol>
+<li class="">Lên giao diện Web của Splunk, chọn Settings &gt; Data Inputs &gt; HTTP Event Collector.</li>
+<li class="">Ở góc trên cùng bên phải, bấm vào Global Settings -&gt; Chọn Enabled -&gt; Bấm Save.</li>
+<li class="">Bấm vào nút màu xanh New Token:<!-- -->
+<ul>
+<li class="">Name: Đặt là <code>suricata_hec</code></li>
+<li class="">Bấm Next.</li>
+<li class="">Index: tạo index mới là suricata</li>
+<li class="">Bấm Review -&gt; Submit.</li>
+</ul>
+</li>
+<li class="">Lưu token lại</li>
+</ol>
+<p>Bước 2: tạo source, destination, log trên pfsense</p>
+<p>Mở pfSense, vào Services &gt; Syslog-ng &gt; tab Advanced. Lần lượt ấn nút Add để tạo 3 khối (Object) sau:</p>
+<ol>
+<li class="">Khối Nguồn (Đọc trực tiếp file eve.json)</li>
+</ol>
+<ul>
+<li class="">
+<p>Object Name: <code>s_suricata_eve</code></p>
+</li>
+<li class="">
+<p>Object Type: <code>Source</code></p>
+</li>
+<li class="">
+<p>Object Parameters:</p>
+<p><code>{ wildcard-file( base-dir(&quot;/var/log/suricata/&quot;) filename-pattern(&quot;eve.json&quot;) recursive(yes) flags(no-parse) ); };</code></p>
+</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3427b0eb-61a4-807f-9390-e548f3a9d580-2941de91b740fd92f63fa0dc31778c37.png" width="890" height="430" class="img_ev3q"></p>
+<ol start="2">
+<li class="">Khối Đích (Gửi đến Splunk HEC)</li>
+</ol>
+<ul>
+<li class="">
+<p>Object Name: <code>d_splunk_hec</code></p>
+</li>
+<li class="">
+<p>Object Type: <code>Destination</code></p>
+</li>
+<li class="">
+<p>Object Parameters: (Bạn copy khối lệnh dưới đây, nhưng nhớ thay IP của Splunk và cái mã Token bạn vừa lấy ở Bước 1 vào nhé)<!-- -->:Plaintext</p>
+<p><code>{ http(url(&quot;https://10.10.20.30:8088/services/collector/event&quot;) method(&quot;POST&quot;) user_agent(&quot;syslog-ng&quot;) user(&quot;user&quot;) password(&quot;REDACTED&quot;) peer-verify(no) body(&quot;{ \&quot;time\&quot;: ${S_UNIXTIME}, \&quot;host\&quot;: \&quot;${HOST}\&quot;, \&quot;source\&quot;: \&quot;suricata\&quot;, \&quot;sourcetype\&quot;: \&quot;_json\&quot;, \&quot;index\&quot;: \&quot;suricata\&quot;, \&quot;event\&quot;: ${MSG} }\n&quot;) ); };</code></p>
+<p>Password là token được tạo ra khi thêm index ở bước mở port HEC 8088 trên splunk</p>
+</li>
+</ul>
+<ol start="3">
+<li class="">Khối Nối (Nối Nguồn và Đích lại với nhau)</li>
+</ol>
+<ul>
+<li class="">
+<p>Object Name: <code>l_suricata_to_splunk</code></p>
+</li>
+<li class="">
+<p>Object Type: <code>Log</code></p>
+</li>
+<li class="">
+<p>Object Parameters<!-- -->:Plaintext</p>
+<p><code>{ source(s_suricata_eve); destination(d_splunk_hec); };</code></p>
+</li>
+</ul>
+<p>Bước 3: Vào Status &gt; Services, tìm dịch vụ <code>syslog-ng</code> , <code>suricata</code> và reset chúng</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a48046a294d5a079ce6a88">2.2. Kiểm tra hệ thống<a href="#3417b0eb61a48046a294d5a079ce6a88" class="hash-link" aria-label="Direct link to 2.2. Kiểm tra hệ thống" title="Direct link to 2.2. Kiểm tra hệ thống" translate="no">​</a></h2>
+<div class="language-c++ codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c++ codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">PS C:\Users\cuong_nguyen&gt; curl http://testmyids.com</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">uid=0(root) gid=0(root) groups=0(root)</span><br></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a480c4949fed4088e5fc7e">Kiểm tra trên pfSense:<a href="#3417b0eb61a480c4949fed4088e5fc7e" class="hash-link" aria-label="Direct link to Kiểm tra trên pfSense:" title="Direct link to Kiểm tra trên pfSense:" translate="no">​</a></h3>
+<ul>
+<li class="">Truy cập <code>Services</code> &gt; <code>Suricata</code> &gt; <code>Alerts</code></li>
+</ul>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3427b0eb-61a4-80a1-bf65-c78f34c7572c-41762938aa3a085952c24cabc21c5c9e.png" width="1062" height="238" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3417b0eb61a48071a0c3d45cd3a70fba"><strong>Kiểm tra trên Splunk</strong><a href="#3417b0eb61a48071a0c3d45cd3a70fba" class="hash-link" aria-label="Direct link to 3417b0eb61a48071a0c3d45cd3a70fba" title="Direct link to 3417b0eb61a48071a0c3d45cd3a70fba" translate="no">​</a></h3>
+<p>Splunk SPL</p>
+<div class="language-c++ codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-c++ codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">index=&quot;suricata_ids&quot;</span><br></div></code></pre></div></div>
+<p>Sử dụng TCP port 515</p>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3417b0eb-61a4-8038-9683-dc7a86b7e73a-1b17539f46367fa18a097e68f9b2b1fa.png" width="1199" height="795" class="img_ev3q"></p>
+<p>Kết quả sau khi sử dụng HEC port 8088</p>
+<p><img decoding="async" loading="lazy" src="/assets/images/3417b0eb-61a4-8009-b1cd-d7ddc1d3362d.3427b0eb-61a4-802b-98dc-dd6ddfbe589f-9c5c9117d520bd08e200a9619d92e284.png" width="1226" height="1169" class="img_ev3q"></p>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>Lưu ý: thời gian trên pfSense dùng UTC-0 nên lệch thời gian. Phải vào system → global setting và chọn múi giờ VN</p></div></div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/3407b0eb-61a4-8000-89fc-d190451d62d4"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">2. Thiết lập hệ thống SOC</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/3437b0eb-61a4-8099-aa8f-eeced6389a7e"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">4. OpenVPN</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#3417b0eb61a480b181b3f931664f6fd5" class="table-of-contents__link toc-highlight">1.1. Cài đặt Package:</a></li><li><a href="#3417b0eb61a48000917ec3b9e188e5a3" class="table-of-contents__link toc-highlight">1.2. Gắn Suricata vào cổng LAN:</a></li><li><a href="#3417b0eb61a480e39277ff056fdd324c" class="table-of-contents__link toc-highlight">2.1. Trên pfSense (Cấu hình syslog-ng)</a><ul><li><a href="#3417b0eb61a48060875fdf35a87e4492" class="table-of-contents__link toc-highlight"><del>Cách 1: dùng port 515 TCP (deprecated)</del></a></li><li><a href="#3427b0eb61a48047b666e87b85e096c5" class="table-of-contents__link toc-highlight">Cách 2: sử dụng HEC (HTTP event collector) để parse log hiệu quả hơn</a></li></ul></li><li><a href="#3417b0eb61a48046a294d5a079ce6a88" class="table-of-contents__link toc-highlight">2.2. Kiểm tra hệ thống</a><ul><li><a href="#3417b0eb61a480c4949fed4088e5fc7e" class="table-of-contents__link toc-highlight">Kiểm tra trên pfSense:</a></li><li><a href="#3417b0eb61a48071a0c3d45cd3a70fba" class="table-of-contents__link toc-highlight"><strong>Kiểm tra trên Splunk</strong></a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="border-t border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-[#0a0a0a] py-10 relative z-20 transition-colors duration-300"><div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center"><div class="flex flex-col items-center md:items-start mb-6 md:mb-0"><p class="text-slate-500 dark:text-slate-400 font-mono text-sm mb-1">© <!-- -->2026<!-- --> Think DFIRent.</p><span class="text-slate-400 dark:text-slate-600 font-mono text-xs flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span>All systems operational.</span></div><div class="flex space-x-6"><a href="https://github.com/think-dfirent" target="_blank" rel="noopener noreferrer" class="text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="GitHub"><svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a><a href="https://linkedin.com/in/mynameiscuong" target="_blank" rel="noopener noreferrer" class="text-slate-400 dark:text-slate-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors" aria-label="LinkedIn"><svg class="w-[22px] h-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a></div></div></footer></div>
+</body>
+</html>
