@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "npm run optimize && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -14,7 +14,8 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "sync-homelab": "npx @sillsdev/docu-notion -r 3567b0eb61a4807fb7e4f917611553b1 -m ./docs/homelab",
     "sync-writeups": "npx @sillsdev/docu-notion -r <THAY_DATABASE_ID_CUA_WRITEUPS_VAO_DAY> -m ./docs/writeups",
-    "sync": "npm run sync-homelab"
+    "sync": "npm run sync-homelab",
+    "optimize": "node optimize-images.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.0",
@@ -25,7 +26,8 @@
     "docusaurus-plugin-image-zoom": "^3.0.1",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.10.0",

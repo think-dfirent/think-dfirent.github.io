@@ -85,3 +85,15 @@
 .navbar__title {
   @apply font-mono text-blue-600 dark:text-blue-400 font-bold text-xl tracking-wide blinking-cursor;
 }
+
+/* Mobile Hamburger Menu Fix for iOS */
+.navbar-sidebar {
+  height: 100svh !important; /* Fix for iOS Safari */
+  min-height: -webkit-fill-available;
+  z-index: 10000 !important; /* Ensure it stays on top */
+  overflow-y: auto !important; /* Ensure the menu itself can scroll */
+}
+
+.navbar-sidebar__items {
+  overflow-y: auto !important; /* Ensure menu items can scroll */
+}
