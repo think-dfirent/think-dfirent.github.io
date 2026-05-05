@@ -58,17 +58,17 @@ const config = {
           {
             to: '/docs/writeups/Disk-forensics/LockBit',
             label: 'Investigation Write-ups',
-            position: 'right',
+            position: 'left',
           },
           {
             to: '/docs/homelab/architecture-design',
             label: 'Homelab',
-            position: 'right',
+            position: 'left',
           },
           {
             to: '/about',
             label: 'About',
-            position: 'right',
+            position: 'left',
           },
         ],
       },
@@ -82,6 +82,21 @@ const config = {
         darkTheme: require('prism-react-renderer').themes.dracula,
       },
     }),
+    
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: false,
+        docsRouteBasePath: '/docs',
+        language: ["en"],
+        searchBarShortcut: false,
+      },
+    ],
+  ],
 };
 
 export default config;

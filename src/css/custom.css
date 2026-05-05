@@ -3,107 +3,142 @@
 @tailwind utilities;
 
 @import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
 @import '@fontsource/inter/700.css';
 @import '@fontsource/jetbrains-mono/400.css';
 
+
 @layer base {
   :root {
-    --ifm-color-primary: #3b82f6; /* blue-500 */
+
+    --ifm-color-primary: #3b82f6;
     --ifm-color-primary-dark: #2563eb;
     --ifm-color-primary-darker: #1d4ed8;
     --ifm-color-primary-darkest: #1e3a8a;
     --ifm-color-primary-light: #60a5fa;
     --ifm-color-primary-lighter: #93c5fd;
     --ifm-color-primary-lightest: #bfdbfe;
-    
+
+
     --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
     --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-    
-    --ifm-background-color: #f8fafc; /* slate-50 */
+
+    --ifm-background-color: #fcfcfc;
+
     --ifm-background-surface-color: #ffffff;
-    
-    --ifm-navbar-background-color: rgba(255, 255, 255, 0.85);
-    --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    
-    --ifm-footer-background-color: #f1f5f9; /* slate-100 */
-    
-    --ifm-heading-color: #0f172a;
-    --ifm-font-color-base: #334155;
+
+    --ifm-navbar-background-color: rgba(255, 255, 255, 0.95);
+    --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+
+
+    --ifm-footer-background-color: #f8fafc;
+
+    --ifm-heading-color: #111827;
+
+    --ifm-font-color-base: #374151;
+
   }
 
-[data-theme='dark'] {
-  --ifm-color-primary: #60a5fa;
-  --ifm-color-primary-dark: #3b82f6;
-  --ifm-color-primary-darker: #2563eb;
-  --ifm-color-primary-darkest: #1d4ed8;
-  --ifm-color-primary-light: #93c5fd;
-  --ifm-color-primary-lighter: #bfdbfe;
-  --ifm-color-primary-lightest: #dbeafe;
+  [data-theme='dark'] {
 
-  --ifm-background-color: #191919;
+    --ifm-color-primary: #60a5fa;
+    --ifm-color-primary-dark: #3b82f6;
+    --ifm-color-primary-darker: #2563eb;
+    --ifm-color-primary-darkest: #1d4ed8;
+    --ifm-color-primary-light: #93c5fd;
+    --ifm-color-primary-lighter: #bfdbfe;
+    --ifm-color-primary-lightest: #dbeafe;
 
-  --ifm-background-surface-color: #202020;
 
-  --ifm-navbar-background-color: rgba(25, 25, 25, 0.85);
-  --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --ifm-background-color: #191919;
+    --ifm-background-surface-color: #202020;
 
-  --ifm-footer-background-color: #191919;
-  --ifm-heading-color: rgba(255, 255, 255, 0.9);
-  --ifm-font-color-base: rgba(255, 255, 255, 0.81);
+    --ifm-navbar-background-color: rgba(25, 25, 25, 0.95);
+    --ifm-navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
 
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
-}
+    --ifm-footer-background-color: #191919;
+    --ifm-heading-color: rgba(255, 255, 255, 0.95);
+    --ifm-font-color-base: rgba(255, 255, 255, 0.8);
+
+    --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.05);
+  }
 }
 
 @layer utilities {
+
+
   .glass-panel {
-    @apply bg-white/70 dark:bg-slate-800/40 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-lg dark:hover:shadow-blue-900/20 hover:border-blue-400/50 transition-all duration-300 rounded-xl overflow-hidden;
+    @apply bg-white dark:bg-[#202020] border border-gray-200 dark:border-[#333333] shadow-sm hover:shadow-md transition-shadow duration-200 rounded-lg overflow-hidden;
   }
 
-  .terminal-text {
-    @apply font-mono text-blue-600 dark:text-blue-400;
-  }
-  
-  .blinking-cursor::after {
-    content: '_';
-    animation: blink 1s step-end infinite;
-    @apply text-blue-600 dark:text-blue-400 font-bold ml-1;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+  .clean-card {
+    @apply bg-white dark:bg-[#202020] border border-gray-200 dark:border-[#333333] shadow-sm hover:shadow-md transition-shadow duration-200 rounded-lg overflow-hidden;
   }
 }
 
+/* ================== NAVBAR & LAYOUT ================== */
 
 .navbar {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   z-index: 100 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  /* Viền mỏng phân cách */
 }
 
+[data-theme='dark'] .navbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Thiết kế lại Title: Đơn giản, hiện đại, không còn nhấp nháy hay font chữ code */
 .navbar__title {
-  @apply font-mono text-blue-600 dark:text-blue-400 font-bold text-xl tracking-wide blinking-cursor;
+  @apply font-sans font-semibold text-gray-900 dark:text-gray-100 text-lg tracking-tight;
 }
-
 
 .navbar-sidebar {
   height: 100svh !important;
   min-height: -webkit-fill-available;
   z-index: 10000 !important;
   background-color: var(--ifm-background-color) !important;
- 
 }
 
 .navbar-sidebar__backdrop {
-  z-index: 9999 !important; /* Ensure backdrop stays below sidebar but above content */
+  z-index: 9999 !important;
 }
-
 
 .medium-zoom-overlay {
   z-index: 100000 !important;
 }
+
 .medium-zoom-image--opened {
   z-index: 100001 !important;
+}
+
+/* ================== SEARCH BAR CUSTOMIZATION ================== */
+.navbar__search-input {
+  background-color: #f3f4f6 !important; /* gray-100 */
+  border: 1px solid #e5e7eb !important; /* gray-200 */
+  color: #111827 !important; /* gray-900 */
+  border-radius: 8px !important;
+  font-family: var(--ifm-font-family-base) !important;
+  /* Kính lúp màu xám đậm cho Light Mode */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%234b5563'%3E%3Cpath d='M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z'/%3E%3C/svg%3E") !important;
+}
+
+.navbar__search-input:focus {
+  border-color: #9ca3af !important; /* gray-400 */
+  box-shadow: none !important;
+}
+
+[data-theme='dark'] .navbar__search-input {
+  background-color: #1a1a1a !important; /* matches card dark bg */
+  border: 1px solid #2a2a2a !important;
+  color: #f3f4f6 !important;
+  /* Kính lúp màu xám sáng cho Dark Mode */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%239ca3af'%3E%3Cpath d='M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z'/%3E%3C/svg%3E") !important;
+}
+
+[data-theme='dark'] .navbar__search-input:focus {
+  border-color: #555 !important;
 }

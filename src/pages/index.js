@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 
-// Đã cập nhật lại nội dung và tags cho sát với lộ trình SOC/DFIR của bạn
 const recentWriteups = [
   {
     title: "LockBit Ransomware Investigation",
@@ -41,24 +40,22 @@ const homelabPosts = [
 
 function LogCard({ item }) {
   return (
-    <Link 
-      to={item.link} 
-      /* Thêm hover:no-underline để chặn gạch chân toàn khối của Docusaurus */
+    <Link
+      to={item.link}
       className="block group transition-all duration-300 hover:no-underline cursor-pointer"
     >
-      <div className="glass-panel p-6 h-full flex flex-col justify-between hover:-translate-y-1 bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 rounded-xl">
+      <div className="p-6 h-full flex flex-col justify-between bg-white dark:bg-[#1a1a1a] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)] border border-gray-100 dark:border-[#2a2a2a] rounded-xl transition-all duration-300">
         <div>
-          {/* Thêm group-hover:underline để chỉ gạch chân tiêu đề khi di chuột vào thẻ */}
-          <h3 className="font-sans text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:underline transition-colors">
+          <h3 className="font-sans text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {item.title}
           </h3>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mb-5 leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-5 leading-relaxed font-sans">
             {item.excerpt}
           </p>
         </div>
         <div className="flex flex-wrap gap-2 mt-auto">
           {item.tags.map((tag, idx) => (
-            <span key={idx} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-600 dark:text-blue-300 rounded-md font-medium">
+            <span key={idx} className="px-2.5 py-1 bg-gray-50 dark:bg-[#222] text-xs font-sans text-gray-600 dark:text-gray-300 rounded-md font-medium border border-gray-200 dark:border-[#333] transition-colors">
               {tag}
             </span>
           ))}
@@ -71,51 +68,38 @@ function LogCard({ item }) {
 export default function Home() {
   return (
     <Layout
-      title="Platform"
+      title="Home"
       description="Think DFIRent - Cybersecurity Portfolio & Documentation">
-      <main className="min-h-screen bg-slate-50 dark:bg-[#0a0a0a] relative overflow-hidden transition-colors duration-300">
-        {/* Subtle grid background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-
-        {/* Top glow effect */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-32 bg-blue-500/10 dark:bg-blue-900/20 blur-[100px] pointer-events-none"></div>
-
+      <main className="min-h-screen bg-[#fafafa] dark:bg-[#121212] relative overflow-hidden transition-colors duration-300">
         <div className="relative z-10 pt-16 pb-24">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-14 relative">
-              {/* Vertical Divider for Desktop */}
-              <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800 -translate-x-1/2">
-                <div className="absolute top-1/4 bottom-1/4 left-1/2 -translate-x-1/2 w-[2px] bg-blue-500/50 dark:bg-blue-400/50 blur-[2px]"></div>
-              </div>
+          <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
+            {/* Flexbox Layout mimicking docu-notion's natural flow */}
+            <div className="flex flex-col lg:flex-row gap-12 xl:gap-16">
 
               {/* Investigation Logs Section */}
-              <section className="lg:pr-4">
-                <div className="mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
-                  <h2 className="text-xl font-mono text-slate-800 dark:text-slate-100 m-0 tracking-wide uppercase">Investigation Logs</h2>
+              <section className="flex-1 flex flex-col">
+                <div className="mb-6">
+                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">INVESTIGATION LOGS</h2>
                 </div>
-                <div className="space-y-6">
+                <div className="flex flex-col gap-6">
                   {recentWriteups.map((item, idx) => (
                     <LogCard key={idx} item={item} />
                   ))}
                 </div>
               </section>
 
-              {/* Mobile Divider */}
-              <div className="lg:hidden w-full h-px bg-slate-200 dark:bg-slate-800 my-2 relative">
-                <div className="absolute left-1/4 right-1/4 top-1/2 -translate-y-1/2 h-[2px] bg-blue-500/50 dark:bg-blue-400/50 blur-[2px]"></div>
-              </div>
-
-              {/* Homelab Architecture Section */}
-              <section className="lg:pl-4">
-                <div className="mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
-                  <h2 className="text-xl font-mono text-slate-800 dark:text-slate-100 m-0 tracking-wide uppercase">Architecture Deployments</h2>
+              {/* Architecture Deployments Section */}
+              <section className="flex-1 flex flex-col">
+                <div className="mb-6">
+                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">ARCHITECTURE DEPLOYMENTS</h2>
                 </div>
-                <div className="space-y-6">
+                <div className="flex flex-col gap-6">
                   {homelabPosts.map((item, idx) => (
                     <LogCard key={idx} item={item} />
                   ))}
                 </div>
               </section>
+
             </div>
           </div>
         </div>
