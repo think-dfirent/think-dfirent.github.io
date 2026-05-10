@@ -1,0 +1,9 @@
+{
+  "label": "Others",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "slug": "/others",
+    "description": "Other documentation"
+  }
+}

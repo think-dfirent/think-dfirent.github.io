@@ -1,1 +1,8 @@
-{"position":5, "label":"Tấn công"}
+{
+    "position": 5,
+    "label": "Tấn công",
+    "link": {
+        "type": "generated-index",
+        "description": "Tấn công"
+    }
+}

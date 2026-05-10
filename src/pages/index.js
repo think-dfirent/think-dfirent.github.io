@@ -25,15 +25,15 @@ const recentWriteups = [
 
 const homelabPosts = [
   {
-    title: "Homelab Architecture Design",
+    title: "Architecture Design",
     excerpt: "Detailed architectural overview of the Proxmox-based cybersecurity homelab.",
     tags: ["Splunk", "pfSense", "OpenVPN"],
-    link: "/docs/homelab/architecture-design",
+    link: "/docs/homelab",
   },
   {
     title: "SOC Environment Setup",
-    excerpt: "Step-by-step guide on provisioning Elastic Stack and Wazuh for enterprise log analysis.",
-    tags: ["Elastic Stack", "Wazuh", "SIEM"],
+    excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for enterprise log analysis.",
+    tags: ["Splunk", "Windows Event Logs", "Sysmon"],
     link: "/docs/homelab/setup-process",
   }
 ];
@@ -79,7 +79,7 @@ export default function Home() {
               {/* Investigation Logs Section */}
               <section className="flex-1 flex flex-col">
                 <div className="mb-6">
-                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">INVESTIGATION LOGS</h2>
+                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">FEATURE WRITEUPS</h2>
                 </div>
                 <div className="flex flex-col gap-6">
                   {recentWriteups.map((item, idx) => (
@@ -91,7 +91,7 @@ export default function Home() {
               {/* Architecture Deployments Section */}
               <section className="flex-1 flex flex-col">
                 <div className="mb-6">
-                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">ARCHITECTURE DEPLOYMENTS</h2>
+                  <h2 className="text-xl font-sans font-bold text-gray-900 dark:text-gray-100 m-0 tracking-tight">HOMELAB DEPLOYMENTS</h2>
                 </div>
                 <div className="flex flex-col gap-6">
                   {homelabPosts.map((item, idx) => (

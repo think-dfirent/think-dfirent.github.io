@@ -1,4 +1,6 @@
 // @ts-check
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -23,6 +25,8 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: {
           showReadingTime: true,
@@ -32,6 +36,15 @@ const config = {
         },
       }),
     ],
+  ],
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
+      type: 'text/css',
+      integrity: 'sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV',
+      crossorigin: 'anonymous',
+    },
   ],
 
   themeConfig:
@@ -56,13 +69,23 @@ const config = {
         },
         items: [
           {
-            to: '/docs/writeups/Disk-forensics/LockBit',
-            label: 'Investigation Write-ups',
+            to: '/docs/writeups',
+            label: 'Write-ups',
             position: 'left',
           },
           {
-            to: '/docs/homelab/architecture-design',
+            to: '/docs/homelab',
             label: 'Homelab',
+            position: 'left',
+          },
+          {
+            to: '/docs/cheatsheets',
+            label: 'Cheat sheets',
+            position: 'left',
+          },
+          {
+            to: '/docs/others',
+            label: 'Others',
             position: 'left',
           },
           {
@@ -82,7 +105,7 @@ const config = {
         darkTheme: require('prism-react-renderer').themes.dracula,
       },
     }),
-    
+
   themes: [
     [
       require.resolve("@easyops-cn/docusaurus-search-local"),

@@ -9,6 +9,9 @@ slug: /3547b0eb-61a4-80c4-8540-e431b87b54d7
 # Cài Caldera sử dụng docker {#3557b0eb61a480b08038e9274c394a08}
 
 
+[https://www.youtube.com/watch?v=Vdd4lRXB7zE](https://www.youtube.com/watch?v=Vdd4lRXB7zE)
+
+
 ```c++
 git clone https://github.com/mitre/caldera.git --recursive
 cd caldera
