@@ -12,6 +12,7 @@ const config = {
   baseUrl: '/',
   organizationName: 'think-dfirent',
   projectName: 'think-dfirent.github.io',
+  trailingSlash: false,
 
   plugins: [
     './src/plugins/tailwind-plugin',
