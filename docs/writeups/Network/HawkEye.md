@@ -6,28 +6,14 @@ slug: /3467b0eb-61a4-8099-ace9-e5af6d741583
 
 
 
-**Hawkeye** (hay đầy đủ là **HawkEye Keylogger / Stealer**) là một dòng mã độc đánh cắp thông tin (InfoStealer) và ghi lại thao tác bàn phím (Keylogger) khét tiếng. Nó đã tồn tại và hoạt động hơn 14 năm, ban đầu được bán công khai như một phần mềm theo dõi thương mại (crimeware) trên các diễn đàn ngầm.
-
-- Hawkeye đã tiến hóa thành một InfoStealer toàn diện và có khả năng đóng vai trò như một phần mềm trung gian ("Loader") để tải thêm các mã độc khác xuống máy tính nạn nhân.
-- **Mục tiêu chính:** Mã độc này thường nhắm vào các doanh nghiệp vừa và nhỏ (SMBs) thông qua các chiến dịch thư rác (malspam/phishing) quy mô lớn trên toàn cầu để đánh cắp tài khoản và thông tin nội bộ.
-
-### Hành vi và Khả năng (Capabilities) {#3467b0eb61a4806f9b98cb9f71d0e292}
+[https://cyberdefenders.org/blueteam-ctf-challenges/hawkeye/](https://cyberdefenders.org/blueteam-ctf-challenges/hawkeye/)
 
 
-Một khi xâm nhập thành công hệ thống, Hawkeye sẽ "nằm vùng" và tiến hành các hoạt động giám sát ngầm:
-
-- Ghi lại mọi thao tác gõ phím, đánh cắp mật khẩu được lưu trữ trong trình duyệt web và các ứng dụng email của nạn nhân.
-- Bí mật chụp ảnh màn hình, giám sát các hoạt động mạng, hoặc thậm chí kích hoạt camera/microphone trên thiết bị bị nhiễm.
-- Toàn bộ dữ liệu thu thập được sẽ được đóng gói và lén lút gửi về cho máy chủ điều khiển (C2 Server) của kẻ tấn công thông qua Email (SMTP), giao thức FTP hoặc Web panel.
-
-### 3. Phương thức Lây nhiễm (Infection Vector) {#3467b0eb61a480b4b09de4913e9fa918}
+HawkEye is a type of credential-stealing Trojan malware (spyware) that functions primarily as a keylogger, designed to steal sentitive data from victims. It’s have been active since 2013 and is sold on dark web forum as MaaS.
 
 
-Hawkeye chủ yếu phát tán thông qua việc lừa đảo thao tác của người dùng:
+## Basic triage {#3597b0eb61a480e5ad46fc8a86fc6979}
 
-- **Email ngụy trang:** Kẻ tấn công gửi các email lừa đảo đội lốt hóa đơn thương mại, biên lai thanh toán hoặc thông báo khẩn cấp từ ngân hàng.
-- **Tệp đính kèm độc hại:** Mã độc thường nấp dưới dạng các file tài liệu như `.docx` hoặc `.xls`. Ví dụ, Hawkeye thường xuyên khai thác lỗ hổng bảo mật của Microsoft Equation Editor (CVE-2017-11882). Khi nạn nhân vô tình mở file tài liệu này, mã độc sẽ tự động trích xuất vào thư mục `%temp%` và âm thầm thực thi.
-- **Kỹ thuật lẩn tránh (Evasion):** Hawkeye lợi dụng các tiến trình hợp lệ của Windows (như `mshta.exe` hoặc PowerShell) để vượt qua các lớp phòng thủ của phần mềm diệt virus, đồng thời can thiệp vào Registry để tự động khởi chạy cùng hệ điều hành.
 
 | 10.4.10.132 | 217.182.138.150 |   |
 | ----------- | --------------- | - |
@@ -38,31 +24,46 @@ Hawkeye chủ yếu phát tán thông qua việc lừa đảo thao tác của ng
 |             | 216.58.193.131  |   |
 
 
-Q1 How many packets does the capture have?
+### Q1 How many packets does the capture have? {#3467b0eb61a48013bd38e42eb2098aac}
 
 
-Q2 At what time was the first packet captured (UTC)?
+4003
 
 
-Q3 What is the duration of the capture?
+### Q2 At what time was the first packet captured (UTC)? {#3467b0eb61a4802c9f34e0e9ec8e8126}
 
 
-Q4 What is the most active computer at the link level?
+`2019-04-10 20:37:07 UTC`
+
+
+### Q3 What is the duration of the capture? {#3467b0eb61a48072aa88c64d5df71cb7}
+
+
+`01:03:41`
+
+
+### Q4 What is the most active computer at the link level? {#3467b0eb61a480b99489e2e28baddf76}
 
 
 00:08:02:1c:47:ae
 
 
-Q5 Manufacturer of the NIC of the most active system at the link level?
+### Q5 Manufacturer of the NIC of the most active system at the link level? {#3467b0eb61a480f4b7feea58fbf22b87}
 
 
 Hewlett-Packard
 
 
-Q6 Where is the headquarter of the company that manufactured the NIC of the most active computer at the link level?
+### Q6 Where is the headquarter of the company that manufactured the NIC of the most active computer at the link level? {#3467b0eb61a480df9b7fcdf2e1191e31}
 
 
-Q7 The organization works with private addressing and netmask /24. How many computers in the organization are involved in the capture?
+Palo Alto
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-8048-8b88-fe101d6e3aa2.png)
+
+
+### Q7 The organization works with private addressing and netmask /24. How many computers in the organization are involved in the capture? {#3467b0eb61a48013a983ed208afee1ed}
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-80c3-84fe-f854060179ce.png)
@@ -71,73 +72,121 @@ Q7 The organization works with private addressing and netmask /24. How many comp
 3
 
 
-Q8 What is the name of the most active computer at the network level?
+### Q8 What is the name of the most active computer at the network level? {#3467b0eb61a4805db041e5cf52a96044}
 
 
-10.4.10.132 [BEIJING-5CD1-PC] [beijing-5cd1-pc] [Beijing-5cd1-PC] (Windows)
+`10.4.10.132 [BEIJING-5CD1-PC] [beijing-5cd1-pc] [Beijing-5cd1-PC] (Windows)`
 
 
-Q9 What is the IP of the organization's DNS server?
+### Q9 What is the IP of the organization's DNS server? {#3467b0eb61a480ef8b30e904c9d98266}
+
+
+Using the dns filter, check for the destination IP, we can easily figure out:
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-80cf-9d1f-d137bdbbb2ec.png)
 
 
-Q10 What domain is the victim asking about in packet 204?
+`10.4.10.4`
+
+
+### Q10 What domain is the victim asking about in packet 204? {#3467b0eb61a48078a0a1f795f7ad0c91}
 
 
 proforma-invoices.com: type A, class IN
 
 
-Q11 What is the IP of the domain in the previous question?
+### Q11 What is the IP of the domain in the previous question? {#3467b0eb61a480acbc9ed95b3b8b786e}
 
 
-[proforma-invoices.com](http://proforma-invoices.com/): type A, class IN, addr 217.182.138.150
+proforma-invoices.com: type A, class IN, addr 217.182.138.150
 
 
-Q12 Indicate the country to which the IP in the previous section belongs.
+### Q12 Indicate the country to which the IP in the previous section belongs. {#3467b0eb61a480fc924bc10679e808d9}
 
 
-france
+using whois website like: ipinfo
 
 
-Q13 What operating system does the victim's computer run?
+`france`
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-80dd-9afe-f80d02da3aa4.png)
+
+
+### Q13 What operating system does the victim's computer run? {#3467b0eb61a48072a8f1d63f235f2b57}
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-80be-8b61-d82324a81d81.png)
 
 
-Q14 What is the name of the malicious file downloaded by the accountant?
+### Q14 What is the name of the malicious file downloaded by the accountant? {#3467b0eb61a480bbb7e5e5aa47d87ea8}
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-8062-90b8-ce9d94f625c6.png)
 
 
 Request URI: /proforma/tkraw_Protected99.exe
 
 
-Q15 What is the md5 hash of the downloaded file?
+### Q15 What is the md5 hash of the downloaded file? {#3467b0eb61a48085ae5de665d7115de4}
 
 
-Q16 What software runs the webserver that hosts the malware?
+Using networkminer to extract the file
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-8066-b5fe-ea78566a924a.png)
+
+
+`71826ba081e303866ce2a2534491a2f7`
+
+
+### Q16 What software runs the webserver that hosts the malware? {#3467b0eb61a48066adeeccba2ec49398}
+
+
+`http contains "This program”` to find the packet with executable file follow TCP stream
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-8089-8e91-cb7056366a73.png)
 
 
-Q17 What is the public IP of the victim's computer?
+> `LiteSpeed`
 
 
-![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-8089-a74e-eba038b786df.png)
+### Q17 What is the public IP of the victim's computer? {#3467b0eb61a48004a69cd65339d95e5c}
+
+
+To know the public ip, attacker have to navigate to the internet:
+
+
+`http contains "ip”`
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-80d6-90e5-d5569768cfe7.png)
+
+
+Then follow the TCP stream
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-800e-a302-c69b6462735e.png)
 
 
-Q18
+`173.66.146.112`
 
 
-In which country is the email server to which the stolen information is sent?
+### Q18 In which country is the email server to which the stolen information is sent? {#3467b0eb61a480448d7dde9106f795ce}
 
 
-Q19 Analyzing the first extraction of information. What software runs the email server to which the stolen data is sent?
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-804d-a660-e9b269cac3e2.png)
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-8084-a115-cc06c2e63358.png)
+
+
+United States
+
+
+### Q19 Analyzing the first extraction of information. What software runs the email server to which the stolen data is sent? {#3467b0eb61a480c4b578c9a2b4689366}
 
 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-800d-8781-f9e16fccdc1a.png)
@@ -146,7 +195,25 @@ Q19 Analyzing the first extraction of information. What software runs the email 
 ![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3467b0eb-61a4-8025-935d-f68cdcd9b15f.png)
 
 
-Q20 To which email account is the stolen information sent?
+### Q20 To which email account is the stolen information sent? {#3467b0eb61a480dcb8a1d801867dc748}
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-80e7-965f-cb461b11a718.png)
+
+
+### Q21 What is the password used by the malware to send the email? {#3467b0eb61a480c883a0d1c28d8d981c}
+
+
+The password is encoded with base64
+
+
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-80df-8029-cfddc6b10add.png)
+
+
+Sales@23
+
+
+i also extracted the email and decode the content
 
 
 ```c++
@@ -200,29 +267,31 @@ SMTP Server Port  : 587
 ```
 
 
-Q21 What is the password used by the malware to send the email?
+### Q22 Which malware variant exfiltrated the data? {#3467b0eb61a4803a8fefdd47bfc2ed50}
 
 
-[sales.del@macwinlogistics.in](mailto:sales.del@macwinlogistics.in)
+```powershell
+HawkEye Keylogger - Reborn v9
+```
 
 
-Sales@23
+### Q23 What are the bankofamerica access credentials? (username:password) {#3467b0eb61a480e9bc0acef25e87f453}
 
 
-Q22 Which malware variant exfiltrated the data?
+```powershell
+User Name         : roman.mcguire
+Password          : P@ssw0rd$
+```
 
 
-Q23 What are the bankofamerica access credentials? (username:password)
+### Q24 Every how many minutes does the collected data get exfiltrated? {#3467b0eb61a4809ca85bdd637ff7601c}
 
 
-Q24 Every how many minutes does the collected data get exfiltrated?
+![](./3467b0eb-61a4-8099-ace9-e5af6d741583.3597b0eb-61a4-80cb-a94d-dc0e21fff517.png)
 
 
-`smtp.req.command == "EHLO”` :
+In SMTP, when a client want to send an email, first they need to connect with the email server and send a HELLO (for earlier version) or EHLO (extended HELLO). So we use the filter`smtp.req.command == "EHLO”` to extract when the attacker initial a new session. We can see each session is 10 minutes apart.
 
 
-**EHLO (Extended HELLO):** Trong giao thức SMTP, khi một máy tính (Client) muốn gửi email, việc đầu tiên nó bắt buộc phải làm khi kết nối với máy chủ Email (Server) là gửi một lệnh chào hỏi để tự xưng danh. Lệnh đó chính là `EHLO` (hoặc `HELO` ở các bản cũ).
-
-
-Mỗi phiên thì phải gửi một helo
+> 10
 

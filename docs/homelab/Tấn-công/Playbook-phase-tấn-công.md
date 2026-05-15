@@ -1,6 +1,6 @@
 ---
 title: Playbook phase tấn công
-sidebar_position: 3
+sidebar_position: 2
 slug: /3557b0eb-61a4-80fd-b01d-ccc51592a484
 ---
 

@@ -1,0 +1,10 @@
+const fs = require('fs');
+let f = fs.readFileSync('docs/writeups/Network/Malware-Traffic-Analysis-1.md', 'utf8');
+f = f.replace(/\[www\.ciniholland\[\.\]nl\]/g, '`www.ciniholland[.]nl`');
+f = f.replace(/\[24corp-shop\[\.\]com\]/g, '`24corp-shop[.]com`');
+f = f.replace(/\[adultbiz\[\.\]in/g, '`adultbiz[.]in`');
+f = f.replace(/\[stand\.trustandprobaterealty\.com\]/g, '`stand.trustandprobaterealty.com`');
+f = f.replace(/http:\/\/24corp-shop\[\.\]com\//g, '`http://24corp-shop[.]com/`');
+f = f.replace(/\[stand\.trustandprobaterealty\[\.\]com\]/g, '`stand.trustandprobaterealty[.]com`');
+f = f.replace(/\[www\.ciniholland\.nl\]/g, '`www.ciniholland.nl`');
+fs.writeFileSync('docs/writeups/Network/Malware-Traffic-Analysis-1.md', f);

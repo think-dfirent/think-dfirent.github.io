@@ -6,9 +6,18 @@ slug: /3477b0eb-61a4-8049-b232-e093c0f8c839
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/nukethebrowser/](https://cyberdefenders.org/blueteam-ctf-challenges/nukethebrowser/)
+
+
+## Basic triage {#35e7b0eb61a480168f73c885ff57092f}
+
+
 | 10.0.4.15 | 64.236.114.1 (honeynet.org) | 10.0.4.15 [8fd12edd2dc1462] [8fd12edd2dc1462.] [8FD12EDD2DC1462] (Windows) |
 | --------- | --------------------------- | -------------------------------------------------------------------------- |
-|           | 192.168.56.52               | 192.168.56.51 [[shop.honeynet.sg](http://shop.honeynet.sg/)] (Other)       |
+|           | 192.168.56.52               | 192.168.56.51 [shop.honeynet.sg] (Other)                                   |
 |           | 192.168.56.51               |                                                                            |
 | 10.0.3.15 | 192.168.56.52               | sploitme.com.cn                                                            |
 |           | 64.236.114.1                |                                                                            |
@@ -17,16 +26,10 @@ slug: /3477b0eb-61a4-8049-b232-e093c0f8c839
 | 10.0.5.15 | 224.0.0.22                  |                                                                            |
 
 
-NetBios, SMB, HTTP
+**By using the filter** `http.host==sploitme.com.cn` **and checking** the `http.referer` field, **I** can deduce the malicious website chain:
 
 
-[shop.honeynet.sg](http://shop.honeynet.sg/) → [sploitme.com.cn](http://sploitme.com.cn/) → rapidshare.com.eyu32.ru
-
-
-http.host==sploitme.com.cn
-
-
-http://rapidshare.com.eyu32.ru/login.php
+i can deduce the malicious website chain: shop.honeynet[.]sg → sploitme.com[.]cn → rapidshare.com.eyu32[.]ru
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80f4-856c-e3f58bb48af2.png)
@@ -35,109 +38,155 @@ http://rapidshare.com.eyu32.ru/login.php
 ### Q1 Multiple systems were targeted. Provide the IP address of the highest one. {#3477b0eb61a480cebe34c1f8633c9293}
 
 
-10.0.5.15
+Navigate to **Statistics &gt; Conversations**, and then sort **by IP address to find the highest one:**
+
+
+> `10.0.5.15`
 
 
 ### Q2 What protocol do you think the attack was carried over? {#3477b0eb61a480eea9fbddc81af12ac3}
 
 
+The answer was obvious
+
+
+> `HTTP`
+
+
 ### Q3 What was the URL for the page used to serve malicious executables (don't include URL parameters)? {#3477b0eb61a48029b8cad9852918eb9f}
 
 
-Tìm trong networkminer thấy file exe
+Navigate to Networkminer files tab and search for exe file
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-8050-8756-c90371474951.png)
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80a6-adaf-e27bcc17157b.png)
+We know the the website that served the malicious executable is: http://sploitme.com.cn/
 
 
-http://sploitme.com.cn/fg/load.php
+using wireshark and use the filter: http.host=="sploitme.com.cn"
+
+
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-80b8-b29c-e3a36113ff6d.png)
+
+
+> `http://sploitme.com.cn/fg/load.php`
 
 
 ### Q4 What is the number of the packet that includes a redirect to the french version of Google and probably is an indicator for Geo-based targeting? {#3477b0eb61a480188be9db205f12a019}
 
 
-**Redirect (Chuyển hướng):** Trong giao thức web (HTTP), hành vi chuyển hướng được máy chủ thực hiện bằng cách trả về mã trạng thái **301** (Moved Permanently) hoặc **302** (Found). Khi đó, gói tin phản hồi sẽ chứa một trường có tên là `Location: <URL_mới>` để bảo trình duyệt tự động chuyển sang trang đó.
-http.location contains "google”
+Redirect: In the HTTP protocol, server-side redirection is executed by returning a status code of 301 (moved permanently) or 302 (found). Consequently, the response packet will include a Location: &lt;newURL&gt; header field, which instructs the browser to automatically navigate to that new page.
+
+
+Respectively, in Wireshark we use the filter: `http.location contains "google”`
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80a1-8d3d-c757ac54e5bd.png)
 
 
+> `299`
+
+
 ### Q5 What was the CMS used to generate the page 'shop.honeynet.sg/catalog/'? (Three words, space in between) {#3477b0eb61a480f48b45eec7010f5cae}
 
-
-CMS (content management system) là nền tảng giúp người dùng tạo, chỉnh sửa, thay đổi nội dung trên trang web mà không cần biết lập trình
-
-	- **CMS Đa dụng (Blog, Tin tức, Web công ty):** WordPress (chiếm hơn 40% website toàn cầu), Joomla, Drupal.
-	- **CMS Thương mại điện tử (E-commerce):** Shopify, Magento, WooCommerce, OpenCart, và hệ thống **osCommerce**
-- Là mỏ vàng Zero day cho hacker
-- dùng http host rồi dò theo
+- **CMS (Content Management System):** A platform that allows users to create, edit, and manage website content without needing any programming knowledge.
+- **General-purpose CMS (Blogs, News, Corporate websites):** WordPress (powering over 40% of all websites globally), Joomla, and Drupal.
+- **E-commerce CMS:** Shopify, Magento, WooCommerce, OpenCart, and osCommerce systems.
+- **A Zero-day Goldmine:** These platforms are a goldmine for hackers looking to discover and exploit zero-day vulnerabilities.
+- **Reconnaissance Technique:** Attackers often use the HTTP Host header to probe and enumerate the targe
+- Using http.host==”shop.honey.net.sg” and skim through the packet to find any special one.
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-8067-a8e3-ebdf1593129b.png)
+
+
+The server also have the cookie named OsCsid, also an artifacts of osCommerce installation
+
+
+I asked AI for the full name.
+
+
+> `osCommerce Online Merchant`
 
 
 ### Q6 What is the number of the packet that indicates that 'show.php' will not try to infect the same host twice? {#3477b0eb61a480e09da5c828a1d05323}
 
 
-174
+i use the filter: http.request.uri contains "show.php”
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80f9-b146-da6b4eee1b37.png)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8070-bb28-e1c18c8cdd40.png)
 
 
-366
+I skimmed through all the packets and clearly the uri: /fg/show.php is malicious as it served obfuscated javascript
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-803d-850b-feac57cccd62.png)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-80b9-9151-c634d4d930f7.png)
 
 
-cÙNG LÀ 10.0.3.15 thì nó không tải nữa
+And packet no.366 caught my attention because: it’s the third request from 10.0.2.15 to 192.168.56.52 GET /fg/show.php?s=3feb5a6b2f
+
+
+The server returns a 404 error, which is an intentional behavior designed to avoid infecting the same host multiple times."
+
+
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8032-bb79-e74b5c79d595.png)
+
+
+> `366`
 
 
 ### Q7 One of the exploits being served targets a vulnerability in "msdds.dll". Provide the corresponding CVE number. {#3477b0eb61a480a2a13cc137b0e4265c}
 
 
-**CVE-2005-2127**
+Using google with the dll file as the keyword:
+
+
+> **`CVE-2005-2127`**
 
 
 ### Q8 What is the name of the executable being served via 'http://sploitme.com.cn/fg/load.php?e=8' ? {#3477b0eb61a480bb8e49ed59dde3a81e}
 
 
-Trong http://sploitme.com.cn/fg/load.php?e=8' có một file java script bị obfuscate.
+Extract the Javascript found in Q6, there are two of them
 
 
-ta phải đổi thành console.log để không thực hiện mã này mà chỉ in ra màn hình. Rồi đến trình compile online bất kỳ để giải mã
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-809e-aa17-d86dd4c31fb6.png)
 
 
-Sau đó copy 4 cục này. và cho vào cyber chef
+and use an online javascript compiler (change val into console.log)
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80d3-9d78-cea6f87efa28.png)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-804b-834e-d23a173a8724.png)
 
 
-Công thức là ngắt ra thành hex và cứ 2 bit theo quy luật của hex với LE
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8037-bafa-ec33589f227a.png)
 
 
-Rồi chuyển về binary lại
+There are 4 block of obfucated code like this
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80eb-b604-c6a1f2d251ed.png)
+We then use cyberchef: 
+
+- swap endianess: for windows LE type
+- From hex: to binary
+
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8015-8b42-d6a65387a362.png)
 
 
-Dùng scdbg phát hiện ra được
+Here we can see some patterns were revealed related to the load.php?e=8
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80b2-ac43-e70a086a2b54.png)
+Save the output as shellcode.bin and using scdbg to analyze it: 
 
 
-Shellcode binary là e.exe
+```powershell
+scdbg -f shellcode.bin /findsc
+```
 
 
-
-Mã độc nạp thư viện `urlmon.dll` của Windows. Đây là thư viện chuyên quản lý các kết nối Internet và tải file (thường được Internet Explorer sử dụng)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-80a9-99c0-f7c79c992e4c.png)
 
 
 ```c++
@@ -146,90 +195,103 @@ Mã độc nạp thư viện `urlmon.dll` của Windows. Đây là thư viện c
 ```
 
 
+:::tip
+
+Here the shellcode import urlmon.dll: the dll relates to internect connection and file download
+
+:::
+
+
+
+
+> Based on the `scdbg` trace (`WinExec(C:\users\...\Temp\e.exe)`), the name of the executable is `e.exe`
+
+
 ### Q9 One of the malicious files was first submitted for analysis on VirusTotal at 2010-02-17 11:02:35 and has an MD5 hash ending with '78873f791'. Provide the full MD5 hash. {#3477b0eb61a48013922cc39d44fb3bfc}
 
 
-52312bb96ce72f230f0350e78873f791
+The easiest method to solve this question is to use Networkminer, navigate to files tab and search for executable files.
+
+
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8079-bdb4-dcbb24772539.png)
+
+
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-8002-94f5-fdf1618b903f.png)
+
+
+Networkminer already calculate the hash for us - which exactly matched the hash in the question.
+
+
+> `52312bb96ce72f230f0350e78873f791`
 
 
 ### Q10 What is the name of the function that hosted the shellcode relevant to 'http://sploitme.com.cn/fg/load.php?e=3'? {#3477b0eb61a4806da72ae9a03c363fbe}
 
 
-ta đem cái nội dung trong từng hàm đi test
+From the analysis in Q8, we knew that sploitme.com.cn/fg/load[.]php?e=3 related to the first obfuscated block
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-8074-8258-cc1e277cb83f.png)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-80bb-b168-c76b7a734bb3.png)
 
 
-Rồi dịch như câu số 8 
+Which is 
 
 
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-8097-8527-eb9bb55e88bd.png)
+![](./3477b0eb-61a4-8049-b232-e093c0f8c839.35e7b0eb-61a4-802c-873e-f5db1bf2b492.png)
 
 
-:::tip
-
-**Định dạng trên trên: Đổi chuẩn biểu diễn (Encoding)**. Cụ thể, đây là định dạng **JavaScript Unicode Escape Sequence**
-- **Kẻ chỉ điểm** **`%u`****:** Đây là dấu hiệu rõ ràng nhất. Trong ngôn ngữ lập trình (đặc biệt là JavaScript và trình duyệt cũ), dấu `%` có nghĩa là "ký tự đặc biệt" (escape), và chữ `u` viết tắt của **Unicode**. Nó báo cho hệ thống biết: "4 ký tự tiếp theo đây là một mã Unicode nhé".
-
-- **Bảng chữ cái bị giới hạn:** Nhìn kỹ vào các ký tự sau `%u`, bạn sẽ thấy chúng chỉ bao gồm các số từ `0-9` và các chữ cái từ `A-F` (như C, B, D, E). Đây chính xác là hệ cơ số 16 (Hexadecimal). Tuyệt đối không có các chữ cái như G, H, hay Z xuất hiện ở đây
-
-:::
-
-
-
-
-:::tip
-
-Nhận diện những thằng khác:
-- **Hex Encoding (Dạng C/C++):** Sử dụng dấu `\x` thay vì `%u`, và đi kèm sau đó chỉ có 2 ký tự Hex (1 byte). _(Ví dụ:_ _`\x33\xC0\x64\x8B`__)_
-
-- **URL Encoding:** Tương tự như trên nhưng dùng dấu `%` đi kèm 2 ký tự. Thường thấy trên thanh địa chỉ web. _(Ví dụ:_ _`%33%C0%64%8B`__)_
-
-- **XOR/Custom Cipher:** Nhìn như một đống bọt biển, không có quy luật, không có `%` hay `\x`. (Đó là lúc bạn phải dùng scdbg hoặc dò code JavaScript như chúng ta đã làm ở câu trước để tìm ra "chìa khóa" giải mã).
-
-:::
-
-
+> The answer is: aolwinamp
 
 
 ### Q11 Deobfuscate the JS at 'shop.honeynet.sg/catalog/' and provide the value of the 'click' parameter in the resulted URL. {#3477b0eb61a480e499b6df59a3f212f1}
 
 
+Use the same process as Q8
+
+
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-8078-9044-d8501109266b.png)
+
+
+> `84c090bd86`
 
 
 ### Q12 Deobfuscate the JS at 'rapidshare.com.eyu32.ru/login.php' and provide the value of the 'click' parameter in the resulted URL. {#3477b0eb61a48007902ae913fc09bb0d}
 
 
-tìm được gói đó và tìm javascript
+Same as the previous question
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80c3-8de7-c9b44aaa7416.png)
 
 
-Dùng cyberchef giải mã
-
-
-![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80e1-b76b-c02ebb5baa05.png)
+The URL decode function:
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-80de-b477-cb85361f348f.png)
 
 
+> `3feb5a6b2f`
+
+
 ### Q13 What was the version of 'mingw-gcc' that compiled the malware? {#3477b0eb61a480b78088c2700363f81f}
 
 
-dùng strings để grep gcc
+Use strings to find out if there are any hard code artifact in the malware
 
 
 ```c++
-└─$ strings video.exe | grep "gcc"
+strings video.exe | grep "gcc"
 /opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_ports_cross_i386-mingw32-gcc/work/gcc-3.4.5-20060117-1/gcc/config/i386/w32-shared-ptr.c
 ```
 
 
+> `3.4.5`
+
+
 ### Q14 The shellcode used a native function inside 'urlmon.dll' to download files from the internet to the compromised host. What is the name of the function? {#3477b0eb61a48075ae0cc762abe48df2}
+
+
+We already figured out in Q8
 
 
 ![](./3477b0eb-61a4-8049-b232-e093c0f8c839.3477b0eb-61a4-808b-924b-c9724c97ba81.png)
@@ -240,11 +302,30 @@ dùng strings để grep gcc
 ```
 
 
-# Tổng kết {#3477b0eb61a480678742c66eed57556f}
+> `URLDownloadToFile`
 
 
-### Câu lệnh {#3477b0eb61a48097b997f32b3f4530c0}
+## Key takeaway {#3477b0eb61a480678742c66eed57556f}
 
 
-http.location contains "google”
+### Encoding types {#35e7b0eb61a480d9925dd60c942ef41f}
 
+1. The JavaScript Unicode Escape Sequence format.
+- The `%u` indicator (The Telltale Sign): This is the most obvious identifier. In programming languages (especially JavaScript and legacy browsers), the `%` sign acts as an escape character, and `u` stands for Unicode. It instructs the system: _"The next 4 characters represent a Unicode code point."_
+- Limited Alphabet: If you look closely at the characters following `%u`, you will notice they exclusively consist of digits from `0-9` and letters from `A-F` (e.g., C, B, D, E). This is strictly the Hexadecimal (base-16) numeral system. You will absolutely never see letters like G, H, or Z here.
+- Example: `%u9090%u9090` (This translates to standard NOP sleds `\x90\x90\x90\x90` packed into 2-byte chunks).
+
+2. Hex Encoding (C/C++ Format)
+
+- Description: Uses the `\x` prefix instead of `%u`, followed by exactly 2 hexadecimal characters (representing 1 byte of data). This is the standard way to represent raw shellcode or byte arrays in languages like C, C++, and Python.
+- Example: `\x33\xC0\x64\x8B` (In x86 assembly, this translates to `xor eax, eax; mov eax, fs:[edx]`).
+
+3. URL Encoding (Percent-Encoding)
+
+- Description: Similar to Hex encoding, but uses the `%` sign followed by 2 hex characters. It is predominantly seen in web address bars, HTTP requests, and cross-site scripting (XSS) payloads to safely transmit special characters over the internet.
+- Example: `%3Cscript%3E` (This translates to `<script>`). Or for raw bytes: `%33%C0%64%8B`.
+
+4. XOR / Custom Cipher
+
+- Description: Appears as a completely random blob of gibberish (high entropy). There is no discernible pattern, and no clear prefix like `%u` or `\x`. When you encounter this, it means the payload is encrypted. You must rely on tools like `scdbg` or manually trace the surrounding JavaScript/Assembly code (as we did in the previous question) to extract the decoding "key" and algorithm.
+- Example: `Ý}Í±ë©` (Raw byte garbage that cannot be read or executed until the shellcode's decoder stub XORs it against a static key like `0x99`).

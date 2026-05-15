@@ -6,42 +6,10 @@ slug: /34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c
 
 
 
-```c++
-bettercap
-bettercap --check-updates
-bettercap -S
-bettercap -X --no-spoofing
-bettercap -version
-bettercap -eval "caplets.update; ui.update; q"
-bettercap -caplet http-ui
-ipconfig
-nmap -Sp 10.0.2.15
-nmap -Sp 10.0.2.1-254
-nmap -sP 10.0.2.1-254
-ping 10.0.2.2.
-ping 10.0.2.2
-exit
-sdelete
-ipconfig
-ipconfig /cleardns
-ipconfig /flushdns
-exit
-sdelete
-exit
-ipconfig /flushdns
-ping dfir.science
-nmap dfir.science
-dir
-cd .\Documents\
-dir
-sdelete .\accountNum
-sdelete .\accountNum.zip
-exit
-cd E:\FTK_Imager_Lite_3.1.1
-& '.\FTK Imager.exe'
-exit
+---
 
-```
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/africanfalls/](https://cyberdefenders.org/blueteam-ctf-challenges/africanfalls/)
 
 
 
@@ -51,96 +19,135 @@ exit
 ### Q1 What is the MD5 hash value of the suspect disk? {#34a7b0eb61a48013b63fd2a66aa4d5d2}
 
 
-9471e69c95d8909ae60ddff30d50ffa1
+Whenever the evidence is collected using disk acquisition tools, a log file is typically generated alongside with it. By extracting the lab file, i found a file named `DiskDrigger.ad1.txt` which holds the MD5 hash information.
+
+
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-80eb-ac09-f5831a87e040.png)
+
+
+> `9471e69c95d8909ae60ddff30d50ffa1`
 
 
 ### Q2 What phrase did the suspect search for on 2021-04-29 18:17:38 UTC? (three words, two spaces in between) {#34a7b0eb61a4805ebe75c00692f5cc02}
 
 
-**Lịch sử duyệt Web:** Thường nằm ở `AppData \ Local \ Google \ Chrome \ User Data \ Default \ History` (hoặc Edge/Firefox tương tự). 
+This question requires some browser forensics investigation skills. 
 
 
-![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8059-9815-d05d8d048dfa.png)
+Loading the evidence file into FTK imager and inspecting the users folders reveals that there is only one user on this machine: `John Doe.`
 
 
-![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8096-a498-ed649ca7250c.png)
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-80d5-b112-cc7aa8faf21f.png)
 
 
-https://mail.protonmail.com/inbox/bny065irncZH3RBv_sI_lHrGx1CbOBXKt5wZ6GXq0LvlHedpUeCyJeS7fdkiCKb1g1WwdSUU3qspWA6bjyQkLA==
+I then searched for the browser that’s on the machine, identifying Google Chrome and Brave
 
 
-```c++
-import datetime
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-80e5-9e32-d881770a7423.png)
 
-def date_from_webkit(webkit_timestamp):
-    # 1. Define the Epoch as UTC
-    # Using datetime.UTC is the modern, non-deprecated way (Python 3.11+)
-    epoch_start = datetime.datetime(1601, 1, 1, tzinfo=datetime.timezone.utc)
 
-    # 2. Add the microseconds
-    delta = datetime.timedelta(microseconds=int(webkit_timestamp))
-    utc_time = epoch_start + delta
+The Chrome history file is stored at `Users\John Doe\AppData \ Local \ Google \ Chrome \ User Data \ Default \ History` (the similar path applies to Brave - a chromium-based web browser) . And by utilizing BrowsingHistoryView (Nirsoft) to read the history file, we can retrieve the answer
 
-    # 3. Print both UTC and Local time for clarity
-    print(f"UTC Time:   {utc_time.strftime('%Y-%m-%d %H:%M:%S.%f')}")
-    print(f"Local Time: {utc_time.astimezone().strftime('%Y-%m-%d %H:%M:%S.%f')}")
 
-# Usage
-try:
-    inTime = input('Enter a WebKit timestamp: ').strip()
-    if inTime:
-        date_from_webkit(inTime)
-except ValueError:
-    print("Please enter a valid numeric timestamp.")
-```
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8060-80a9-de3a3b77a9b6.png)
+
+
+> `password cracking lists`
+
+
+I also applied the similar method with Brave:
+
+
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8027-95db-dbf0928c1ce9.png)
+
+
+It appears the user was researching how to crack passwords using Hashcat and how to use SDelete (a Sysinternals tool).
 
 
 ### Q3 What is the IPv4 address of the FTP server the suspect connected to? {#34a7b0eb61a480eb84b2d34c9f67d2b4}
 
 
-192.168.1.20
+From previous question, we also found that Filezilla is install on the host.
+
+
+Filezilla is a free, open-source, and cross-platform File Transfer Protocol (FTP) client used to transfer files between a local computer and a remote web server.
+
+
+By reviewing the FileZilla configuration file: filezilla.xml
+
+
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8034-b0ab-fb9b3ebd4f00.png)
+
+
+We get the answer:
 
 
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8012-9dcf-efc30c8c3792.png)
 
 
-Tìm trong Filezilla is **a free, open-source, and cross-platform File Transfer Protocol (FTP) client used to transfer files between a local computer and a remote web serve**
+> `192.168.1.20`
 
 
 ### Q4 What date and time was a password list deleted in UTC? (YYYY-MM-DD HH:MM:SS UTC) {#34a7b0eb61a480229b4beb2bdb109e67}
 
 
+When a file is deleted, Windows splits it into two separate components:
+
+- The `$I` stands for Information. This file holds the metadata about the deleted file.
+	- **Original File Size:** How big the file was before it was deleted.
+	- **Deletion Timestamp:** The exact date and time the user deleted the file (stored in UTC format).
+	- **Original File Path:** The exact location where the file used to live on the hard drive (e.g., `C:\Users\John\Documents\report.docx`).
+- The `$R` stands for Recovery or Raw Data. This file holds the actual content of the file you deleted.
+
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8090-8a54-d88ef388c1db.png)
 
 
-2021-04-29 18:22
+By looking at the $I file, the answer must be:
+
+
+> `2021-04-29 18:22`
 
 
 ### Q5 How many times was Tor Browser ran on the suspect's computer? (number only) {#34a7b0eb61a48032a407e52edfc39936}
 
 
+To find evidence of execution, the most reliable artifact is prefetch which resides in `C:\Windows\Prefetch`
+
+
+For this question i used WinPrefetchView (also bt NirSoft):
+
+
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-80ad-91ff-fb3502e48591.png)
 
 
-Chỉ install không có nhấn
+I found evidence of the installer, but no sign of the Tor browser actually being executed. Therefore, the answer should be:
+
+
+> 0
 
 
 ### Q6 What is the suspect's email address? {#34a7b0eb61a480f79ac0f76f38978301}
 
 
-Dùng browsing history view của nirsoft. Ta có thể dùng cả của SQL db lite
+Scrolling through John Doe's browsing history again reveals access to a ProtonMail inbox:
 
 
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8085-acbd-f81a53e9dd1b.png)
 
 
-Inbox | dreammaker82@protonmail.com | ProtonMail
+> dreammaker82@protonmail.com
 
 
 ### Q7 What is the FQDN did the suspect port scan? {#34a7b0eb61a480629e01f474ec234240}
 
 
-dfir.science
+`ConsoleHost_history.txt` is a legitimate, default PowerShell file that acts as a log, storing up to 4,096 of the most recently executed commands for user convenience. 
+
+
+Path: `C:\Users\<Username>\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt`
+
+
+**Forensic significance:** It allows investigators to determine exactly what commands the user or attacker executed in PowerShell.
 
 
 ```c++
@@ -181,93 +188,23 @@ exit
 ```
 
 
+> dfir.science
+
+
 ### Q8 What country was picture "20210429_152043.jpg" allegedly taken in? {#34a7b0eb61a48048a029d3372f48be73}
 
 
-Dùng Exiftool ta được
+
+Using ExifTool with the `-a` flag to extract the image metadata.
 
 
-```c++
-
-C:\forensics\tools\exiftool-13.57_64>"exiftool(-k).exe" "C:\Users\cuong_nguyen\Desktop\CyberDefender\[root]\Users\John Doe\Pictures\Contact\20210429_151535.jpg"
-ExifTool Version Number         : 13.57
-File Name                       : 20210429_151535.jpg
-Directory                       : C:/Users/cuong_nguyen/Desktop/CyberDefender/[root]/Users/John Doe/Pictures/Contact
-File Size                       : 9.4 MB
-File Modification Date/Time     : 2021:04:29 22:15:36+07:00
-File Access Date/Time           : 2026:04:22 23:17:13+07:00
-File Creation Date/Time         : 2021:04:30 07:18:31+07:00
-File Permissions                : -rw-rw-rw-
-File Type                       : JPEG
-File Type Extension             : jpg
-MIME Type                       : image/jpeg
-Exif Byte Order                 : Big-endian (Motorola, MM)
-Camera Model Name               : LM-Q725K
-Orientation                     : Rotate 90 CW
-Modify Date                     : 2021:04:29 15:15:35
-Y Cb Cr Positioning             : Centered
-Warning                         : [minor] Unrecognized MakerNotes
-ISO                             : 50
-Exposure Program                : Not Defined
-F Number                        : 2.2
-Exposure Time                   : 1/127
-Sensing Method                  : One-chip color area
-Sub Sec Time Digitized          : 862265
-Sub Sec Time Original           : 862265
-Sub Sec Time                    : 862265
-Focal Length                    : 3.7 mm
-Flash                           : Off, Did not fire
-Metering Mode                   : Center-weighted average
-Scene Capture Type              : Standard
-User Comment                    : 0   AC original_brightness(114.4) bright_enhenced_level(0.0) brightness_shift(1.4) brightness_high_level(192), contrast_enhanced_level(18.9) isOutdoor(1) lux(228.5) FM0 CR0 Prmid2 mxDrkA0.01 mxBrtA0.09 mxPkNSat4.21 dr0.00 br34.11 wdr0.00 wbr23.49 sbr17.43 ldr0.00 lp51.0 [f0] 011111111bfalic 00000
-Interoperability Index          : R98 - DCF basic file (sRGB)
-Interoperability Version        : 0100
-Create Date                     : 2021:04:29 15:15:35
-Exposure Compensation           : 0
-Digital Zoom Ratio              : 1
-Exif Image Height               : 3120
-White Balance                   : Auto
-Date/Time Original              : 2021:04:29 15:15:35
-Brightness Value                : 0
-Exif Image Width                : 4160
-Exposure Mode                   : Auto
-Aperture Value                  : 2.2
-Components Configuration        : Y, Cb, Cr, -
-Color Space                     : sRGB
-Scene Type                      : Directly photographed
-Shutter Speed Value             : 1/127
-Exif Version                    : 0220
-Flashpix Version                : 0100
-Resolution Unit                 : inches
-GPS Altitude Ref                : Unknown (2.2)
-X Resolution                    : 72
-Y Resolution                    : 72
-Make                            : LG Electronics
-Thumbnail Offset                : 11247
-Thumbnail Length                : 23283
-Compression                     : JPEG (old-style)
-Image Width                     : 4160
-Image Height                    : 3120
-Encoding Process                : Baseline DCT, Huffman coding
-Bits Per Sample                 : 8
-Color Components                : 3
-Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
-Aperture                        : 2.2
-Image Size                      : 4160x3120
-Megapixels                      : 13.0
-Shutter Speed                   : 1/127
-Create Date                     : 2021:04:29 15:15:35.862265
-Date/Time Original              : 2021:04:29 15:15:35.862265
-Modify Date                     : 2021:04:29 15:15:35.862265
-Thumbnail Image                 : (Binary data 23283 bytes, use -b option to extract)
-GPS Altitude                    : 0 m Above Sea Level
-Focal Length 35mm Equiv         : 3.7 mm
-Light Value                     : 10.3
--- press ENTER --
-```
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8084-a027-fffbcbae0e25.png)
 
 
-Zambia
+Search for the GPS coordinates results in:
+
+
+> Zambia
 
 
 ### Q9 What is the parent folder name picture "20210429_151535.jpg" was in before the suspect copy it to "contact" folder on his desktop? {#34a7b0eb61a4809d802ded7bc0da0aa4}
@@ -276,30 +213,68 @@ Zambia
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-80a0-b0d8-e778473c88fc.png)
 
 
-Ta dùng shellbag explorer. So sánh thời gian xác định Camera
+I searched on google for the device model:
 
 
-![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-80b0-9966-e3cc08082b02.png)
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-806e-b41c-d5a544ef5a97.png)
 
 
-### Q10 A Windows password hashes for an account are below. What is the user's password? Anon:1001:aad3b435b51404eeaad3b435b51404ee:3DE1A36F6DDB8E036DFD75E8E20C4AF4::: {#34a7b0eb61a4801fb424e16d4c5a925c}
+It’s the LG Q7 - a smartphone. The image was captured on the phone and then imported to the PC. To confirm the origin folder, i used shellbags explorer
 
 
-NTLM hash không có salt. Có thể dùng rainbow attack được. Để recover ta vào trang web giải mã hash bất kỳ như là hashes dot com
+Shellbags indicates the folder that the user had interacted with. So every folder the user touched, is stored in shellbags. There are 2 types of shellbags based on type of folder being accessed:
+
+- `NTUSER.dat` : tracks interactions with **network locations**, **mapped network drives**, and sometimes folders located directly on the user's Desktop.
+- `USRCLASS.dat` : records interactions with the **local file system** and **removable media**.
+
+USRCLASS proves to be more useful in this case
 
 
-AFR1CA!
+Using ShellBags Explorer, we can see the interaction time alligns perfectly with our hypothesis
+
+
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8091-a63b-fbb6fab72614.png)
+
+
+So the answer should be: 
+
+
+> Camera
+
+
+### Q10 A Windows password hashes for an account are below. What is the user's password?Anon:1001:aad3b435b51404eeaad3b435b51404ee:3DE1A36F6DDB8E036DFD75E8E20C4AF4::: {#34a7b0eb61a4801fb424e16d4c5a925c}
+
+
+NTLM hashes are not salted. Therefore, a rainbow table attack can be used. To recover the password, you can use any online hash decryption website, such as [hashes.com](http://hashes.com/).
+
+
+![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.3607b0eb-61a4-8011-9a63-c9fc15243d20.png)
+
+
+> AFR1CA!
 
 
 ### Q11 What is the user "John Doe's" Windows login password? {#34a7b0eb61a480558872cbc896b16a32}
 
 
-`mimikatz # lsadump::sam /system:C:\Users\cuong_nguyen\Desktop\CyberDefender\[root]\Windows\System32\config\SYSTEM /sam:C:\Users\cuong_nguyen\Desktop\CyberDefender [root]\Windows\System32\config\SAM
+I used mimikatz to extract the NTLM hash from SAM hive:
 
-RID  : 000003e9 (1001)
+
+```sql
+mimikatz # lsadump::sam /system:C:\Users\cuong_nguyen\Desktop\CyberDefender\[root]\Windows\System32\config\SYSTEM /sam:C:\Users\cuong_nguyen\Desktop\CyberDefender [root]\Windows\System32\config\SAM
+```
+
+
+`RID  : 000003e9 (1001)
 User : John Doe
   Hash NTLM: ecf53750b76cc9a62057ca85ff4c850e`
 
 
+And navigated to [hashes.com](http://hashes.com/) to decrypt the hash:
+
+
 ![](./34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c.34a7b0eb-61a4-8053-ae29-fee0e313275b.png)
+
+
+> ctf2021
 

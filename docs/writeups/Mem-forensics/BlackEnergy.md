@@ -6,6 +6,12 @@ slug: /34d7b0eb-61a4-808b-9469-c7a7cc51e0b1
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/blackenergy/#nav-questions](https://cyberdefenders.org/blueteam-ctf-challenges/blackenergy/#nav-questions)
+
+
 Q1 Which volatility profile would be best for this machine?
 
 

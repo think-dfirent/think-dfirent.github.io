@@ -6,6 +6,12 @@ slug: /34c7b0eb-61a4-807a-80ef-f6224405ea65
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/szechuan-sauce/](https://cyberdefenders.org/blueteam-ctf-challenges/szechuan-sauce/)
+
+
 ### Q1 What’s the Operating System version of the Server? (two words) {#34c7b0eb61a48017a674d18392787f6d}
 
 

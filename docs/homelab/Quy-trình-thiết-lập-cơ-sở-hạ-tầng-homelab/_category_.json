@@ -1,9 +1,8 @@
 {
-    "position": 4,
-    "label": "Quy trình thiết lập cơ sở hạ tầng homelab",
-    "link": {
-        "type": "generated-index",
-        "slug": "/homelab/setup-process",
-        "description": "Toàn bộ tài liệu và các bước thiết lập cơ sở hạ tầng Homelab"
-    }
+  "position": 3,
+  "label": "Quy trình thiết lập cơ sở hạ tầng homelab",
+  "link": {
+    "type": "generated-index",
+    "description": "All documentation for Quy trình thiết lập cơ sở hạ tầng homelab"
+  }
 }

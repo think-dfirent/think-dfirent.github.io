@@ -6,6 +6,12 @@ slug: /3527b0eb-61a4-80d3-b532-fd2b16906844
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/deepdive/](https://cyberdefenders.org/blueteam-ctf-challenges/deepdive/)
+
+
 [https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/ntos/ob/object_header/infomask.htm](https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/ntos/ob/object_header/infomask.htm)
 
 

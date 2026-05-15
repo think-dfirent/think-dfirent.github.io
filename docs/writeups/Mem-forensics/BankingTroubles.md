@@ -6,6 +6,12 @@ slug: /3507b0eb-61a4-80a7-a774-fab7c1361a3a
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/bankingtroubles/](https://cyberdefenders.org/blueteam-ctf-challenges/bankingtroubles/)
+
+
 vol2 -f Bob.vmem --profile=WinXPSP2x86 -g 0x80544ce0
 
 

@@ -6,6 +6,12 @@ slug: /3547b0eb-61a4-8042-b479-e3236244f5e9
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/gitthegate/](https://cyberdefenders.org/blueteam-ctf-challenges/gitthegate/)
+
+
 The attack appears to have taken place on the 25th of May between 9 am and 11:30 am
 
 - **.alerts-security.alerts-default...**: Đây là kho chứa **kết quả cảnh báo**. Khi hệ thống Elastic Security phát hiện ra mã độc hoặc hành vi đáng ngờ (dựa trên các rule được cài đặt), nó sẽ sinh ra một "Alert" và lưu vào đây. Bạn đang thấy dấu chấm `.` ở đầu tên, điều này ám chỉ đây là _System Index_ (kho dữ liệu hệ thống ẩn, thường không nên chỉnh sửa tay).

@@ -6,6 +6,12 @@ slug: /34b7b0eb-61a4-804b-8405-e98d92fdb56d
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/corporatesecrets/](https://cyberdefenders.org/blueteam-ctf-challenges/corporatesecrets/)
+
+
 Q1 What is the current build number on the system?
 
 

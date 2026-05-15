@@ -6,6 +6,12 @@ slug: /34d7b0eb-61a4-80c3-ac85-c7c4c86e1794
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/mrrobot/](https://cyberdefenders.org/blueteam-ctf-challenges/mrrobot/)
+
+
 # 1. Tổng quan {#34f7b0eb61a4807fb8c3eab291275c84}
 
 

@@ -72,7 +72,7 @@ The following list represents the most common persistence-related keys:
 If you have trouble finding the hive, use: `[VOL]hivelist`  to find the virtual offset. Then use the offset to find the key in that corresponding hive
 
 
-`[VOL] -o <hive_virtual_offset> -K <key_path>` 
+`[VOL] printkey -o <hive_virtual_offset> -K <key_path>` 
 
 
 ## 5. Filesystem {#3317b0eb61a480b5bb2cc4e5f764e525}

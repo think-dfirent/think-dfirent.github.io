@@ -6,6 +6,12 @@ slug: /3547b0eb-61a4-80d1-bbce-d584354a9f08
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/elasticcase/](https://cyberdefenders.org/blueteam-ctf-challenges/elasticcase/)
+
+
 Feb 2, 2022 @ 15:38:46.493 ahmed
 
 

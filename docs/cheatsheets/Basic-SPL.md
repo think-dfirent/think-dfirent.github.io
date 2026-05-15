@@ -77,7 +77,7 @@ slug: /3557b0eb-61a4-8008-8059-e13182e4d14f
 ---
 
 
-# 6. Splunk Piping {#3597b0eb61a4800dbd0fcf0072b59026}
+## 6. Splunk Piping {#3597b0eb61a4800dbd0fcf0072b59026}
 
 
 In ELK, Kibana automatically draws tables and charts as you type KQL. In Splunk, after filtering with keywords, you must use the pipe character (`|`) to call drawing or statistical commands.

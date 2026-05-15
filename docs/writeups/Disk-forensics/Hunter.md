@@ -6,6 +6,12 @@ slug: /34c7b0eb-61a4-8006-8ceb-d1be23180799
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/hunter/](https://cyberdefenders.org/blueteam-ctf-challenges/hunter/)
+
+
 ### Q1 What is  he computer name of the suspect machine? {#34c7b0eb61a480e49a08faa563cb0756}
 
 
@@ -275,3 +281,7 @@ C:\Users\Hunter\Desktop\Tor Browser\Browser\firefox.exe
 
 - khóa Registry (nằm trong `NTUSER.DAT` và `UsrClass.dat`) dùng để **ghi nhớ sở thích hiển thị thư mục** của người dùng.
 - Chứng minh hành vi chủ động: **BẤT KỲ thư mục nào bạn từng mở, dù chỉ MỘT LẦN duy nhất**.
+
+
+
+

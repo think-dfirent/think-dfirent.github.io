@@ -6,6 +6,12 @@ slug: /3507b0eb-61a4-80d4-a4b1-dcd508f10aef
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/dumpme/](https://cyberdefenders.org/blueteam-ctf-challenges/dumpme/)
+
+
 ### Q1 What is the SHA1 hash of Triage-Memory.mem (memory dump)? {#3507b0eb61a48021817ad0325d4a2e76}
 
 

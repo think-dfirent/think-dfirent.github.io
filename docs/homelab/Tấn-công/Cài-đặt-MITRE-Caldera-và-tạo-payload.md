@@ -1,6 +1,6 @@
 ---
 title: Cài đặt MITRE Caldera và tạo payload
-sidebar_position: 2
+sidebar_position: 1
 slug: /3547b0eb-61a4-80c4-8540-e431b87b54d7
 ---
 

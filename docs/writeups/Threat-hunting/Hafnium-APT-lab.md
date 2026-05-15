@@ -1,8 +1,15 @@
 ---
 title: Hafnium APT lab
 sidebar_position: 2
+slug: /3537b0eb-61a4-80ae-863a-c7b31d2ff397
 ---
 
+
+
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/hafnium-apt/](https://cyberdefenders.org/blueteam-ctf-challenges/hafnium-apt/)
 
 
 ### Q1: What is the name of the threat detected by Windows Defender? {#3537b0eb61a480ca90f6cfa364b7799b}

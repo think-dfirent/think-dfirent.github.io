@@ -1,6 +1,6 @@
 ---
 title: Tài nguyên
-sidebar_position: 1
+sidebar_position: 0
 slug: /33f7b0eb-61a4-80f3-9170-e537f413b0ef
 ---
 

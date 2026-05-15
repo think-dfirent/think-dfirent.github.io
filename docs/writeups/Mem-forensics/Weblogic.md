@@ -6,6 +6,12 @@ slug: /3517b0eb-61a4-8086-b808-cd2155502a3b
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/weblogic/](https://cyberdefenders.org/blueteam-ctf-challenges/weblogic/)
+
+
 ### Q1 What is the version of the WebLogic server installed on the system? {#3517b0eb61a480a58b54e0d66b98cf53}
 
 

@@ -6,6 +6,12 @@ slug: /3517b0eb-61a4-8001-ba84-d5489f01853a
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/teamspy/](https://cyberdefenders.org/blueteam-ctf-challenges/teamspy/)
+
+
 Sau khi dùng malfind không thấy dấu hiệu MZ
 
 

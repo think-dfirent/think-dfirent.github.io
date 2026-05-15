@@ -7,19 +7,19 @@ const recentWriteups = [
     title: "LockBit Ransomware Investigation",
     excerpt: "Analyzing disk artifacts and execution flows of the LockBit ransomware.",
     tags: ["Disk Forensics", "Ransomware", "Malware Analysis"],
-    link: "/docs/writeups/Disk-forensics/LockBit",
+    link: "/docs/3487b0eb-61a4-80ec-ac7a-f3dbb9979601",
   },
   {
     title: "Boss of the SOC v1",
     excerpt: "Threat hunting using Splunk to uncover APT activity and lateral movement.",
     tags: ["Threat Hunting", "Splunk", "APT"],
-    link: "/docs/writeups/Threat-hunting/Boss-Of-The-SOC-v1",
+    link: "/docs/3557b0eb-61a4-8014-a7a8-dc2e81d66086",
   },
   {
     title: "Hafnium APT Lab",
     excerpt: "Investigating Microsoft Exchange Server vulnerabilities and web shell deployments.",
     tags: ["Incident Response", "Web Shell", "Windows Event Logs"],
-    link: "/docs/writeups/Threat-hunting/Hafnium-APT-lab",
+    link: "/docs/3537b0eb-61a4-80ae-863a-c7b31d2ff397",
   }
 ];
 
@@ -34,7 +34,7 @@ const homelabPosts = [
     title: "SOC Environment Setup",
     excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for enterprise log analysis.",
     tags: ["Splunk", "Windows Event Logs", "Sysmon"],
-    link: "/docs/homelab/setup-process",
+    link: "/docs/33f7b0eb-61a4-80d9-95fc-fbee8ffdc131",
   }
 ];
 

@@ -1,6 +1,6 @@
 ---
 title: Thiết kế
-sidebar_position: 2
+sidebar_position: 1
 slug: /33e7b0eb-61a4-8059-988d-fda1462ed560
 ---
 

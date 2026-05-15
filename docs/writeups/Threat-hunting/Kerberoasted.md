@@ -6,6 +6,12 @@ slug: /3537b0eb-61a4-80b0-b775-c83f078d17ab
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/kerberoasted/](https://cyberdefenders.org/blueteam-ctf-challenges/kerberoasted/)
+
+
 # Kerberos {#3537b0eb61a480e0b584e2b8e0bfc1d5}
 
 

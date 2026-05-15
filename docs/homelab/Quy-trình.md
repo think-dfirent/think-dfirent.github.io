@@ -1,6 +1,6 @@
 ---
 title: Quy trình
-sidebar_position: 3
+sidebar_position: 2
 slug: /33f7b0eb-61a4-80d9-95fc-fbee8ffdc131
 ---
 
@@ -46,12 +46,13 @@ slug: /33f7b0eb-61a4-80d9-95fc-fbee8ffdc131
 
 - **Mục tiêu:** Chạy trọn vẹn 11 bước trong Playbook và thu thập bằng chứng.
 - **Công việc:**
-	- Thiết lập **C2 Server (Mythic hoặc Sliver)** trên máy Kali.
+	- Thiết lập **C2 Server (Caldera)** trên máy Kali.
 	- Thực hiện tuần tự 11 bước: Từ gửi link Phishing -> Leo quyền -> Lateral Movement -> Ransomware.
 	- **Quan trọng:** Sau mỗi bước tấn công, bạn phải dừng lại, sang máy Splunk tìm xem Log nào vừa được sinh ra. Chụp ảnh màn hình làm bằng chứng (Evidence).
 
 ### Tuần 6: Phân tích & Hoàn thiện báo cáo (Final DFIR Report) {#33f7b0eb61a48076a992c12102d366fb}
 
+- Tiến hành điều tra: phân tích event logs (4624, 7045, 4698, 4104,…) và log sysmon để threat hunting, thực hiện dump RAM và disk kết hợp sử dụng volatility2,3 và bộ công cụ FTK imager, EZ suite để phân tích.
 - **Mục tiêu:** Biến dữ liệu thành một dự án có thể trình chiếu.
 - **Công việc:**
 	- Xây dựng **Dashboard trên Splunk**: Biểu đồ hóa các lần đăng nhập sai, các tiến trình PowerShell đáng ngờ.

@@ -6,6 +6,12 @@ slug: /3507b0eb-61a4-80d0-8665-dd4ed707c253
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/injector/](https://cyberdefenders.org/blueteam-ctf-challenges/injector/)
+
+
 ### Q1 What is the computer's name? {#3507b0eb61a4801aae45cce2a6d6e619}
 
 

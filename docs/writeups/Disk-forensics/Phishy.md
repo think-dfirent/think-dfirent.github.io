@@ -6,17 +6,31 @@ slug: /34b7b0eb-61a4-8079-a099-d642c9654ab4
 
 
 
+---
+
+
+[https://cyberdefenders.org/blueteam-ctf-challenges/phishy/](https://cyberdefenders.org/blueteam-ctf-challenges/phishy/)
+
+
 ### Q1 What is the hostname of the victim machine? {#34b7b0eb61a480f38af8ffb129b6e0ac}
 
 
-Data
+Navigating to ComputerName key within the System hive
+
+
 WIN-NF3JQEU4G0T
 
 
 ### Q2 What is the messaging app installed on the victim machine? {#34b7b0eb61a48049ac21f91dbf774e05}
 
 
+Utilizing FTK imager to load the ad1 file, i navigate to C:\Users\Semah\AppData
+
+
 ![](./34b7b0eb-61a4-8079-a099-d642c9654ab4.34b7b0eb-61a4-8043-84fc-e1d098297717.png)
+
+
+> Whatsapp
 
 
 ### Q3 The attacker tricked the victim into downloading a malicious document. Provide the full download URL. {#34b7b0eb61a480ad921aef8a3bba2de2}
@@ -26,27 +40,13 @@ C:\Users\cuong_nguyen\Desktop\CyberDefender\Users\Semah\Downloads
 
 
 okay you can check this file below :
-https : / / [drive.google.com](http://drive.google.com/) / file / d / 1l1xn6r - za4w1me2uze8lxh45gfhsw66d / view ? usp = sharing readme.txt https : / / [drive.google.com](http://drive.google.com/) / file / d / 1l1xn6r - za4w1me2uze8lxh45gfhsw66d / view ? usp = sharing & usp = embed_facebook
-
-
-:::tip
-
-Whatsapp hay zalo, discord, slack đều là ứng dụng Electon, tức là một trình duyệt chrome thu nhỏ, chạy ngầm để hiển thị giao diện
-Không lưu tin nhắn dưới dạng tệp SQlite. Mà cấu trúc dữ liệu là IndexedDB/LevelDb
-
-- `...\WhatsApp\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb`
-
-_Để phân tích: LevelDB Viewer_, các script Python parse LevelDB, hoặc các bộ tool thương mại đắt tiền như Magnet AXIOM, Belkasoft).
-
-:::
-
-
-
-
-http://appIe.com/IPhone-Winners.doc
+https : / / drive.google.com / file / d / 1l1xn6r - za4w1me2uze8lxh45gfhsw66d / view ? usp = sharing readme.txt https : / / drive.google.com / file / d / 1l1xn6r - za4w1me2uze8lxh45gfhsw66d / view ? usp = sharing & usp = embed_facebook
 
 
 ![](./34b7b0eb-61a4-8079-a099-d642c9654ab4.34b7b0eb-61a4-80db-8c7d-fd782822870b.png)
+
+
+> http://appIe.com/IPhone-Winners.doc
 
 
 ### Q4 Multiple streams contain macros in the document. Provide the number of the highest stream. {#34b7b0eb61a48056bf08c30b0be031e7}
