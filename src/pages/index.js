@@ -4,37 +4,37 @@ import Link from '@docusaurus/Link';
 
 const recentWriteups = [
   {
-    title: "LockBit Ransomware Investigation",
+    title: "LockBit",
     excerpt: "Analyzing disk artifacts and execution flows of the LockBit ransomware.",
     tags: ["Disk Forensics", "Ransomware", "Malware Analysis"],
     link: "/docs/3487b0eb-61a4-80ec-ac7a-f3dbb9979601",
   },
   {
-    title: "Boss of the SOC v1",
-    excerpt: "Threat hunting using Splunk to uncover APT activity and lateral movement.",
-    tags: ["Threat Hunting", "Splunk", "APT"],
-    link: "/docs/3557b0eb-61a4-8014-a7a8-dc2e81d66086",
+    title: "NukeTheBrowser",
+    excerpt: "Analyzing malicious network traffic to uncover malware delivery and exploitation.",
+    tags: ["Network Analysis", "Wireshark", "Malware Analysis"],
+    link: "/docs/3477b0eb-61a4-8049-b232-e093c0f8c839",
   },
   {
-    title: "Hafnium APT Lab",
-    excerpt: "Investigating Microsoft Exchange Server vulnerabilities and web shell deployments.",
-    tags: ["Incident Response", "Web Shell", "Windows Event Logs"],
-    link: "/docs/3537b0eb-61a4-80ae-863a-c7b31d2ff397",
+    title: "Kerberoasted",
+    excerpt: "Investigating a Kerberoasting attack, analyzing Windows Event Logs and WMI persistence mechanisms.",
+    tags: ["Threat Hunting", "Active Directory", "Windows Event Logs"],
+    link: "/docs/3537b0eb-61a4-80b0-b775-c83f078d17ab",
   }
 ];
 
 const homelabPosts = [
   {
-    title: "Architecture Design",
+    title: "Homelab Architecture",
     excerpt: "Detailed architectural overview of the Proxmox-based cybersecurity homelab.",
     tags: ["Splunk", "pfSense", "OpenVPN"],
-    link: "/docs/homelab",
+    link: "/docs/33e7b0eb-61a4-8059-988d-fda1462ed560",
   },
   {
-    title: "SOC Environment Setup",
+    title: "Homelab Infrastructure Deployment",
     excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for enterprise log analysis.",
     tags: ["Splunk", "Windows Event Logs", "Sysmon"],
-    link: "/docs/33f7b0eb-61a4-80d9-95fc-fbee8ffdc131",
+    link: "/docs/category/homelab-infrastructure-deployment",
   }
 ];
 
