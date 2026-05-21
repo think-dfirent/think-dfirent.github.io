@@ -2,6 +2,18 @@
 title: ElasticCase
 sidebar_position: 3
 slug: /3547b0eb-61a4-80d1-bbce-d584354a9f08
+tags:
+  - ELK
+  - Linux
+  - Log4j
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Registry
+  - Sysmon
+  - Threat Hunting
+  - Windows
+  - Windows Event Logs
 ---
 
 
@@ -106,7 +118,7 @@ Kiểm ta thấy malicious file phải kết nối tới attacker và 192.168.10
 ### Q5: Another user with high privilege runs the same malicious file. What is the username? {#3547b0eb61a48040b675d67ff45dd824}
 
 
-integrity level ở mức , tức là admind
+integrity level ở mức high , tức là admin
 
 
 ![](./3547b0eb-61a4-80d1-bbce-d584354a9f08.3547b0eb-61a4-80f9-9dd3-ef2d7eb05343.png)

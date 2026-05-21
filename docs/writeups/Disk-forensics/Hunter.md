@@ -2,6 +2,13 @@
 title: Hunter
 sidebar_position: 9
 slug: /34c7b0eb-61a4-8006-8ceb-d1be23180799
+tags:
+  - DFIR
+  - Digital Forensics
+  - Disk Forensics
+  - Linux
+  - Registry
+  - Windows
 ---
 
 

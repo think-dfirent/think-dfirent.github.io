@@ -2,6 +2,13 @@
 title: BlackEnergy
 sidebar_position: 0
 slug: /34d7b0eb-61a4-808b-9469-c7a7cc51e0b1
+tags:
+  - Digital Forensics
+  - Linux
+  - Memory Forensics
+  - Registry
+  - Volatility
+  - Windows
 ---
 
 

@@ -1,7 +1,15 @@
 ---
 title: Basic SPL
-sidebar_position: 2
+sidebar_position: 3
 slug: /3557b0eb-61a4-8008-8059-e13182e4d14f
+tags:
+  - Cheat Sheets
+  - ELK
+  - Linux
+  - Malware Analysis
+  - PowerShell
+  - Splunk
+  - Windows
 ---
 
 

@@ -2,6 +2,12 @@
 title: Hafnium APT lab
 sidebar_position: 2
 slug: /3537b0eb-61a4-80ae-863a-c7b31d2ff397
+tags:
+  - Credential Access
+  - Malware Analysis
+  - PowerShell
+  - Threat Hunting
+  - Windows
 ---
 
 

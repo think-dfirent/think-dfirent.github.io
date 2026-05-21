@@ -2,6 +2,13 @@
 title: NukeTheBrowser 
 sidebar_position: 9
 slug: /3477b0eb-61a4-8049-b232-e093c0f8c839
+tags:
+  - Malware Analysis
+  - Network Analysis
+  - NukeTheBrowser
+  - PowerShell
+  - Windows
+  - Wireshark
 ---
 
 

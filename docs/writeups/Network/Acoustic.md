@@ -2,6 +2,12 @@
 title: Acoustic
 sidebar_position: 8
 slug: /3477b0eb-61a4-8093-b7ef-c62076ecfb01
+tags:
+  - Linux
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Wireshark
 ---
 
 

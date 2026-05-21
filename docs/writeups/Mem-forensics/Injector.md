@@ -2,6 +2,14 @@
 title: Injector
 sidebar_position: 3
 slug: /3507b0eb-61a4-80d0-8665-dd4ed707c253
+tags:
+  - Digital Forensics
+  - Linux
+  - MITRE ATT&CK
+  - Memory Forensics
+  - Registry
+  - Volatility
+  - Windows
 ---
 
 

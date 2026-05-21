@@ -2,6 +2,16 @@
 title: Chapter 11- Endpoint security
 sidebar_position: 12
 slug: /2be7b0eb-61a4-80cf-bbf7-ca3c3b8c94ac
+tags:
+  - Active Directory
+  - CompTIA Security+
+  - Fortinet
+  - Linux
+  - Malware Analysis
+  - PowerShell
+  - Ransomware
+  - Registry
+  - Windows
 ---
 
 

@@ -1,7 +1,17 @@
 ---
 title: ELK Threat hunting
-sidebar_position: 3
+sidebar_position: 4
 slug: /3597b0eb-61a4-8000-96ba-c4d3cf3e97dd
+tags:
+  - Cheat Sheets
+  - ELK
+  - Lateral Movement
+  - Malware Analysis
+  - PowerShell
+  - PsExec
+  - Ransomware
+  - Threat Hunting
+  - Windows
 ---
 
 

@@ -2,6 +2,8 @@
 title: Intro
 sidebar_position: 0
 slug: /35a7b0eb-61a4-8006-8a4c-f0351336598d
+tags:
+  - CompTIA Security+
 ---
 
 

@@ -2,6 +2,11 @@
 title: Chapter 4- Social engineering and password attack
 sidebar_position: 5
 slug: /2b77b0eb-61a4-8055-b065-efd05e346789
+tags:
+  - CompTIA Security+
+  - Linux
+  - Malware Analysis
+  - Windows
 ---
 
 

@@ -2,6 +2,15 @@
 title: GitTheGate
 sidebar_position: 4
 slug: /3547b0eb-61a4-8042-b479-e3236244f5e9
+tags:
+  - Digital Forensics
+  - ELK
+  - Linux
+  - Network Analysis
+  - Sysmon
+  - Threat Hunting
+  - Windows
+  - Windows Event Logs
 ---
 
 

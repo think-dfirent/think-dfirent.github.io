@@ -28,13 +28,25 @@ const homelabPosts = [
     title: "Homelab Architecture",
     excerpt: "Detailed architectural overview of the Proxmox-based cybersecurity homelab.",
     tags: ["Splunk", "pfSense", "OpenVPN"],
-    link: "/docs/33e7b0eb-61a4-8059-988d-fda1462ed560",
+    link: "/docs/3677b0eb-61a4-801f-b5d1-d09ab375a805",
   },
   {
-    title: "Homelab Infrastructure Deployment",
+    title: "Infrastructure Deployment",
     excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for enterprise log analysis.",
     tags: ["Splunk", "Windows Event Logs", "Sysmon"],
-    link: "/docs/category/homelab-infrastructure-deployment",
+    link: "/docs/category/infrastructure-deployment",
+  },
+  {
+    title: "Adversary Emulation (MITRE Caldera)",
+    excerpt: "Simulating real-world threat actor behaviors and techniques using MITRE Caldera to validate logging and detection capabilities.",
+    tags: ["Caldera", "MITRE ATT&CK"],
+    link: "/docs/category/adversary-emulation-mitre-caldera",
+  },
+  {
+    title: "Investigation and Reporting",
+    excerpt: "Analyzing system telemetry, memory, and disk artifacts to investigate intrusions and document findings in formal reports.",
+    tags: ["DFIR", "Splunk", "Incident Response"],
+    link: "/docs/category/investigation-and-reporting",
   }
 ];
 
@@ -54,11 +66,21 @@ function LogCard({ item }) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2 mt-auto">
-          {item.tags.map((tag, idx) => (
-            <span key={idx} className="px-2.5 py-1 bg-gray-50 dark:bg-[#222] text-xs font-sans text-gray-600 dark:text-gray-300 rounded-md font-medium border border-gray-200 dark:border-[#333] transition-colors">
-              {tag}
-            </span>
-          ))}
+          {item.tags.map((tag, idx) => {
+            const tagSlug = (tag.match(/[A-Z]?[a-z]+|[A-Z]+(?=[A-Z][a-z]|\b)|[0-9]+/g) || [])
+              .map(w => w.toLowerCase())
+              .join('-');
+            return (
+              <Link
+                key={idx}
+                to={`/docs/tags/${tagSlug}`}
+                className="px-2.5 py-1 bg-gray-50 dark:bg-[#222] hover:bg-blue-50 dark:hover:bg-blue-950/20 text-xs font-sans text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md font-medium border border-gray-200 dark:border-[#333] hover:border-blue-200 dark:hover:border-blue-900 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {tag}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </Link>

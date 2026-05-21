@@ -2,6 +2,15 @@
 title: TeamSpy
 sidebar_position: 6
 slug: /3517b0eb-61a4-8001-ba84-d5489f01853a
+tags:
+  - Digital Forensics
+  - Linux
+  - Malware Analysis
+  - Memory Forensics
+  - Network Analysis
+  - Ransomware
+  - Volatility
+  - Windows
 ---
 
 

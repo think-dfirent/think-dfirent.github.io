@@ -2,6 +2,11 @@
 title: PacketMaze
 sidebar_position: 6
 slug: /3467b0eb-61a4-8092-aa89-fbaac15f6c05
+tags:
+  - DFIR
+  - Network Analysis
+  - Windows
+  - Wireshark
 ---
 
 

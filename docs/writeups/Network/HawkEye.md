@@ -2,6 +2,11 @@
 title: HawkEye
 sidebar_position: 3
 slug: /3467b0eb-61a4-8099-ace9-e5af6d741583
+tags:
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Windows
 ---
 
 

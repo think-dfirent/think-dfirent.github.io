@@ -2,6 +2,14 @@
 title: BankingTroubles
 sidebar_position: 4
 slug: /3507b0eb-61a4-80a7-a774-fab7c1361a3a
+tags:
+  - Digital Forensics
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Memory Forensics
+  - Registry
+  - Volatility
+  - Windows
 ---
 
 

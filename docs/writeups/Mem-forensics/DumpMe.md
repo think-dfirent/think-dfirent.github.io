@@ -2,6 +2,11 @@
 title: DumpMe
 sidebar_position: 2
 slug: /3507b0eb-61a4-80d4-a4b1-dcd508f10aef
+tags:
+  - Digital Forensics
+  - Memory Forensics
+  - Volatility
+  - Windows
 ---
 
 

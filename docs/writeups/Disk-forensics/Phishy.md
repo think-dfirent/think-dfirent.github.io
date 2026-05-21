@@ -2,6 +2,11 @@
 title: Phishy
 sidebar_position: 6
 slug: /34b7b0eb-61a4-8079-a099-d642c9654ab4
+tags:
+  - Digital Forensics
+  - Disk Forensics
+  - Malware Analysis
+  - PowerShell
 ---
 
 

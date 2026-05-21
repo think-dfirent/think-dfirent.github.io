@@ -2,6 +2,10 @@
 title: CorporateSecrets
 sidebar_position: 7
 slug: /34b7b0eb-61a4-804b-8405-e98d92fdb56d
+tags:
+  - Digital Forensics
+  - Disk Forensics
+  - Windows
 ---
 
 

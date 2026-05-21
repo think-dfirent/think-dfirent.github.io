@@ -2,6 +2,22 @@
 title: PwnedDC - FIN7 Lab
 sidebar_position: 2
 slug: /3497b0eb-61a4-80fa-8cc9-f51255ed3054
+tags:
+  - Active Directory
+  - Digital Forensics
+  - Disk Forensics
+  - Lateral Movement
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Memory Forensics
+  - PowerShell
+  - PsExec
+  - Ransomware
+  - Registry
+  - Sysmon
+  - Volatility
+  - Windows
+  - Windows Event Logs
 ---
 
 

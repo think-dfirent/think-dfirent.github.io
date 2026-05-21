@@ -2,6 +2,17 @@
 title: Chapter 14- Monitoring and incident response
 sidebar_position: 15
 slug: /2c57b0eb-61a4-80cc-b46f-c7b5b1fae799
+tags:
+  - CompTIA Security+
+  - Digital Forensics
+  - Linux
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Registry
+  - Windows
+  - Wireshark
 ---
 
 

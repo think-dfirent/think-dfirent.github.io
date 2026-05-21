@@ -2,6 +2,9 @@
 title: Chapter 7- Cryptography and the PKI
 sidebar_position: 8
 slug: /2bc7b0eb-61a4-804d-aac7-fe7dc0d2e6b5
+tags:
+  - CompTIA Security+
+  - Windows
 ---
 
 

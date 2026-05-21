@@ -2,6 +2,12 @@
 title: AfricanFalls
 sidebar_position: 4
 slug: /34a7b0eb-61a4-8014-bf5f-f1de0a4e1d9c
+tags:
+  - DFIR
+  - Digital Forensics
+  - Disk Forensics
+  - PowerShell
+  - Windows
 ---
 
 

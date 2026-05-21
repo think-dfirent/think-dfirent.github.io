@@ -2,6 +2,8 @@
 title: Chapter 13- Wireless and mobile security
 sidebar_position: 14
 slug: /2c47b0eb-61a4-80e5-af13-fb0896b9de56
+tags:
+  - CompTIA Security+
 ---
 
 

@@ -2,6 +2,18 @@
 title: Zerologon
 sidebar_position: 1
 slug: /3487b0eb-61a4-80a7-84f7-e8e07815e010
+tags:
+  - Active Directory
+  - Credential Access
+  - Digital Forensics
+  - Disk Forensics
+  - Malware Analysis
+  - PowerShell
+  - Registry
+  - Sysmon
+  - WMI
+  - Windows
+  - Windows Event Logs
 ---
 
 

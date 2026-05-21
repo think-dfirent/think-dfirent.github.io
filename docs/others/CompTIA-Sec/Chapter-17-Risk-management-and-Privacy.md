@@ -2,6 +2,8 @@
 title: Chapter 17- Risk management and Privacy
 sidebar_position: 18
 slug: /2c77b0eb-61a4-80e7-83ce-e0e67e6752ed
+tags:
+  - CompTIA Security+
 ---
 
 

@@ -2,6 +2,13 @@
 title: Trident
 sidebar_position: 4
 slug: /3467b0eb-61a4-8079-bfee-de410bda8cbe
+tags:
+  - Linux
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Registry
+  - Windows
 ---
 
 

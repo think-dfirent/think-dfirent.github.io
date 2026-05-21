@@ -2,6 +2,13 @@
 title: Assessment test
 sidebar_position: 1
 slug: /27a7b0eb-61a4-8025-80ed-c33ae4d73437
+tags:
+  - CompTIA Security+
+  - Digital Forensics
+  - Malware Analysis
+  - Memory Forensics
+  - Ransomware
+  - Volatility
 ---
 
 

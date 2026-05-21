@@ -2,6 +2,18 @@
 title: Boss Of The SOC v1
 sidebar_position: 5
 slug: /3557b0eb-61a4-8014-a7a8-dc2e81d66086
+tags:
+  - Impact
+  - Malware Analysis
+  - PowerShell
+  - Ransomware
+  - Registry
+  - Splunk
+  - Suricata
+  - Sysmon
+  - Threat Hunting
+  - Windows
+  - Windows Event Logs
 ---
 
 

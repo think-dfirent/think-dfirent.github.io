@@ -2,6 +2,13 @@
 title: Chapter 10- Cloud and Virtualization Security
 sidebar_position: 11
 slug: /2bd7b0eb-61a4-80ff-a961-f43b0def094d
+tags:
+  - CompTIA Security+
+  - ELK
+  - Linux
+  - Log4j
+  - Malware Analysis
+  - Windows
 ---
 
 

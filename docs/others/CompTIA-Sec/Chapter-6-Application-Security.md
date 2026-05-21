@@ -2,6 +2,15 @@
 title: Chapter 6- Application Security
 sidebar_position: 7
 slug: /2bb7b0eb-61a4-80ba-9631-e187fbfd530f
+tags:
+  - Active Directory
+  - CompTIA Security+
+  - ELK
+  - Linux
+  - Log4j
+  - Malware Analysis
+  - PowerShell
+  - Windows
 ---
 
 

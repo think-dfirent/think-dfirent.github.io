@@ -2,6 +2,11 @@
 title: Chapter 8- Identity and access management
 sidebar_position: 9
 slug: /2bc7b0eb-61a4-8057-80dd-c6aadfceae7d
+tags:
+  - Active Directory
+  - CompTIA Security+
+  - Linux
+  - Windows
 ---
 
 

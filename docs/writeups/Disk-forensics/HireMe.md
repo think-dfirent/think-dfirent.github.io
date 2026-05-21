@@ -2,6 +2,11 @@
 title: HireMe
 sidebar_position: 5
 slug: /34b7b0eb-61a4-80f1-9e91-c195c0dc5c2d
+tags:
+  - Digital Forensics
+  - Disk Forensics
+  - Registry
+  - Windows
 ---
 
 

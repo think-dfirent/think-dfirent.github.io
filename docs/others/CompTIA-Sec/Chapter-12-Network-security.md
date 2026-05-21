@@ -2,6 +2,19 @@
 title: Chapter 12- Network security
 sidebar_position: 13
 slug: /2c17b0eb-61a4-807b-872b-e3c81feba79f
+tags:
+  - Active Directory
+  - CompTIA Security+
+  - Lateral Movement
+  - Linux
+  - Malware Analysis
+  - Network Analysis
+  - OpenVPN
+  - PowerShell
+  - PsExec
+  - Ransomware
+  - Registry
+  - Windows
 ---
 
 

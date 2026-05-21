@@ -2,6 +2,18 @@
 title: LockBit
 sidebar_position: 0
 slug: /3487b0eb-61a4-80ec-ac7a-f3dbb9979601
+tags:
+  - Credential Access
+  - Digital Forensics
+  - Disk Forensics
+  - LockBit
+  - Malware Analysis
+  - PowerShell
+  - Ransomware
+  - Registry
+  - Sysmon
+  - Windows
+  - Windows Event Logs
 ---
 
 

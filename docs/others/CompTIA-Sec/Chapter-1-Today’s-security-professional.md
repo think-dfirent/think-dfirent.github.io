@@ -2,6 +2,13 @@
 title: Chapter 1- Today’s security professional
 sidebar_position: 2
 slug: /27a7b0eb-61a4-80b0-b268-eece3184b627
+tags:
+  - CompTIA Security+
+  - Log4j
+  - Malware Analysis
+  - Ransomware
+  - WMI
+  - Windows
 ---
 
 

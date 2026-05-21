@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "npm run optimize && docusaurus start",
     "build": "npm run optimize && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -16,8 +16,8 @@
     "sync-writeups": "node sync-notion.js writeups",
     "sync-cheatsheets": "node sync-notion.js cheatsheets",
     "sync-sec": "node sync-notion.js sec",
-    "sync": "npm run sync-homelab && npm run sync-writeups && npm run sync-cheatsheets",
-    "optimize": "node optimize-images.js && node auto-category.js"
+    "sync": "npm run sync-homelab && npm run sync-writeups && npm run sync-cheatsheets && npm run optimize",
+    "optimize": "node optimize-images.js && node auto-category.js && node add-tags.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.0",

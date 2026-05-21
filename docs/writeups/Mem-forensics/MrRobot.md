@@ -2,6 +2,16 @@
 title: MrRobot
 sidebar_position: 1
 slug: /34d7b0eb-61a4-80c3-ac85-c7c4c86e1794
+tags:
+  - Active Directory
+  - Credential Access
+  - Digital Forensics
+  - Malware Analysis
+  - Memory Forensics
+  - PowerShell
+  - Registry
+  - Volatility
+  - Windows
 ---
 
 

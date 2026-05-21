@@ -2,6 +2,15 @@
 title: DetectLog4j
 sidebar_position: 3
 slug: /34a7b0eb-61a4-80a4-9276-dfa44e82e30c
+tags:
+  - Digital Forensics
+  - Disk Forensics
+  - Log4j
+  - Malware Analysis
+  - PowerShell
+  - Ransomware
+  - Registry
+  - Windows
 ---
 
 

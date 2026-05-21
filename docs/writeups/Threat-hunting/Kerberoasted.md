@@ -2,6 +2,18 @@
 title: Kerberoasted
 sidebar_position: 1
 slug: /3537b0eb-61a4-80b0-b775-c83f078d17ab
+tags:
+  - Active Directory
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Registry
+  - Sysmon
+  - Threat Hunting
+  - WMI
+  - Windows
+  - Windows Event Logs
 ---
 
 
@@ -91,7 +103,7 @@ By default in Active Directory, **any successfully authenticated user** can quer
 
 
 
-## Phân biệt với golden ticket và silver ticket {#3537b0eb61a48046b400ef6e6378a7b1}
+## Golden ticket vs silver ticket {#3537b0eb61a48046b400ef6e6378a7b1}
 
 
 | **Kerberoasting**                                                                                                            | **Golden Ticket**                                                                                                                                                                                | **Silver Ticket**                                                                                                                                                                                                                 |

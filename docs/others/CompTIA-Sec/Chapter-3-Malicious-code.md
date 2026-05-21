@@ -2,6 +2,15 @@
 title: Chapter 3- Malicious code
 sidebar_position: 4
 slug: /2b77b0eb-61a4-80af-b23d-fcee746abb4c
+tags:
+  - CompTIA Security+
+  - Digital Forensics
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Ransomware
+  - Registry
+  - Windows
 ---
 
 

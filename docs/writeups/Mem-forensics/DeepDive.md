@@ -2,6 +2,13 @@
 title: DeepDive
 sidebar_position: 7
 slug: /3527b0eb-61a4-80d3-b532-fd2b16906844
+tags:
+  - Digital Forensics
+  - Malware Analysis
+  - Memory Forensics
+  - Registry
+  - Volatility
+  - Windows
 ---
 
 

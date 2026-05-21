@@ -2,6 +2,11 @@
 title: Chapter 16- Security governance and complaince
 sidebar_position: 17
 slug: /2c67b0eb-61a4-80ac-ae74-e16ccb4320d5
+tags:
+  - CompTIA Security+
+  - Linux
+  - Malware Analysis
+  - Windows
 ---
 
 

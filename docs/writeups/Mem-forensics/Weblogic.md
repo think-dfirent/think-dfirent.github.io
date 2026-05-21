@@ -2,6 +2,13 @@
 title: Weblogic
 sidebar_position: 5
 slug: /3517b0eb-61a4-8086-b808-cd2155502a3b
+tags:
+  - Digital Forensics
+  - MITRE ATT&CK
+  - Memory Forensics
+  - PowerShell
+  - Registry
+  - Windows
 ---
 
 

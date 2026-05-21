@@ -2,6 +2,17 @@
 title: Mem forensics cheatsheet (volatility 2)
 sidebar_position: 0
 slug: /3317b0eb-61a4-80d7-914f-ee500b37e3ae
+tags:
+  - Cheat Sheets
+  - Credential Access
+  - Digital Forensics
+  - Malware Analysis
+  - Memory Forensics
+  - PowerShell
+  - Registry
+  - Volatility
+  - Windows
+  - Windows Event Logs
 ---
 
 
@@ -69,7 +80,7 @@ The following list represents the most common persistence-related keys:
 - [**AppInit_DLLs Key**](https://pentestlab.blog/2020/01/07/persistence-appinit-dlls/)
 - [**Winlogon Keys**](https://pentestlab.blog/2020/01/14/persistence-winlogon-helper-dll/)
 
-If you have trouble finding the hive, use: `[VOL]hivelist`  to find the virtual offset. Then use the offset to find the key in that corresponding hive
+If you have trouble finding the hive, use: `[VOL] hivelist`  to find the virtual offset. Then use the offset to find the key in that corresponding hive
 
 
 `[VOL] printkey -o <hive_virtual_offset> -K <key_path>` 
@@ -115,7 +126,7 @@ If you have trouble finding the hive, use: `[VOL]hivelist`  to find the virtual 
 |                         | **clipboard**                  | `[VOL] clipboard`                   | Displays recently copied/pasted content.                                               |
 |                         | **shellbags**                  | `[VOL] shellbags`                   | Recovers accessed folders history (including offline drives).                          |
 |                         | amcache                        | `[VOL] amcache`                     | Proof of execution (and hashes)                                                        |
-|                         | userassis                      | `[VOL] userassist`                  | how many time user click to a file, and focus time (GUI only)                          |
+|                         | userassist                     | `[VOL] userassist`                  | how many time user click to a file, and focus time (GUI only)                          |
 
 
 ### **6.3. Process Analysis** {#3597b0eb61a480728e5adcbe5ae79214}

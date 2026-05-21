@@ -2,6 +2,10 @@
 title: Chapter 9- Resilience and Physical security
 sidebar_position: 10
 slug: /2bd7b0eb-61a4-80f8-b4b9-e6e4ef4bc39d
+tags:
+  - CompTIA Security+
+  - Linux
+  - Windows
 ---
 
 

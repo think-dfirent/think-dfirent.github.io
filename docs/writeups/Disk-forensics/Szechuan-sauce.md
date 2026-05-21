@@ -2,6 +2,16 @@
 title: Szechuan sauce
 sidebar_position: 8
 slug: /34c7b0eb-61a4-807a-80ef-f6224405ea65
+tags:
+  - Active Directory
+  - Digital Forensics
+  - Disk Forensics
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Memory Forensics
+  - PowerShell
+  - Volatility
+  - Windows
 ---
 
 

@@ -2,6 +2,16 @@
 title: Chapter 15- Digital forensics
 sidebar_position: 16
 slug: /2c67b0eb-61a4-8065-8191-c4cf1d752fe2
+tags:
+  - CompTIA Security+
+  - Digital Forensics
+  - Linux
+  - Memory Forensics
+  - Network Analysis
+  - Registry
+  - Volatility
+  - Windows
+  - Wireshark
 ---
 
 

@@ -2,6 +2,10 @@
 title: Chapter 2- Cybersecurity threat landscape
 sidebar_position: 3
 slug: /2b67b0eb-61a4-80f6-b72d-ff5aef57956a
+tags:
+  - CompTIA Security+
+  - Malware Analysis
+  - PowerShell
 ---
 
 

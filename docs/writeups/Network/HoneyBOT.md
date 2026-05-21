@@ -2,6 +2,15 @@
 title: HoneyBOT
 sidebar_position: 7
 slug: /3467b0eb-61a4-801d-b084-fee4d63e3496
+tags:
+  - Active Directory
+  - Credential Access
+  - Linux
+  - Malware Analysis
+  - Network Analysis
+  - PowerShell
+  - Windows
+  - Wireshark
 ---
 
 

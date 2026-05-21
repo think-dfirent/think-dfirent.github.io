@@ -1,7 +1,15 @@
 ---
 title: Windows Disk forensics cheat sheet
-sidebar_position: 1
+sidebar_position: 2
 slug: /32d7b0eb-61a4-800e-ae4c-fa51f03a3540
+tags:
+  - Cheat Sheets
+  - Defense Evasion
+  - Digital Forensics
+  - Disk Forensics
+  - Registry
+  - Windows
+  - Windows Event Logs
 ---
 
 

@@ -2,6 +2,14 @@
 title: Chapter 5- Security assessment and testing
 sidebar_position: 6
 slug: /2b77b0eb-61a4-8008-bff4-ec9c20900567
+tags:
+  - CompTIA Security+
+  - Linux
+  - Log4j
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Registry
+  - Windows
 ---
 
 
