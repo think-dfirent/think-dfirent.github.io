@@ -2,14 +2,6 @@
 title: Installing MITRE Caldera and Creating a Payload
 sidebar_position: 1
 slug: /3547b0eb-61a4-80c4-8540-e431b87b54d7
-tags:
-  - Adversary Emulation
-  - Caldera
-  - Homelab
-  - MITRE ATT&CK
-  - PowerShell
-  - Windows
-  - pfSense
 ---
 
 

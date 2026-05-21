@@ -2,29 +2,6 @@
 title: Attack Playbook
 sidebar_position: 0
 slug: /3557b0eb-61a4-80fd-b01d-ccc51592a484
-tags:
-  - Active Directory
-  - Adversary Emulation
-  - Caldera
-  - Credential Access
-  - Defense Evasion
-  - Homelab
-  - Impact
-  - Lateral Movement
-  - Malware Analysis
-  - PowerShell
-  - Privilege Escalation
-  - PsExec
-  - Ransomware
-  - Registry
-  - Splunk
-  - Suricata
-  - Sysmon
-  - UAC Bypass
-  - WMI
-  - Windows
-  - Windows Event Logs
-  - pfSense
 ---
 
 

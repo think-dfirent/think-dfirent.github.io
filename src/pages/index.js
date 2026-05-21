@@ -26,13 +26,13 @@ const recentWriteups = [
 const homelabPosts = [
   {
     title: "Homelab Architecture",
-    excerpt: "Detailed architectural overview of the Proxmox-based cybersecurity homelab.",
+    excerpt: "Detailed architectural overview of the VMware-based cybersecurity homelab.",
     tags: ["Splunk", "pfSense", "OpenVPN"],
     link: "/docs/3677b0eb-61a4-801f-b5d1-d09ab375a805",
   },
   {
     title: "Infrastructure Deployment",
-    excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for enterprise log analysis.",
+    excerpt: "Step-by-step guide on provisioning Splunk, setting up Windows Event logs and Sysmon for log analysis.",
     tags: ["Splunk", "Windows Event Logs", "Sysmon"],
     link: "/docs/category/infrastructure-deployment",
   },

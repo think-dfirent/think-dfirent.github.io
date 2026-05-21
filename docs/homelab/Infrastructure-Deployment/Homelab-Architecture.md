@@ -1,20 +1,7 @@
 ---
 title: Homelab Architecture
-sidebar_position: 1
+sidebar_position: 0
 slug: /3677b0eb-61a4-801f-b5d1-d09ab375a805
-tags:
-  - Active Directory
-  - Adversary Emulation
-  - Caldera
-  - Homelab
-  - Linux
-  - OpenVPN
-  - Splunk
-  - Suricata
-  - Sysmon
-  - Windows
-  - Windows Event Logs
-  - pfSense
 ---
 
 
