@@ -12,9 +12,9 @@ tags:
   - Registry
   - Windows
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2025-11-26 10:51 | 🔄 Last Updated: 2026-05-08 13:03*
+<!-- notion-metadata-end -->
 # THE COMPTIA SECURITY+ EXAM OBJECTIVES COVERED IN THIS CHAPTER INCLUDE: {#2b77b0eb61a480498381cd00470e9628}
 
 

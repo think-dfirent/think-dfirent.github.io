@@ -12,9 +12,9 @@ tags:
   - PowerShell
   - Windows
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2025-11-30 19:53 | 🔄 Last Updated: 2026-05-08 13:03*
+<!-- notion-metadata-end -->
 # THE COMPTIA SECURITY+ EXAM OBJECTIVES COVERED IN THIS CHAPTER INCLUDE: {#2bb7b0eb61a480ccb122d84e30446985}
 
 

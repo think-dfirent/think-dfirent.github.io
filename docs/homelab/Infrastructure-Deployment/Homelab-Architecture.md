@@ -2,10 +2,23 @@
 title: Homelab Architecture
 sidebar_position: 0
 slug: /3677b0eb-61a4-801f-b5d1-d09ab375a805
+tags:
+  - Active Directory
+  - Adversary Emulation
+  - Caldera
+  - Homelab
+  - Linux
+  - OpenVPN
+  - Splunk
+  - Suricata
+  - Sysmon
+  - Windows
+  - Windows Event Logs
+  - pfSense
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-05-21 23:40 | 🔄 Last Updated: 2026-05-22 12:18*
+<!-- notion-metadata-end -->
 ---
 
 
@@ -32,10 +45,10 @@ slug: /3677b0eb-61a4-801f-b5d1-d09ab375a805
 ![](./3677b0eb-61a4-801f-b5d1-d09ab375a805.3677b0eb-61a4-80dc-a1eb-eafdf9e9c24d.png)
 
 
-![](./3677b0eb-61a4-801f-b5d1-d09ab375a805.3677b0eb-61a4-8034-a628-c0ec08064988.png)
-
-
 ### 2. Logical Architecture & Data Flows {#3677b0eb61a48045bd20cd311954b5e1}
+
+
+![](./3677b0eb-61a4-801f-b5d1-d09ab375a805.3677b0eb-61a4-8034-a628-c0ec08064988.png)
 
 - **Adversary Simulation & C2 Beaconing (Red Dashed Path)**: Represents the active exploitation and Command and Control (C2) communication. Traffic originates from the external Kali Linux attacker machine, passes through the pfSense firewall, and establishes a connection with the target IT Workstation (WS01).
 - **Telemetry & Log Ingestion (Green Dashed Path)**: Represents the security monitoring pipeline. The Splunk Universal Forwarders (SUF) deployed on the Domain Controller (DC01) and the endpoint (WS01) actively harvest system logs, Active Directory events, and Sysmon telemetry and forward to Splunk server in the SIEM segment.

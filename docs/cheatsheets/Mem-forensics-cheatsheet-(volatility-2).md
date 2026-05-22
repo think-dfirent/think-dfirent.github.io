@@ -14,9 +14,9 @@ tags:
   - Windows
   - Windows Event Logs
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-03-28 20:08 | 🔄 Last Updated: 2026-05-21 16:04*
+<!-- notion-metadata-end -->
 :::tip
 
 Though Vol2 is an EOL (end-of-life) product and replaced with Volatility 3 (which is much faster and more convenient to use), it remains an indispensable tool for older system (windows 10 or earlier). It is valuable for those who are learning windows internals by forcing analyst to manually navigate deep Windows Internals—like KDBGs (kernel debugger block) and `EPROCESS` blocks.

@@ -32,6 +32,11 @@ try {
     console.error(`Available targets: ${Object.keys(commands).join(', ')}`);
     process.exit(1);
   }
+
+  console.log("Running post-sync optimization (categories and tags)...");
+  execSync('node auto-category.js', { stdio: 'inherit' });
+  execSync('node add-tags.js', { stdio: 'inherit' });
+
   console.log("Sync completed successfully!");
 } catch (error) {
   console.error("Sync failed!");

@@ -11,9 +11,9 @@ tags:
   - Windows
   - Windows Event Logs
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-03-24 14:21 | 🔄 Last Updated: 2026-05-08 21:05*
+<!-- notion-metadata-end -->
 :::tip
 
 This cheat sheet is my personal compilation of essential windows disk artifacts, their fantastic forensic significance and where to find them. Hope you find this reading insightful

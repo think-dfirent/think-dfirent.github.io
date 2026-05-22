@@ -8,9 +8,9 @@ tags:
   - PowerShell
   - Windows
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-04-18 12:35 | 🔄 Last Updated: 2026-05-08 13:15*
+<!-- notion-metadata-end -->
 [https://cyberdefenders.org/blueteam-ctf-challenges/hawkeye/](https://cyberdefenders.org/blueteam-ctf-challenges/hawkeye/)
 
 

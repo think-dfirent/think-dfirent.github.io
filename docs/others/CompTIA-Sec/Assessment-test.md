@@ -10,9 +10,9 @@ tags:
   - Ransomware
   - Volatility
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2025-09-26 22:57 | 🔄 Last Updated: 2026-05-08 11:40*
+<!-- notion-metadata-end -->
 1. The organization that Chris works for has disabled automatic updates. What is the most common reason for disabling automatic updates for organizational systems?
 
 

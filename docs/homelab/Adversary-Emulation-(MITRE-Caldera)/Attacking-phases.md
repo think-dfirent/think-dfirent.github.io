@@ -2,10 +2,31 @@
 title: Attacking phases
 sidebar_position: 2
 slug: /3617b0eb-61a4-800c-a01e-f3397d6e8ce6
+tags:
+  - Active Directory
+  - Adversary Emulation
+  - Caldera
+  - Credential Access
+  - Defense Evasion
+  - Homelab
+  - Impact
+  - Lateral Movement
+  - Linux
+  - Malware Analysis
+  - PowerShell
+  - Privilege Escalation
+  - PsExec
+  - Ransomware
+  - Registry
+  - Sysmon
+  - UAC Bypass
+  - WMI
+  - Windows
+  - Windows Event Logs
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-05-16 02:06 | 🔄 Last Updated: 2026-05-22 00:52*
+<!-- notion-metadata-end -->
 ---
 
 

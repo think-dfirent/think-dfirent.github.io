@@ -6,9 +6,9 @@ tags:
   - CompTIA Security+
   - Windows
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2025-12-01 13:14 | 🔄 Last Updated: 2026-05-08 13:04*
+<!-- notion-metadata-end -->
 # THE COMPTIA SECURITY+ EXAM OBJECTIVES COVERED IN THIS CHAPTER INCLUDE: {#2bc7b0eb61a480bd9927e1775a02c0cb}
 
 

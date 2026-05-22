@@ -2,10 +2,31 @@
 title: Project Implementation Roadmap
 sidebar_position: 0
 slug: /3677b0eb-61a4-80d3-a7b2-cc566499358e
+tags:
+  - Active Directory
+  - Adversary Emulation
+  - Caldera
+  - Digital Forensics
+  - Homelab
+  - Incident Response
+  - Linux
+  - MITRE ATT&CK
+  - Malware Analysis
+  - Memory Forensics
+  - OpenVPN
+  - PowerShell
+  - Ransomware
+  - Splunk
+  - Suricata
+  - Sysmon
+  - Volatility
+  - Windows
+  - Windows Event Logs
+  - pfSense
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-05-21 23:49 | 🔄 Last Updated: 2026-05-21 23:52*
+<!-- notion-metadata-end -->
 ---
 
 

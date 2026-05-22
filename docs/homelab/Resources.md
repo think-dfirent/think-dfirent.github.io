@@ -2,10 +2,16 @@
 title: Resources
 sidebar_position: 4
 slug: /33f7b0eb-61a4-80f3-9170-e537f413b0ef
+tags:
+  - Credential Access
+  - DFIR
+  - Homelab
+  - Malware Analysis
+  - Ransomware
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-04-11 12:00 | 🔄 Last Updated: 2026-05-21 23:42*
+<!-- notion-metadata-end -->
 ---
 
 

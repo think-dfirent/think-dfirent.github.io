@@ -12,9 +12,9 @@ tags:
   - Volatility
   - Windows
 ---
-
-
-
+<!-- notion-metadata-start -->
+*📅 Published: 2026-05-21 15:59 | 🔄 Last Updated: 2026-05-21 16:08*
+<!-- notion-metadata-end -->
 :::tip
 
 I asked Gemini to synthesize the equivalent vol3 version and here is what it delivered:
