@@ -1,1 +1,8 @@
-{"position":3, "label":"Threat hunting"}
+{
+  "position": 3,
+  "label": "Threat hunting",
+  "link": {
+    "type": "generated-index",
+    "description": "All documentation for Threat hunting"
+  }
+}

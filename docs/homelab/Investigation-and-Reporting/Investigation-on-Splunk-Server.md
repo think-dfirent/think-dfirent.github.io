@@ -28,7 +28,7 @@ tags:
   - Windows Event Logs
 ---
 <!-- notion-metadata-start -->
-*📅 Published: 2026-05-19 17:32 | 🔄 Last Updated: 2026-05-22 00:53*
+*📅 Published: 2026-05-19 17:32 | 🔄 Last Updated: 2026-05-30 12:51*
 <!-- notion-metadata-end -->
 ---
 
@@ -566,6 +566,14 @@ For this privilege escalation exploitation to work, the user must be part of Loc
 - In normal use, Windows maintains the local Admin’s integrity level at Medium in trivial task like open app, documents.
 
 - When the user click “Run as Administrator”,  the Integrity level is elevated to “High” - which’s equivalent to Administrator privilege.
+
+Beside `fodhelper.exe`, there are other authentic windows process that can be exploit using the same method: 
+
+- `eventvwr.exe` can auto-elevate and execute a specified binary or script.
+
+- [APT38](https://attack.mitre.org/groups/G0082) has used the legitimate application `ieinstal.exe` to bypass UAC
+
+- [Koadic](https://attack.mitre.org/software/S0250) has 2 methods for elevating integrity. It can bypass UAC through `eventvwr.exe` and `sdclt.exe`.
 
 :::
 

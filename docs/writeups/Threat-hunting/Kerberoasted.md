@@ -16,7 +16,7 @@ tags:
   - Windows Event Logs
 ---
 <!-- notion-metadata-start -->
-*📅 Published: 2026-05-01 11:22 | 🔄 Last Updated: 2026-05-20 17:24*
+*📅 Published: 2026-05-01 11:22 | 🔄 Last Updated: 2026-05-29 10:12*
 <!-- notion-metadata-end -->
 ---
 
@@ -79,8 +79,7 @@ This attack exploits the second step of the workflow (**TGS-REQ / TGS-REP**) to 
 ## How to Detect {#3617b0eb61a48001b4a1c42df3869ba7}
 
 - **Event ID 4769 (A Kerberos service ticket was requested):** A massive spike in these requests from a standard, unprivileged account is a major red flag.
-- **Event ID 4768 (A Kerberos authentication ticket (TGT) was requested):** Logs when a client requests a Ticket Granting Ticket, indicating the initial login.
-- **Event ID 4769 (A Kerberos service ticket was requested):** Logged when a user requests a ticket from the TGS for a specific service.
+- **Event ID 4768 (A Kerberos authentication ticket (TGT) was requested):** Logs when a client requests a Ticket Granting Ticket, indicating the initial login..
 - **RC4 Encryption (Ticket encryption type:** **`0x17`****):** Attackers often attempt to downgrade the encryption, forcing the KDC to return a ticket encrypted with the RC4 algorithm instead of AES-256 (`0x12`), as RC4 is much easier to crack. If Event ID 4769 shows a ticket encryption type of `0x17`, it is highly suspicious.
 
 :::tip

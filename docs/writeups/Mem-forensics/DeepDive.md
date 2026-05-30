@@ -11,7 +11,7 @@ tags:
   - Windows
 ---
 <!-- notion-metadata-start -->
-*📅 Published: 2026-04-30 20:59 | 🔄 Last Updated: 2026-05-08 13:28*
+*📅 Published: 2026-04-30 20:59 | 🔄 Last Updated: 2026-05-25 01:03*
 <!-- notion-metadata-end -->
 ---
 
@@ -302,14 +302,14 @@ Ta thấy pooltag `1416573010` dạng thập phân chuyển sang cơ số 16 do 
 ## Cấu trúc một object {#3527b0eb61a480b984eee7980ff0e91a}
 
 
-![](./3527b0eb-61a4-80d3-b532-fd2b16906844.3527b0eb-61a4-804f-989b-df1631387449.png)
-
-
 ### Pool allocation và ___POOL_HEADER {#3527b0eb61a480d49a70fe98fcf2f1c0}
 
 - Pool allocation: mỗi khi windows cần tạo một object mới, nó sẽ gọi hàm ExAllocatePoolWithTag để xin một vùng nhớ trống trong RAM (thường là non-paged pool)
 - _POOL_HEADER: là khối dữ liệu_ đầu tiên của vùng nhớ xin được. Chứa thông tin quản lý bộ nhớ của chính hệ điều hành
 	- Các công cụ Forensics hay dùng Pool Tagging để tìm các đối tượng bị ẩn (kỹ thuật Pool Scanning).
+
+![](./3527b0eb-61a4-80d3-b532-fd2b16906844.3527b0eb-61a4-804f-989b-df1631387449.png)
+
 
 ### Optional headers {#3527b0eb61a480c7b442db6c25321625}
 

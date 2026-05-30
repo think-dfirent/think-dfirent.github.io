@@ -1,1 +1,8 @@
-{"position":0, "label":"Network"}
+{
+  "position": 0,
+  "label": "Network",
+  "link": {
+    "type": "generated-index",
+    "description": "All documentation for Network"
+  }
+}

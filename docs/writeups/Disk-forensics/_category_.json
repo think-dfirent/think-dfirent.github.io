@@ -1,1 +1,8 @@
-{"position":1, "label":"Disk forensics"}
+{
+  "position": 1,
+  "label": "Disk forensics",
+  "link": {
+    "type": "generated-index",
+    "description": "All documentation for Disk forensics"
+  }
+}

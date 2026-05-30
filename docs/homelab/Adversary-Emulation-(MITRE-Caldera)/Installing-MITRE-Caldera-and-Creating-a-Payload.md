@@ -12,7 +12,7 @@ tags:
   - pfSense
 ---
 <!-- notion-metadata-start -->
-*📅 Published: 2026-05-03 01:39 | 🔄 Last Updated: 2026-05-16 19:14*
+*📅 Published: 2026-05-03 01:39 | 🔄 Last Updated: 2026-05-30 12:34*
 <!-- notion-metadata-end -->
 ---
 
@@ -47,9 +47,10 @@ sudo docker run -d \
 
 **Further explanation of the ports:** 
 
-- **`8888:8888`**: You will access the Caldera interface via port 8889 (assuming 8888 is currently occupied by Mythic Jupyter).
+- **`8888:8888`**: to access the Caldera interface via port 8889 (assuming 8888 is currently occupied by Mythic Jupyter).
 - **`8443:8443`**: This is designated as the UI port.
 - **`80:8888`**: This mapping is utilized to receive the reverse shell connection from `ws01`.
+- `7010: 7010` : designated for the **TCP Contact plugin**.
 
 To view the credentials (the default is typically `admin:admin`), use the following command:
 
@@ -77,7 +78,7 @@ To bypass the pfSense firewall, which only permits traffic on ports 80 and 443, 
 **Configuring the Agent Deployment:**
 
 1. **Platform:** Select **Windows**.
-2. **`app.contact.http`****:** Modify this value to `http://<Your_Kali_Machine_IP>:80`. This specific configuration step is crucial for successfully bypassing the firewall.
+2. **`app.contact.http`****:** Modify this value to `http://<Kali_Machine_IP>:80`. This specific configuration step is crucial for successfully bypassing the firewall.
 3. Caldera will automatically generate a PowerShell command block
 
 ![](./3547b0eb-61a4-80c4-8540-e431b87b54d7.3627b0eb-61a4-8009-9a1c-e5e809416735.png)
@@ -86,7 +87,7 @@ To bypass the pfSense firewall, which only permits traffic on ports 80 and 443, 
 **Execution:**
 
 1. Copy the entirely generated command block. Switch over to the `WS1` machine, open PowerShell (standard User or Administrator privileges both work), paste the command, and execute it.
-2. Return to the Caldera interface; you should now observe a new agent populating in the list, highlighted in green.
+2. Return to the Caldera interface: a new agent populating in the list, highlighted in green.
 
 The attack scenario is now ready! 
 
